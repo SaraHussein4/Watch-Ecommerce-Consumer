@@ -1,1 +1,38 @@
-<p>login-component works!</p>
+<div class="signup-container container mt-3">
+    <h2 class="signup-title">Signup</h2>
+
+    <form [formGroup]="loginForm" class="signup-form" (ngSubmit)="onSubmit()"> 
+      
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address*</label>
+            <input type="email" class="form-control" formControlName="email" id="email" placeholder="Enter your email address" required>
+        </div>
+        <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched)" class="alert alert-danger mb-3" role="alert">
+            <p *ngIf="loginForm.get('email')?.errors?.['required']">Email is Required</p>
+            <p *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email address.</p>
+        </div>
+
+
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password*</label>
+            <input type="password" class="form-control" formControlName="password" id="password" placeholder="Enter your password" required>
+        </div>
+
+        <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched)" class="alert alert-danger mb-3" role="alert">
+            <p *ngIf="loginForm.get('password')?.errors?.['required']">Password is Required</p>
+            <p *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</p>
+        </div>
+
+
+
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-create-account">Sign In</button>
+        </div>
+
+        <p class="text-center mt-3 login-link-text">
+            Don't have an account?  <a routerLink="register">Signup</a>
+        </p>
+    </form>
+</div>

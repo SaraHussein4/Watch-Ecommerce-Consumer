@@ -1,33 +1,55 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" routerLink="/home">
-            <i class="fa-solid fa-clock me-2"></i>
-            <span>Ora Collective</span>
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/home">
+      <i class="fa-solid fa-clock me-2"></i>
+      <span>Ora Collective</span>
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" routerLink="/product" routerLinkActive="active">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center">
+        <a *ngIf="isLoggedIn" class="nav-link me-3" routerLink="/cart">
+          <i class="fa-solid fa-cart-shopping text-white"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <!-- {{cartItemCount}} -->
+          </span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" 
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/home" routerLinkActive="active" 
-                       [routerLinkActiveOptions]="{exact: true}" aria-current="page">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/product" routerLinkActive="active">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact Us</a>
-                </li>
-            </ul>
-            <div class="btn-group-stacked ms-3">
-                <button class="btn btn-custom" routerLink="/login">Login</button>
-                <button class="btn btn-custom" routerLink="/register">Register</button>
-            </div>
+
+        <div class="dropdown" *ngIf="isLoggedIn">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user me-1"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" routerLink="/profile"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
+            <li><a class="dropdown-item" routerLink="/orders"><i class="fa-solid fa-box me-2"></i>Orders</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
+          </ul>
         </div>
+
+        <div *ngIf="!isLoggedIn">
+          <button class="btn btn-outline-primary me-2" routerLink="/login">Login</button>
+          <button class="btn btn-primary" routerLink="/register">Register</button>
+        </div>
+      </div>
     </div>
+  </div>
 </nav>
