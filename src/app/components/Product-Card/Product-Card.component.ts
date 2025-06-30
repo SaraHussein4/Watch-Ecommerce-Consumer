@@ -24,7 +24,7 @@ export class ProductCardComponent implements OnInit {
     // If the URL is already absolute, return as is
     if (img.url.startsWith('http')) return img;
     // Otherwise, prepend your backend base URL
-    return { ...img, url: `https://localhost:7071${img.url}` };
+    return { ...img, url:img.url.includes('/Images')?`https://localhost:7071${img.url}`: `https://localhost:7071/images/${img.url}` };
   }
 
 

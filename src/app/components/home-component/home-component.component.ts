@@ -18,6 +18,7 @@ import { ProductCardComponent } from "../Product-Card/Product-Card.component";
 export class HomeComponent implements OnInit {
   products: Product[] = [];
   brands: Brand[] = [];
+  featuredBrandProducts: Product[] = [];
 
   constructor(
     private productService: ProductService,
@@ -28,10 +29,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.loadProducts();
     this.loadBrands();
+    this.loadBrandProducts();
   }
 
   loadProducts() {
-    this.productService.getAll().subscribe({
+    this.productService.getTopBestSellers().subscribe({
       next: (res) => this.products = res,
       error: (err) => console.error('Error loading products:', err)
     });
@@ -44,14 +46,27 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getPrimaryImage(product: Product) {
-    const img = product.images?.find(img => img.isPrimary);
-    if (!img) return null;
-    // If the URL is already absolute, return as is
+ getPrimaryImage(product: Product) {
+  const img = product.images?.find(i => i.isPrimary);
+  if (!img) return null;
+   // If the URL is already absolute, return as is
     if (img.url.startsWith('http')) return img;
     // Otherwise, prepend your backend base URL
-    return { ...img, url: `https://localhost:7071${img.url}` };
-  }
+    return { ...img, url:img.url.includes('/Images')?`https://localhost:7071${img.url}`: `https://localhost:7071/images/${img.url}` };
+}
+
+  loadBrandProducts() {
+  this.productService.getBrandFeatured().subscribe({
+    next: data =>{
+      this.featuredBrandProducts = data,
+      console.log('Featured brand products loaded:', this.featuredBrandProducts);
+    },
+    error: err => console.error('Failed to load brand-featured products', err)
+  });
+}
+filterByBrand(brandId: number) {
+  this.router.navigate(['/products'], { queryParams: { brandId } });
+}
 
   addToFavorites(productId: number) {
     // Navigate to login page
