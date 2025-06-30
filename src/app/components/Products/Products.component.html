@@ -1,0 +1,101 @@
+<div class="container-fluid products">
+  <div class="row">
+    <!-- Filters Sidebar (Left) -->
+    <div class="col-md-3">
+      <div class="filter-section sticky-top">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4>Filters</h4>
+          <button class="btn btn-outline-secondary" (click)="resetFilters()">Reset</button>
+        </div>
+
+
+        <!-- Search -->
+        <div class="mb-4">
+          <label class="form-label">Search</label>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filters.searchTerm"
+              (keyup.enter)="onSearch()">
+            <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">🔍</button>
+          </div>
+        </div>
+
+        <!-- Sort By -->
+        <div class="mb-4">
+          <label class="form-label">Sort By</label>
+          <select class="form-select" [(ngModel)]="filters.sortBy" (change)="onSortChange()">
+            <option value="newest" selected>New Arrivals</option>
+            <option value="priceLowToHigh">Price: Low to High</option>
+            <option value="priceHighToLow">Price: High to Low</option>
+          </select>
+        </div>
+
+        <!-- Gender -->
+        <div class="mb-4">
+          <label class="form-label">Gender</label>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="male" [(ngModel)]="maleChecked"
+              (change)="onGenderChange()">
+            <label class="form-check-label" for="male">Male</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="female" [(ngModel)]="femaleChecked"
+              (change)="onGenderChange()">
+            <label class="form-check-label" for="female">Female</label>
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-4">
+          <label for="categorySelect" class="form-label">Category</label>
+          <select class="form-select" id="categorySelect" [(ngModel)]="selectedCategoryId"
+            (change)="onCategoryChange()">
+            <option value="" selected>All categories</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+
+
+        <!-- Brand -->
+        <div class="mb-4">
+          <label for="brandSelect" class="form-label">Brands</label>
+          <select class="form-select" id="brandSelect" [(ngModel)]="selectedBrandId" (change)="onBrandChange()">
+            <option value="" selected>All Brands</option>
+            <option *ngFor="let brand of brands" [value]="brand.id">
+              {{ brand.name }}
+            </option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Products Section (Right) -->
+    <div class="col-md-9">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4>Our Products</h4>
+        <span class="text-muted">Showing 5 products</span>
+      </div>
+
+      <div class="row">
+        <!-- Product 1 -->
+        <div class="col-lg-4 col-md-6" *ngFor="let product of products">
+          <app-Product-Card [product]="product"></app-Product-Card>
+
+          <!-- <div class="card product-card h-100">
+                            <img src="https://via.placeholder.com/300" class="card-img-top" alt="Adidas Casual Champion">
+                            <div class="card-body">
+                                <h5 class="card-title">Adidas Casual Champion</h5>
+                                <p class="card-text text-success fw-bold">$3000</p>
+                                <button class="btn btn-view w-100">View Details</button>
+                            </div>
+                        </div> -->
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>

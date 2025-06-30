@@ -1,0 +1,12 @@
+<div class="card h-100">
+  <!-- IMAGE DISPLAY -->
+  <img *ngIf="getPrimaryImage(product)" [src]="getPrimaryImage(product)?.url" alt="Product Image" class="card-img-top"
+    style="height: 250px; object-fit: cover" />
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <p class="text-primary fw-bold">{{ product.price | currency }}</p>
+    <button class="btn btn-outline-primary" (click)="showDetails(product.id)">
+      Show Details
+    </button>
+  </div>
+</div>

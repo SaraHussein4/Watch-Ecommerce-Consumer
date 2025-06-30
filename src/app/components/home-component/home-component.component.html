@@ -13,27 +13,8 @@
     <h2 class="mb-4">Best Sellers</h2>
     <div class="row g-4">
       <div class="col-md-4" *ngFor="let product of products">
-        <div class="card h-100">
-          <!-- IMAGE DISPLAY -->
-          <img
-            *ngIf="getPrimaryImage(product)"
-            [src]="getPrimaryImage(product)?.url"
-            alt="Product Image"
-            class="card-img-top"
-            style="height: 250px; object-fit: cover"
-          />
-          <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">{{ product.description }}</p>
-            <p class="text-primary fw-bold">{{ product.price | currency }}</p>
-            <button
-              class="btn btn-outline-danger"
-              (click)="addToFavorites(product.id)"
-            >
-              <i class="fa-solid fa-heart me-1"></i> Add to Favorites
-            </button>
-          </div>
-        </div>
+        <app-Product-Card [product]="product"></app-Product-Card>
+
       </div>
     </div>
   </div>

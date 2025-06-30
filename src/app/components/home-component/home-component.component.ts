@@ -5,11 +5,12 @@ import { Brand } from '../../models/brand.model';
 import { ProductService } from '../../services/product.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ProductCardComponent } from "../Product-Card/Product-Card.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, ProductCardComponent],
   templateUrl: './home-component.component.html',
   styleUrls: ['./home-component.component.css'],
   providers: [ProductService]
@@ -49,7 +50,7 @@ export class HomeComponent implements OnInit {
     // If the URL is already absolute, return as is
     if (img.url.startsWith('http')) return img;
     // Otherwise, prepend your backend base URL
-    return { ...img, url: `https://localhost:7071/images/${img.url}` };
+    return { ...img, url: `https://localhost:7071${img.url}` };
   }
 
   addToFavorites(productId: number) {
