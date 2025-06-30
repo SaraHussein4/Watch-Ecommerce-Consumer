@@ -5,24 +5,40 @@
       <div class="filter-section sticky-top">
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h4>Filters</h4>
-          <button class="btn btn-outline-secondary" (click)="resetFilters()">Reset</button>
+          <button class="btn btn-outline-secondary" (click)="resetFilters()">
+            Reset
+          </button>
         </div>
-
 
         <!-- Search -->
         <div class="mb-4">
           <label class="form-label">Search</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filters.searchTerm"
-              (keyup.enter)="onSearch()">
-            <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">🔍</button>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search..."
+              [(ngModel)]="filters.searchTerm"
+              (keyup.enter)="onSearch()"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="onSearch()"
+            >
+              🔍
+            </button>
           </div>
         </div>
 
         <!-- Sort By -->
         <div class="mb-4">
           <label class="form-label">Sort By</label>
-          <select class="form-select" [(ngModel)]="filters.sortBy" (change)="onSortChange()">
+          <select
+            class="form-select"
+            [(ngModel)]="filters.sortBy"
+            (change)="onSortChange()"
+          >
             <option value="newest" selected>New Arrivals</option>
             <option value="priceLowToHigh">Price: Low to High</option>
             <option value="priceHighToLow">Price: High to Low</option>
@@ -33,13 +49,23 @@
         <div class="mb-4">
           <label class="form-label">Gender</label>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="male" [(ngModel)]="maleChecked"
-              (change)="onGenderChange()">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="male"
+              [(ngModel)]="maleChecked"
+              (change)="onGenderChange()"
+            />
             <label class="form-check-label" for="male">Male</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="female" [(ngModel)]="femaleChecked"
-              (change)="onGenderChange()">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="female"
+              [(ngModel)]="femaleChecked"
+              (change)="onGenderChange()"
+            />
             <label class="form-check-label" for="female">Female</label>
           </div>
         </div>
@@ -47,8 +73,12 @@
         <!-- Category -->
         <div class="mb-4">
           <label for="categorySelect" class="form-label">Category</label>
-          <select class="form-select" id="categorySelect" [(ngModel)]="selectedCategoryId"
-            (change)="onCategoryChange()">
+          <select
+            class="form-select"
+            id="categorySelect"
+            [(ngModel)]="selectedCategoryId"
+            (change)="onCategoryChange()"
+          >
             <option value="" selected>All categories</option>
             <option *ngFor="let category of categories" [value]="category.id">
               {{ category.name }}
@@ -56,18 +86,21 @@
           </select>
         </div>
 
-
         <!-- Brand -->
         <div class="mb-4">
           <label for="brandSelect" class="form-label">Brands</label>
-          <select class="form-select" id="brandSelect" [(ngModel)]="selectedBrandId" (change)="onBrandChange()">
+          <select
+            class="form-select"
+            id="brandSelect"
+            [(ngModel)]="selectedBrandId"
+            (change)="onBrandChange()"
+          >
             <option value="" selected>All Brands</option>
             <option *ngFor="let brand of brands" [value]="brand.id">
               {{ brand.name }}
             </option>
           </select>
         </div>
-
       </div>
     </div>
 
@@ -92,10 +125,7 @@
                             </div>
                         </div> -->
         </div>
-
       </div>
-
-
     </div>
   </div>
 </div>
