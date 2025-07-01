@@ -5,6 +5,7 @@ import { NotFoundComponentComponent } from './components/not-found-component/not
 import { ProductComponent } from './components/product/product.component';
 import { HomeComponent } from './components/home-component/home-component.component';
 import { ProductsComponent } from './components/Products/Products.component';
+import { AddNewProductComponent } from './components/add-new-product/add-new-product.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -13,5 +14,6 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponentComponent },
     { path: 'products', component: ProductsComponent },
     { path: 'product/:id', component: ProductComponent },
+    { path: 'addProduct',component: AddNewProductComponent},
     { path: '**', component: NotFoundComponentComponent }
 ];

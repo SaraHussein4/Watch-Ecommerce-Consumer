@@ -28,5 +28,8 @@ export class ProductService {
 getTopBestSellers(): Observable<Product[]> {
   return this.http.get<Product[]>('https://localhost:7071/api/product/best-sellers');
 }
+ addProduct(productData: FormData): Observable<any> {
+    return this.http.post('https://localhost:7071/api/Product', productData);
+  }
 }
 
