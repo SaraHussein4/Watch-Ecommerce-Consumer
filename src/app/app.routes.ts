@@ -19,3 +19,4 @@ export const routes: Routes = [
   { path: 'products/edit/:id', component: EditProductComponentComponent},
   { path: '**', component: NotFoundComponentComponent },
 
+]
