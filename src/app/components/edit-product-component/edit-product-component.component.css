@@ -1,12 +1,33 @@
 label{
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
 }
-.t{
-  width: 40%;
-    height: 32px;
+.myInput{
+  width: 50%;
+    height: 40px;
     border: 1px solid #e1e4e8;
     border-radius: 20px;
     padding: 0 12px;
+    box-sizing: border-box;
+
+}
+
+.myInputDescription{
+  width: 50%;
+    height: 80px;
+    border: 1px solid #e1e4e8;
+      border-radius: 20px;
+      padding: 12px;
+      box-sizing: border-box;
+}
+select{
+  width: 50%;
+}
+.gender{
+  width: 20%;
+  height: 30px;
+  border: 1px solid #e1e4e8;
+    border-radius: 20px;
+    padding: 12px;
     box-sizing: border-box;
 }
