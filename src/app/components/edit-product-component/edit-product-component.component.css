@@ -1,0 +1,12 @@
+label{
+  font-size: 20px;
+  font-weight: bold;
+}
+.t{
+  width: 40%;
+    height: 32px;
+    border: 1px solid #e1e4e8;
+    border-radius: 20px;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
