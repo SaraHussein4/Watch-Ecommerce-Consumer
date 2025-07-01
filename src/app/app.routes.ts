@@ -5,6 +5,7 @@ import { NotFoundComponentComponent } from './components/not-found-component/not
 import { ProductComponent } from './components/product/product.component';
 import { HomeComponent } from './components/home-component/home-component.component';
 import { ProductsComponent } from './components/Products/Products.component';
+import { CartComponent } from './components/cart/cart.component';
 import { EditProductComponentComponent } from './components/edit-product-component/edit-product-component.component';
 
 export const routes: Routes = [
@@ -12,8 +13,9 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponentComponent },
   { path: 'register', component: RegisterComponentComponent },
+   { path: 'cart', component: CartComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'product/:id', component: ProductComponent },
   { path: 'products/edit/:id', component: EditProductComponentComponent},
   { path: '**', component: NotFoundComponentComponent },
-];
+

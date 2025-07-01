@@ -42,4 +42,14 @@ export class ProductService {
     'https://localhost:7071/api/ProductBrand'
   );
   }
+
+  getBrandFeatured(): Observable<Product[]> {
+    return this.http.get<Product[]>('https://localhost:7071/api/product/brand-featured');
+  }
+  getProductsByBrand(brandId: number): Observable<Product[]> {
+  return this.http.get<Product[]>(`https://localhost:7071/api/product?brandId=${brandId}`);
+}
+getTopBestSellers(): Observable<Product[]> {
+  return this.http.get<Product[]>('https://localhost:7071/api/product/best-sellers');
+}
 }

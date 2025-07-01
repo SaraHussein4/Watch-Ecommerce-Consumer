@@ -34,14 +34,15 @@
   <div class="container">
     <h2 class="mb-4">Shop by Brand</h2>
     <div class="row g-4">
-      <div class="col-md-3" *ngFor="let brand of brands">
-        <div class="card brand-card h-100 text-center p-3">
-          <div class="brand-icon mb-3">
+      <div class="col-md-3" *ngFor="let product of featuredBrandProducts">
+        <div class="card h-100">
+          <img *ngIf="getPrimaryImage(product)" [src]="getPrimaryImage(product)?.url" class="card-img-top" />
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.productBrand.name }}</p>
+            <button class="btn btn-outline-dark" (click)="filterByBrand(product.productBrand.id)">
+              View Products</button>
           </div>
-          <h5 class="card-title">{{ brand.name }}</h5>
-          <button class="btn btn-outline-dark mt-2">
-            View Products
-          </button>
         </div>
       </div>
     </div>

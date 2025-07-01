@@ -26,12 +26,13 @@
       </ul>
 
       <div class="d-flex align-items-center">
-        <a *ngIf="isLoggedIn" class="nav-link me-3" routerLink="/cart">
-          <i class="fa-solid fa-cart-shopping text-white"></i>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            <!-- {{cartItemCount}} -->
-          </span>
-        </a>
+       <a *ngIf="isLoggedIn" class="nav-link me-3 position-relative" routerLink="/cart">
+  <i class="fa-solid fa-cart-shopping text-white fs-5"></i>
+  <span *ngIf="cartItemCount > 0" 
+        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{ cartItemCount }}
+  </span>
+</a>
 
         <div class="dropdown" *ngIf="isLoggedIn">
           <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">

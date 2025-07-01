@@ -9,6 +9,7 @@ import { Category } from '../../models/category.model';
 import { FormsModule } from '@angular/forms';
 import { ProductFilter } from '../../models/ProductFilter';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-Products',
   templateUrl: './Products.component.html',
@@ -44,6 +45,7 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private http: HttpClient,
+    private route: ActivatedRoute
   ) {
 
   }
@@ -52,10 +54,20 @@ export class ProductsComponent implements OnInit {
     this.loadProducts();
     this.loadBrands();
     this.loadCategories();
+      this.route.queryParams.subscribe(params => {
+    const brandId = +params['brandId'];
+    if (brandId) {
+      this.filters.brandIds = [brandId];
+      this.selectedBrandId = brandId;
+    }
+    this.applyFilters();
+  });
   }
   loadProducts() {
     this.productService.getAll().subscribe({
-      next: (res) => this.products = res,
+      next: (res) => {this.products = res,
+      console.log('product:', res);
+},
       error: (err) => console.error('Error loading products:', err)
     });
   }
@@ -93,8 +105,8 @@ export class ProductsComponent implements OnInit {
 
 
   onCategoryChange() {
-    this.filters.categoryIds = this.selectedCategoryId 
-    ? [Number(this.selectedCategoryId)] 
+    this.filters.categoryIds = this.selectedCategoryId
+    ? [Number(this.selectedCategoryId)]
     : [];
 
 
@@ -102,8 +114,8 @@ export class ProductsComponent implements OnInit {
   }
 
   onBrandChange() {
-    this.filters.brandIds = this.selectedBrandId 
-    ? [Number(this.selectedBrandId)] 
+    this.filters.brandIds = this.selectedBrandId
+    ? [Number(this.selectedBrandId)]
     : [];
     this.applyFilters();
   }
@@ -111,7 +123,7 @@ export class ProductsComponent implements OnInit {
   applyFilters() {
     console.log('Sending filters to API:', this.filters);
     this.productService.getFilteredProducts(this.filters).subscribe({
-      next: (res) => this.products = res,
+      next: (res) =>{},
       error: (err) => console.error('Error loading products:', err)
     })
   }

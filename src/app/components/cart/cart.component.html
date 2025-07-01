@@ -1,0 +1,43 @@
+<div class="cart" *ngIf="basket">
+  <h2>Your Cart</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Picture</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basket.items">
+        <td>{{ item.name }}</td>
+        <td>{{ item.price }}</td>
+        <td><img [src]="item.pictureUrl" alt="" width="60" /></td>
+        <td>
+          <button (click)="updateQuantity(item, -1)">-</button>
+          {{ item.quantity }}
+          <button (click)="updateQuantity(item, 1)">+</button>
+        </td>
+        <td>{{ item.price * item.quantity }}</td>
+        <td>
+          <button (click)="removeItem(item)" class="btn btn-sm btn-outline-danger" title="Delete">
+            🗑
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Total: {{ getTotal() }}</h4>
+  <button class="btn btn-danger" (click)="removeBasket()">Clear Cart</button>
+  <button class="btn btn-success ms-2">Checkout</button>
+ 
+
+</div>
+
+<div class="cart" *ngIf="!basket">
+  <p>Your cart is empty.</p>
+</div>
