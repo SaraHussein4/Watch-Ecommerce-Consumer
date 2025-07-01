@@ -1,3 +1,4 @@
+import { Product } from './../../models/product.model';
 import { Brand } from './../../models/brand.model';
 import { Category } from './../../models/category.model';
 import {
@@ -47,6 +48,7 @@ export class EditProductComponentComponent implements OnInit {
   categories: any[] = [];
   brands: any[] = [];
   product: any;
+  selectImage: File[] = [];
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
@@ -92,6 +94,39 @@ export class EditProductComponentComponent implements OnInit {
     }
     this.editProductForm.patchValue({ sizes: this.selectSizes });
   }
+  //method read file
+  onImageSelected(event: any) {
+    if (event.target.files) {
+      this.selectImage = Array.from(event.target.files);
+      console.log('Selected Images:', this.selectImage);
+    }
+  }
+  //method upload photo
+  uploadImages() {
+    if (this.selectImage.length > 0) {
+      const formData = new FormData();
+      formData.append('isPrimary', 'false');
+      formData.append('ProductId', this.product.id.toString());
+
+      for (let img of this.selectImage) {
+        formData.append('Images', img);
+      }
+
+      this.productService.addImage(formData).subscribe({
+        next: (res) => {
+          console.log('Uploaded successfully', res);
+          this.loadProduct();
+          this.selectImage = [];
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else {
+      console.log('No images selected');
+    }
+  }
+
   //method with apis
   loadProduct() {
     this.productService.getProductById(this.productId).subscribe({
@@ -150,12 +185,6 @@ export class EditProductComponentComponent implements OnInit {
     }
 
     updateProduct.id = this.productId;
-    // updateProduct.images = [
-    //   {
-    //     url: '/Images/pro1/khamsat.PNG',
-    //     isPrimary: true,
-    //   },
-    // ];
     updateProduct.colors = this.editProductForm.value.colors;
     updateProduct.sizes = this.editProductForm.value.sizes;
     console.log('🟢 Update Product Body:', updateProduct);
@@ -164,6 +193,7 @@ export class EditProductComponentComponent implements OnInit {
       next: (res) => {
         alert('Product updated successfully!');
         console.log('Product updated:', res);
+        this.loadProduct();
       },
       error: (err) => {
         alert('Error updating product!');
@@ -172,6 +202,6 @@ export class EditProductComponentComponent implements OnInit {
     });
   }
   onCancel() {
-    window.history.back(); 
+    window.history.back();
   }
 }

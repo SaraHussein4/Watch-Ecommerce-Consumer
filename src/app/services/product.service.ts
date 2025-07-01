@@ -1,3 +1,4 @@
+import { Image } from './../models/image.model';
 import { Product } from './../models/product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -37,19 +38,30 @@ export class ProductService {
     return this.http.get<Category[]>('https://localhost:7071/api/Categories');
   }
   //getBrand
-  getBrands():Observable<Brand[]>{
-  return this.http.get<Brand[]>(
-    'https://localhost:7071/api/ProductBrand'
-  );
+  getBrands(): Observable<Brand[]> {
+    return this.http.get<Brand[]>('https://localhost:7071/api/ProductBrand');
   }
 
   getBrandFeatured(): Observable<Product[]> {
-    return this.http.get<Product[]>('https://localhost:7071/api/product/brand-featured');
+    return this.http.get<Product[]>(
+      'https://localhost:7071/api/product/brand-featured'
+    );
   }
   getProductsByBrand(brandId: number): Observable<Product[]> {
-  return this.http.get<Product[]>(`https://localhost:7071/api/product?brandId=${brandId}`);
-}
-getTopBestSellers(): Observable<Product[]> {
-  return this.http.get<Product[]>('https://localhost:7071/api/product/best-sellers');
-}
+    return this.http.get<Product[]>(
+      `https://localhost:7071/api/product?brandId=${brandId}`
+    );
+  }
+  getTopBestSellers(): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      'https://localhost:7071/api/product/best-sellers'
+    );
+  }
+  //add image
+  addImage(imageData: any): Observable<any[]> {
+    return this.http.post<any[]>(
+      'https://localhost:7071/api/Image',
+      imageData
+    );
+  }
 }
