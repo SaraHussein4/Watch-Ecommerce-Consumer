@@ -48,6 +48,7 @@ export class ProductService {
     );
   }
   getProductsByBrand(brandId: number): Observable<Product[]> {
+
     return this.http.get<Product[]>(
       `https://localhost:7071/api/product?brandId=${brandId}`
     );
@@ -63,5 +64,13 @@ export class ProductService {
       'https://localhost:7071/api/Image',
       imageData
     );
+  return this.http.get<Product[]>(`https://localhost:7071/api/product?brandId=${brandId}`);
+}
+getTopBestSellers(): Observable<Product[]> {
+  return this.http.get<Product[]>('https://localhost:7071/api/product/best-sellers');
+}
+ addProduct(productData: FormData): Observable<any> {
+    return this.http.post('https://localhost:7071/api/Product', productData);
+
   }
 }
