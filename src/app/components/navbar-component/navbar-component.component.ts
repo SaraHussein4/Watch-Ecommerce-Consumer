@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive} from '@angular/router';
+import { Route, Router, RouterLink, RouterLinkActive} from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-navbar-component',
@@ -13,23 +14,34 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarComponentComponent implements OnInit, OnDestroy { 
   isLoggedIn = false;
-  private authSub!: Subscription;
+  cartItemCount = 0;
 
-  constructor(private authService: AuthService) {}
+  private authSub!: Subscription;
+    private cartSub!: Subscription;
+
+  constructor(private authService: AuthService,private router:Router,private cartService: CartService) {}
 
   ngOnInit() {
     this.authSub = this.authService.userData.subscribe(user => {
-      this.isLoggedIn = !!user;
-    });
+    this.isLoggedIn = !!user;
+
+    if (this.isLoggedIn) {
+      const userId = user['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];      
+      this.cartService.getBasket(userId).subscribe();
+    }
+  });
+  this.cartSub = this.cartService.cartItemCount$.subscribe(count => {
+    this.cartItemCount = count;
+  });
   }
 
   ngOnDestroy() {
-    if (this.authSub) {
-      this.authSub.unsubscribe();
-    }
+    this.authSub?.unsubscribe();
+  this.cartSub?.unsubscribe();
   }
 
   logout() {
-    this.authService.logout().subscribe();
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
