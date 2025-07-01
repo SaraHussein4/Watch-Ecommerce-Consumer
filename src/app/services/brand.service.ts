@@ -11,6 +11,6 @@ export class BrandService {
 
 
 getAll(): Observable<Brand[]> {
-  return this.http.get<Brand[]>('https://localhost:7071/api/brand');
+  return this.http.get<Brand[]>('https://localhost:7071/api/ProductBrand');
 }
 }
