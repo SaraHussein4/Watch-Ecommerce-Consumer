@@ -38,9 +38,16 @@ export class AuthService {
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.BackendUrl}/api/Account/Login`, credentials);
   }
-   logout(): Observable<any> {
+   logout(): void {
     localStorage.removeItem('token');
     this.userDataSubject.next(null); 
-    return this.http.post(`${this.BackendUrl}/api/Account/Logout`, {});
+    // return this.http.post(`${this.BackendUrl}/api/Account/Logout`, {});
   }
+
+  getUserId(): string | null {
+  const user = this.userDataSubject.getValue();
+  if (!user) return null;
+
+  return user['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] || user['sub'] || null;
+}
 }
