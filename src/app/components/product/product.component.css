@@ -1,0 +1,45 @@
+.product{
+    margin-top: 100px;
+}
+.color-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+
+.color-box.black {
+  background-color: #222;
+}
+
+.color-box.gray {
+  background-color: #ccc;
+}
+
+.color-box.lavender {
+  background-color: #dcd0ff;
+}
+
+.color-box.purple {
+  background-color: #4b0082;
+}
+
+.color-box.selected {
+  border: 2px solid #000;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+button.btn-sm {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+}

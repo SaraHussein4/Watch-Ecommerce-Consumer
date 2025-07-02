@@ -7,7 +7,7 @@ import { ProductsComponent } from './components/Products/Products.component';
 import { AddNewProductComponent } from "./components/add-new-product/add-new-product.component";
 @Component({
   selector: 'app-root',
-  imports: [FooterComponentComponent, NavbarComponentComponent, RouterOutlet, RouterModule, ProductsComponent, AddNewProductComponent],
+  imports: [FooterComponentComponent, NavbarComponentComponent, RouterOutlet, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

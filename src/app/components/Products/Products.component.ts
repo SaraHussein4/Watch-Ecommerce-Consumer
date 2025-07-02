@@ -54,37 +54,38 @@ export class ProductsComponent implements OnInit {
     this.loadProducts();
     this.loadBrands();
     this.loadCategories();
-      this.route.queryParams.subscribe(params => {
-    const brandId = +params['brandId'];
-    if (brandId) {
-      this.filters.brandIds = [brandId];
-      this.selectedBrandId = brandId;
-    }
-    this.applyFilters();
-  });
+    this.route.queryParams.subscribe(params => {
+      const brandId = +params['brandId'];
+      if (brandId) {
+        this.filters.brandIds = [brandId];
+        this.selectedBrandId = brandId;
+      }
+      this.applyFilters();
+    });
   }
   loadProducts() {
-    this.productService.getAll().subscribe({
-      next: (res) => {this.products = res,
-      console.log('product:', res);
-},
+    this.productService.getFilteredProducts(this.filters).subscribe({
+      next: (res) => {
+        this.products = res,
+        console.log('product:', res);
+      },
       error: (err) => console.error('Error loading products:', err)
     });
   }
+  
   loadBrands() {
     this.http.get<Brand[]>('https://localhost:7071/api/ProductBrand').subscribe({
       next: data => this.brands = data,
       error: err => console.error('Failed to load brands', err)
     });
   }
+
   loadCategories() {
     this.http.get<Category[]>('https://localhost:7071/api/Categories').subscribe({
       next: data => this.categories = data,
       error: err => console.error('Failed to load categories', err)
     });
   }
-
-
 
   onSearch() {
     this.filters.searchTerm = this.filters.searchTerm?.trim();
@@ -95,7 +96,6 @@ export class ProductsComponent implements OnInit {
     this.applyFilters();
   }
 
-
   onGenderChange() {
     this.filters.genders = [];
     if (this.maleChecked) this.filters.genders.push('male');
@@ -103,31 +103,27 @@ export class ProductsComponent implements OnInit {
     this.applyFilters();
   }
 
-
   onCategoryChange() {
     this.filters.categoryIds = this.selectedCategoryId
-    ? [Number(this.selectedCategoryId)]
-    : [];
-
-
+      ? [Number(this.selectedCategoryId)]
+      : [];
     this.applyFilters();
   }
 
   onBrandChange() {
     this.filters.brandIds = this.selectedBrandId
-    ? [Number(this.selectedBrandId)]
-    : [];
+      ? [Number(this.selectedBrandId)]
+      : [];
     this.applyFilters();
   }
 
   applyFilters() {
     console.log('Sending filters to API:', this.filters);
     this.productService.getFilteredProducts(this.filters).subscribe({
-      next: (res) =>{},
+      next: (res) => { this.products = res },
       error: (err) => console.error('Error loading products:', err)
     })
   }
-
 
   resetFilters() {
     this.filters = {
@@ -145,6 +141,5 @@ export class ProductsComponent implements OnInit {
     this.femaleChecked = true;
     this.applyFilters();
   }
-
 
 }
