@@ -112,9 +112,10 @@ export class AddNewProductComponent implements OnInit {
     // Add multiple colors/sizes
     // formValue.colors.split(',').map((c: string) => c.trim()).forEach((c: string) => formData.append('Colors', c));
     // formValue.sizes.split(',').map((s: string) => s.trim()).forEach((s: string) => formData.append('Sizes', s));
-    formValue.colors.forEach((color: string) => formData.append('Colors', color));
-    formValue.sizes.forEach((size: string) => formData.append('Sizes', size));
-
+    // formValue.colors.forEach((color: string) => formData.append('Colors', color));
+    // formValue.sizes.forEach((size: string) => formData.append('Sizes', size));
+    formData.append('Colors', formValue.colors.join(','));
+    formData.append('Sizes', formValue.sizes.join(','));
 
     // Add images
     for (let file of this.selectedImages) {
