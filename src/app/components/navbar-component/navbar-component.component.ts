@@ -15,6 +15,7 @@ import { CartService } from '../../services/cart.service';
 export class NavbarComponentComponent implements OnInit, OnDestroy { 
   isLoggedIn = false;
   cartItemCount = 0;
+  favouriteCount: number = 0;
 
   private authSub!: Subscription;
     private cartSub!: Subscription;
