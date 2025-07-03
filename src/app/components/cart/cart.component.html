@@ -33,10 +33,137 @@
 
   <h4>Total: {{ getTotal() }}</h4>
   <button class="btn btn-danger" (click)="removeBasket()">Clear Cart</button>
-  <button class="btn btn-success ms-2">Checkout</button>
- 
+  <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#checkoutModal">Checkout</button>
 
+<!-- Modal -->
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+       <form #checkoutForm="ngForm" novalidate>
+  <input
+    type="text"
+    class="form-control mb-1"
+    placeholder="First Name"
+    [(ngModel)]="checkoutData.shippingAddress.firstName"
+    name="firstName"
+    required
+    #firstName="ngModel"
+  />
+  <div class="text-danger small" *ngIf="firstName.invalid && firstName.touched">
+    First Name is required.
+  </div>
+
+  <input
+    type="text"
+    class="form-control mb-1"
+    placeholder="Last Name"
+    [(ngModel)]="checkoutData.shippingAddress.lastName"
+    name="lastName"
+    required
+    #lastName="ngModel"
+  />
+  <div class="text-danger small" *ngIf="lastName.invalid && lastName.touched">
+    Last Name is required.
+  </div>
+
+  <input
+    type="text"
+    class="form-control mb-1"
+    placeholder="City"
+    [(ngModel)]="checkoutData.shippingAddress.city"
+    name="city"
+    required
+    #city="ngModel"
+  />
+  <div class="text-danger small" *ngIf="city.invalid && city.touched">
+    City is required.
+  </div>
+
+  <input
+    type="text"
+    class="form-control mb-1"
+    placeholder="Street"
+    [(ngModel)]="checkoutData.shippingAddress.street"
+    name="street"
+    required
+    #street="ngModel"
+  />
+  <div class="text-danger small" *ngIf="street.invalid && street.touched">
+    Street is required.
+  </div>
+
+  <select
+    class="form-select mb-1"
+    [(ngModel)]="checkoutData.shippingAddress.governorateId"
+    name="governorateId"
+    required
+    #governorateId="ngModel"
+    (change)="onShippingOptionChanged()"
+  >
+    <option [ngValue]="0" disabled>-- Select Governorate --</option>
+    <option *ngFor="let gov of governorates" [ngValue]="gov.id">
+      {{ gov.name }} (EGP {{ gov.deliveryCost }})
+    </option>
+  </select>
+  <div class="text-danger small" *ngIf="governorateId.invalid && governorateId.touched">
+    Governorate is required.
+  </div>
+
+  <select
+    class="form-select mb-1"
+    [(ngModel)]="checkoutData.deliveryMethodId"
+    name="deliveryMethodId"
+    required
+    #deliveryMethodId="ngModel"
+    (change)="onShippingOptionChanged()"
+  >
+    <option [ngValue]="0" disabled>-- Select Delivery Method --</option>
+    <option *ngFor="let method of deliveryMethods" [ngValue]="method.id">
+      {{ method.shortName }} - {{ method.deliveryTime }} (EGP {{ method.cost }})
+    </option>
+  </select>
+  <div class="text-danger small" *ngIf="deliveryMethodId.invalid && deliveryMethodId.touched">
+    Delivery Method is required.
+  </div>
+</form>
+
+      </div>
+
+
+      <div class="modal-footer">
+              <div class="mt-4 border-top pt-3">
+  <h5>Order Summary</h5>
+
+  <div class="d-flex justify-content-between">
+    <span>Subtotal:</span>
+    <strong>EGP {{ getTotal() }}</strong>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <span>Delivery:</span>
+    <strong>EGP {{ deliveryCost }}</strong>
+  </div>
+
+  <div class="d-flex justify-content-between mt-2 border-top pt-2">
+    <span>Total:</span>
+    <strong>EGP {{ getTotal() + deliveryCost }}</strong>
+  </div>
 </div>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-primary" (click)="submitOrder(checkoutForm)">Confirm</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 <div class="cart" *ngIf="!basket">
   <p>Your cart is empty.</p>

@@ -1,43 +1,48 @@
 export interface Order {
-    id :number;
-    date:Date;
-    status:string;
-    amount:number;  
-    orderAddress:OrderAddress;
-    deliveryMethod:DeliveryMethod;
-    deliveryMethodId:number;
-    subTotal:number;
-    userId:number;    
+  id: number;
+  date: Date;
+  status: string;
+  amount: number;
+  orderAddress: ShippingAddress;
+  deliveryMethod: DeliveryMethod;
+  deliveryMethodId: number;
+  subTotal: number;
+  userId: number;
 }
 
 export interface OrderItem {
-   productId: number;
+  productId: number;
   productName: string;
   pictureUrl: string;
   price: number;
   quantity: number;
 }
 
-export interface OrderAddress {
-    firstName: string;
+export interface CreateOrderRequest {
+  shippingAddress: ShippingAddress;
+  deliveryMethodId: number;
+}
+
+export interface ShippingAddress {
+  firstName: string;
   lastName: string;
-  street: string;
   city: string;
-  Governorate: Governorate;
-    
+  street: string;
+  governorateId: number;
 }
 
 export interface Governorate {
-    id :number;
-    name:string;
-    deliveryCost:number;
-    
+  id: number;
+  name: string;
+  deliveryCost: number;
 }
+
 export interface DeliveryMethod {
-    id :number;
-    shortName:string;
-    description:string;
-    deliveryTime:string;
-    cost:number;
+  id: number;
+  shortName: string;
+  description: string;
+  deliveryTime: string;
+  cost: number;
 }
+
 
