@@ -3,10 +3,17 @@
     <!-- Left Section -->
     <div class="col-md-6">
         <div class="text-center">
-            <img src="https://localhost:7071{{mainImage}}" class="img-fluid rounded" alt="Hoodie" />
+            <!-- <img src="https://localhost:7071{{mainImage}}" class="img-fluid rounded" alt="Hoodie" /> -->
+            <img [src]="mainImage.startsWith('http') ? mainImage : (mainImage.includes('/Images') ? 'https://localhost:7071' + mainImage : 'https://localhost:7071/images/' + mainImage)"
+              class="img-fluid rounded" alt="Product Image" />
         </div>
         <div class="d-flex justify-content-center gap-2 mt-3">
-            <img *ngFor="let img of product.images" src="https://localhost:7071{{img.url}}" class="thumbnail img-thumbnail" (click)="changeMainImage(img.url)" />
+            <!-- <img *ngFor="let img of product.images" src="https://localhost:7071{{img.url}}" class="thumbnail img-thumbnail" (click)="changeMainImage(img.url)" /> -->
+            <img *ngFor="let img of product.images"
+              [src]="img.url.startsWith('http') ? img.url : (img.url.includes('/Images') ? 'https://localhost:7071' + img.url : 'https://localhost:7071/images/' + img.url)"
+              class="thumbnail img-thumbnail"
+              (click)="changeMainImage(img.url)" />
+
         </div>
     </div>
 

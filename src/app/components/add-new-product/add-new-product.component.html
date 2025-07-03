@@ -1,42 +1,9 @@
 <div class="container-fluid">
   <div class="row">
     <!-- Sidebar -->
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar vh-100">
-      <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item mb-3">
-            <a class="nav-link active" href="#">
-              <i class="bi bi-speedometer2 me-2"></i>
-              <strong>Dashboard</strong>
-            </a>
-          </li>
-          <li class="nav-item mb-3">
-            <a class="nav-link" [routerLink]="['/products']">
-              <i class="bi bi-box-seam me-2"></i>
-              Products
-            </a>
-          </li>
-          <li class="nav-item mb-3">
-            <a class="nav-link" href="#">
-              <i class="bi bi-receipt me-2"></i>
-              Orders
-            </a>
-          </li>
-          <li class="nav-item mb-3">
-            <a class="nav-link" href="#">
-              <i class="bi bi-people me-2"></i>
-              Customers
-            </a>
-          </li>
-          <li class="nav-item mb-3">
-            <a class="nav-link" href="#">
-              <i class="bi bi-person me-2"></i>
-              Profile
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+         <div class="col-md-2 d-none d-md-block bg-light vh-100 p-0">
+           <app-side-bar></app-side-bar>
+         </div>
 
     <!-- Main Content -->
     <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">

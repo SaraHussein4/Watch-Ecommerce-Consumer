@@ -11,6 +11,7 @@ import { Brand } from '../models/brand.model';
   providedIn: 'root',
 })
 export class ProductService {
+  public products: Product[] = [];
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Product[]> {
@@ -71,4 +72,13 @@ export class ProductService {
     return this.http.post('https://localhost:7071/api/Product', productData);
 
   }
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(`https://localhost:7071/api/Product/${id}`);
+  }
+  getPaginatedProducts(page: number, pageSize: number): Observable<{ items: Product[]; totalCount: number }> {
+  return this.http.get<{ items: Product[]; totalCount: number }>(
+    `https://localhost:7071/api/Product/paged?page=${page}&pageSize=${pageSize}`
+  );
+}
+
 }

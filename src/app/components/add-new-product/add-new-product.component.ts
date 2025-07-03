@@ -9,11 +9,12 @@ import { BrandService } from '../../services/brand.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { SideBarComponent } from "../admin-side-bar/side-bar.component";
 
 @Component({
   selector: 'app-add-new-product',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, SideBarComponent],
   templateUrl: './add-new-product.component.html',
   styleUrls: ['./add-new-product.component.css'],
 })
@@ -123,7 +124,7 @@ export class AddNewProductComponent implements OnInit {
     this.productService.addProduct(formData).subscribe({
       next: () => {
         alert('✅ Product added successfully');
-        this.router.navigate(['/products']);
+        this.router.navigate(['/adminProducts']);
       },
       error: err => {
         console.error('Error adding product:', err);
