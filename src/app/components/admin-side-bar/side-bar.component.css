@@ -1,5 +1,15 @@
-.nav-link.active {
+.active-link {
   background-color: #007bff;
   color: white !important;
   border-radius: 5px;
 }
+
+.active-link:hover {
+  background-color: #0056b3;
+  color: white !important;
+}
+.nav-link {
+  color: #333;
+  border-radius: 5px;
+}
+
