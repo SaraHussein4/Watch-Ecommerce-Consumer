@@ -37,6 +37,7 @@ export class ProductCardComponent implements OnInit {
     console.log("Product ID:", id);
     this.routre.navigateByUrl(`/product/${id}`);
   }
+  
   editProduct(id: any) {
     console.log("Edit Product ID:", id);
     this.routre.navigateByUrl(`/products/edit/${id}`);

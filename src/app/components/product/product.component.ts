@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product.model';
 import { CartItem } from '../../models/cart';
+import { FavouriteComponent } from '../favourite/favourite.component';
+import { FavouriteService } from '../../services/favourite.service';
 @Component({
   selector: 'app-product',
   imports: [CommonModule],
@@ -26,7 +28,8 @@ export class ProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private favouriteService: FavouriteService
   ) {
   }
 
@@ -85,7 +88,14 @@ export class ProductComponent implements OnInit {
   }
 
   addToFavourite() {
-    throw new Error('Method not implemented.');
+    this.favouriteService.addToFavourite(this.product.id).subscribe({
+      next: (response) => {
+        console.log('Product added to favourites successfully:', response);
+      },
+      error: (err) => {
+        console.error('Failed to add product to favourites:', err);
+      }
+    });
   }
 
   addToCart() {

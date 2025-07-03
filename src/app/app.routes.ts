@@ -11,6 +11,7 @@ import { EditProductComponentComponent } from './components/edit-product-compone
 import { AdminLayoutComponent } from './components/adminLayout/adminLayout.component';
 import { CustomersComponent } from './components/Customers/Customers.component';
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
+import { FavouriteComponent } from './components/favourite/favourite.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponentComponent },
   { path: 'register', component: RegisterComponentComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'favourite', component: FavouriteComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'product/:id', component: ProductComponent },
   { path: 'addProduct',component: AddNewProductComponent},
