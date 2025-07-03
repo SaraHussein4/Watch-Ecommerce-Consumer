@@ -5,6 +5,7 @@ import { ProductService } from '../../services/product.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product.model';
+import { CartItem } from '../../models/cart';
 @Component({
   selector: 'app-product',
   imports: [CommonModule],
@@ -12,9 +13,10 @@ import { Product } from '../../models/product.model';
   styleUrl: './product.component.css'
 })
 export class ProductComponent implements OnInit {
+
   product!: Product;
   productId!: number;
-  
+
   quantity: number = 1;
 
   mainImage: string = '';
@@ -82,4 +84,33 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  addToFavourite() {
+    throw new Error('Method not implemented.');
+  }
+
+  addToCart() {
+    console.log(this.product);
+
+    const cartItem: CartItem = {
+      id: this.product.id,
+      name: this.product.name,
+      pictureUrl: this.product.images[0].url,
+      price: this.product.price,
+      category: this.product.category.name,
+      brand: this.product.productBrand.name,
+      quantity: this.quantity
+    };
+
+    this.productService.addProductToCart(cartItem).subscribe({
+      next: (response) => {
+        console.log('Product added to cart successfully:', response);
+      },
+      error: (err) => {
+        console.error('Failed to add product to cart:', err);
+      }
+    });
+    // Assuming you have a CartService to handle adding items to the cart
+    // this.cartService.addToCart(cartItem);
+    console.log('Added to cart:', cartItem);
+  }
 }

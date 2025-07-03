@@ -8,6 +8,8 @@ import { ProductsComponent } from './components/Products/Products.component';
 import { AddNewProductComponent } from './components/add-new-product/add-new-product.component';
 import { CartComponent } from './components/cart/cart.component';
 import { EditProductComponentComponent } from './components/edit-product-component/edit-product-component.component';
+import { AdminLayoutComponent } from './components/adminLayout/adminLayout.component';
+import { CustomersComponent } from './components/Customers/Customers.component';
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
 
 export const routes: Routes = [
@@ -20,6 +22,11 @@ export const routes: Routes = [
   { path: 'product/:id', component: ProductComponent },
   { path: 'addProduct',component: AddNewProductComponent},
   { path: 'products/edit/:id', component: EditProductComponentComponent},
+  {path: "admin", component: AdminLayoutComponent,
+    children: [
+      {path: 'customers', component: CustomersComponent},
+    ]
+  },
   { path: 'adminProducts', component: AdminProductsComponent },
   { path: '**', component: NotFoundComponentComponent },
 

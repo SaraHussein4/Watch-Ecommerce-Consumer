@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Customer List</h2>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers">
+          <td>{{ customer.id }}</td>
+          <td>{{ customer.name }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.phoneNumber }}</td>
+        </tr>
+        <tr *ngIf="customers.length === 0">
+          <td colspan="5" class="text-center">No customers found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

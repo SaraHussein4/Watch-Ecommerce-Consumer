@@ -1,0 +1,23 @@
+.table-responsive {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.table th {
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.bi {
+  margin-right: 0.25rem;
+}

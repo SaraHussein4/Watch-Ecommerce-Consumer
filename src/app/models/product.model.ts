@@ -1,4 +1,5 @@
 import { Brand } from './brand.model';
+import { Category } from './category.model';
 import { Image } from './image.model';
 export interface Product {
   id: number;
@@ -14,4 +15,5 @@ export interface Product {
   sizes: string[];
   images: Image[];
   productBrand: Brand;
+  category: Category;
 }
