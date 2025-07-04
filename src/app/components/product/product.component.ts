@@ -9,7 +9,7 @@ import { CartItem } from '../../models/cart';
 import { FavouriteComponent } from '../favourite/favourite.component';
 import { FavouriteService } from '../../services/favourite.service';
 import { Store } from '@ngrx/store';
-import { increaseFavouriteCounter } from '../../Store/FavouriteCounter.Action';
+import { increaseFavouriteCounter } from '../../Store/FavouriteCounter.action';
 @Component({
   selector: 'app-product',
   imports: [CommonModule],

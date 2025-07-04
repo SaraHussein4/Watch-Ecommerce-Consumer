@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { Store } from '@ngrx/store';
 import { FavouriteService } from '../../services/favourite.service';
-import { initFavouriteCounter } from '../../Store/FavouriteCounter.Action';
+import { initFavouriteCounter } from '../../Store/FavouriteCounter.action';
 
 @Component({
   selector: 'app-navbar-component',

@@ -4,7 +4,7 @@ import { Product } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { decreaseFavouriteCounter } from '../../Store/FavouriteCounter.Action';
+import { decreaseFavouriteCounter } from '../../Store/FavouriteCounter.action';
 @Component({
   selector: 'app-favourite',
   templateUrl: './favourite.component.html',

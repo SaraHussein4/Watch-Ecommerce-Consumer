@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { decreaseFavouriteCounter, increaseFavouriteCounter, initFavouriteCounter } from "./FavouriteCounter.Action";
+import { decreaseFavouriteCounter, increaseFavouriteCounter, initFavouriteCounter } from "./FavouriteCounter.action";
 
 const initialState = 0;
 
