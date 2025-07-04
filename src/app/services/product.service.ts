@@ -19,8 +19,8 @@ export class ProductService {
     return this.http.get<Product[]>('https://localhost:7071/api/product');
   }
 
-  getFilteredProducts(productFilter: ProductFilter): Observable<Product[]> {
-    return this.http.post<Product[]>(
+  getFilteredProducts(productFilter: ProductFilter): Observable<{ items: Product[]; totalCount: number }> {
+    return this.http.post<{ items: Product[]; totalCount: number }>(
       'https://localhost:7071/api/product/FilterProduct',
       productFilter
     );

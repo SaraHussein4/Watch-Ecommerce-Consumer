@@ -125,7 +125,7 @@ export class AddNewProductComponent implements OnInit {
     this.productService.addProduct(formData).subscribe({
       next: () => {
         alert('✅ Product added successfully');
-        this.router.navigate(['/adminProducts']);
+        this.router.navigate(['/admin/products']);
       },
       error: err => {
         console.error('Error adding product:', err);
