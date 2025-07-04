@@ -28,9 +28,9 @@
       <div class="d-flex align-items-center">
         <a *ngIf="isLoggedIn" class="nav-link me-3 position-relative" routerLink="/favourite">
           <i class="fa-solid fa-heart text-white fs-5"></i>
-          <span *ngIf="favouriteCount > 0"
+          <span *ngIf="(favouriteCount | async) ?? 0 > 0"
             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            {{ favouriteCount }}
+            {{ favouriteCount | async }}
           </span>
         </a>
         <a *ngIf="isLoggedIn" class="nav-link me-3 position-relative" routerLink="/cart">
