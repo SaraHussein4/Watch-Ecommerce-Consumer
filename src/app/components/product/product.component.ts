@@ -79,6 +79,7 @@ export class ProductComponent implements OnInit {
 
 
   increaseQuantity(): void {
+    
     if (this.quantity < this.product.quantity) {
       this.quantity++;
     }
