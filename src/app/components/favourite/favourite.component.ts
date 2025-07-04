@@ -3,6 +3,8 @@ import { FavouriteService } from '../../services/favourite.service';
 import { Product } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { decreaseFavouriteCounter } from '../../Store/FavouriteCounter.action';
 @Component({
   selector: 'app-favourite',
   templateUrl: './favourite.component.html',
@@ -13,16 +15,16 @@ export class FavouriteComponent implements OnInit {
   products: Product[] = []; // Adjust the type as per your model
   constructor(
     private favouriteService: FavouriteService,
-    private router: Router
+    private router: Router,
+    private store: Store<{ favouriteCounter: number }>// Inject the store to manage the favourite counter
   ) { }
 
   ngOnInit() {
     this.loadFavouriteItems();
-
   }
 
   loadFavouriteItems() {
-    this.favouriteService.getFavouriteForUser('ece17c49-c048-4baa-af70-74d42d6bbd7b').subscribe({
+    this.favouriteService.getFavourites().subscribe({
       next: (data: Product[]) => {
         this.products = data;
         console.log(data)
@@ -33,6 +35,8 @@ export class FavouriteComponent implements OnInit {
     });
   }
   deleteProduct(productId: number) {
+    this.products = this.products.filter(p => p.id !== productId);
+    this.store.dispatch(decreaseFavouriteCounter()); // Dispatch an action to decrease the counter
     this.favouriteService.DeleteFromFavourite(productId).subscribe({
       next: () => {
         console.log('Product removed from favourites successfully');
@@ -43,6 +47,7 @@ export class FavouriteComponent implements OnInit {
       }
     });
   }
+
   getPrimaryImage(product: Product) {
     const img = product.images?.find(img => img.isPrimary);
     if (!img) return null;

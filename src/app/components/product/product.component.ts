@@ -8,6 +8,8 @@ import { Product } from '../../models/product.model';
 import { CartItem } from '../../models/cart';
 import { FavouriteComponent } from '../favourite/favourite.component';
 import { FavouriteService } from '../../services/favourite.service';
+import { Store } from '@ngrx/store';
+import { increaseFavouriteCounter } from '../../Store/FavouriteCounter.action';
 @Component({
   selector: 'app-product',
   imports: [CommonModule],
@@ -29,7 +31,8 @@ export class ProductComponent implements OnInit {
     private productService: ProductService,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private favouriteService: FavouriteService
+    private favouriteService: FavouriteService,
+    private store: Store<{ favouriteCounter: number }>
   ) {
   }
 
@@ -91,6 +94,7 @@ export class ProductComponent implements OnInit {
     this.favouriteService.addToFavourite(this.product.id).subscribe({
       next: (response) => {
         console.log('Product added to favourites successfully:', response);
+        this.store.dispatch(increaseFavouriteCounter()); // Dispatch an action to increase the counter
       },
       error: (err) => {
         console.error('Failed to add product to favourites:', err);
@@ -101,7 +105,7 @@ export class ProductComponent implements OnInit {
   addToCart() {
     console.log(this.product);
 
-    const cartItem: CartItem = {
+    const cartItem: CartItem[] = [{
       id: this.product.id,
       name: this.product.name,
       pictureUrl: this.product.images[0].url,
@@ -109,18 +113,18 @@ export class ProductComponent implements OnInit {
       category: this.product.category.name,
       brand: this.product.productBrand.name,
       quantity: this.quantity
-    };
+    }];
 
     this.productService.addProductToCart(cartItem).subscribe({
       next: (response) => {
         console.log('Product added to cart successfully:', response);
+        
       },
       error: (err) => {
         console.error('Failed to add product to cart:', err);
       }
     });
-    // Assuming you have a CartService to handle adding items to the cart
-    // this.cartService.addToCart(cartItem);
+
     console.log('Added to cart:', cartItem);
   }
 }
