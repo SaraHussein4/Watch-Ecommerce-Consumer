@@ -22,15 +22,15 @@ export const routes: Routes = [
   { path: 'favourite', component: FavouriteComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'product/:id', component: ProductComponent },
-  { path: 'addProduct',component: AddNewProductComponent},
-  { path: 'products/edit/:id', component: EditProductComponentComponent},
-  {path: "admin", component: AdminLayoutComponent,
+  { path: 'addProduct', component: AddNewProductComponent },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
     children: [
-      {path: 'customers', component: CustomersComponent},
+      { path: 'customers', component: CustomersComponent },
+      { path: 'products/edit/:id', component: EditProductComponentComponent }, 
       {path: 'products', component: AdminProductsComponent}
     ]
   },
   { path: '**', component: NotFoundComponentComponent },
-
-]
-
+];
