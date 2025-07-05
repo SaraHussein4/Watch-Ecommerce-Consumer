@@ -1,4 +1,4 @@
-<div class="container " style="margin-top: 200px; margin-left: 600px;">
+<div class="container " >
   <h1>Edit Product</h1>
   <h2 class="mt-5 mb-4">Product Information</h2>
 <form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
@@ -38,6 +38,7 @@
       <option [value]="0">Male</option>
       <option [value]="1">Female</option>
     </select>
+
   </div>
 
 
@@ -89,17 +90,24 @@
       </option>
     </select>
   </div>
-<div class="mt-3">
-  <div *ngIf="product?.images && product.images.length > 0">
-    <label class="mb-1">Product Images:</label>
-    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    <div *ngFor="let img of product.images" style="margin-bottom:10px; width: calc(40% - 10px);">
-      <img [src]="'https://localhost:7071' + img.url" alt="Product Image"  style="width: 80%; border-radius: 8px;">
-
+  <div class="mt-3">
+    <div *ngIf="product?.images && product.images.length > 0">
+      <label class="mb-1">Product Images:</label>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <div *ngFor="let img of product.images" style="position: relative; margin-bottom:10px; width: calc(40% - 10px);">
+          <!-- <div *ngFor="let img of product.images">
+            {{ img | json }}
+          </div> -->
+          <img [src]="'https://localhost:7071' + img.url" alt="Product Image" style="width: 60%; border-radius: 8px;">
+          <button type="button" (click)="deleteImage(img.id)"
+            style="position: absolute; top: 5px;  border: none; background: transparent; cursor: pointer;">
+            <i class="fa fa-trash" style="color: red; font-size: 18px;"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
+
 <div class="mb-3">
   <label for="imageUpload" class="form-label fw-semibold">Add New Images:</label>
   <input type="file" id="imageUpload" (change)="onImageSelected($event)" multiple class="form-control"
@@ -108,7 +116,7 @@
 
 <div class="d-flex justify-content-end">
   <button type="button" class="btn btn-primary" (click)="uploadImages()">
-    Upload Images
+    Add New Images
   </button>
 </div>
 
