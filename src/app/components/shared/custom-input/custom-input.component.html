@@ -1,0 +1,22 @@
+<div class="custom-input">
+  <label for="input"
+    >{{ label }}<span class="required" *ngIf="isRequired">*</span>
+  </label>
+  <input
+    class="input"
+    id="input"
+    [type]="type"
+    [(ngModel)]="value"
+    (ngModelChange)="valueChange.emit($event)"
+    [placeholder]="placeholder"
+  />
+   <!-- Show toggle only for password fields -->
+  <!-- <button
+    *ngIf="type === 'password'"
+    type="button"
+    class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2 border-0 bg-transparent"
+    (click)="toggleVisibility()"
+  >
+    <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+  </button> -->
+</div>

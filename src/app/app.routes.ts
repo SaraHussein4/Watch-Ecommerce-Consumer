@@ -12,6 +12,9 @@ import { AdminLayoutComponent } from './components/adminLayout/adminLayout.compo
 import { CustomersComponent } from './components/Customers/Customers.component';
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
 import { FavouriteComponent } from './components/favourite/favourite.component';
+import { UserEditProfileComponent } from './components/user-edit-profile/user-edit-profile.component';
+import { UserViewProfileComponent } from './components/user-view-profile/user-view-profile.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,7 +25,10 @@ export const routes: Routes = [
   { path: 'favourite', component: FavouriteComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'product/:id', component: ProductComponent },
+  { path: 'editProfile', component: UserEditProfileComponent },
+  { path: 'viewProfile', component: UserViewProfileComponent },
   { path: 'addProduct', component: AddNewProductComponent },
+  { path: 'changePassword', component: ChangePasswordComponent },   
   {
     path: 'admin',
     component: AdminLayoutComponent,
