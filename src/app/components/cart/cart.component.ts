@@ -170,4 +170,10 @@ export class CartComponent implements OnInit {
   }
 }
 
+  getImageUrl(imageUrl: string): string {
+    if (!imageUrl) return '';
+    if (imageUrl.startsWith('http')) return imageUrl;
+    return `https://localhost:7071${imageUrl}`;
+  }
+
 }
