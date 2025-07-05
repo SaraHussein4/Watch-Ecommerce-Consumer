@@ -27,9 +27,9 @@ export const routes: Routes = [
   {path: "admin", component: AdminLayoutComponent,
     children: [
       {path: 'customers', component: CustomersComponent},
+      {path: 'products', component: AdminProductsComponent}
     ]
   },
-  { path: 'adminProducts', component: AdminProductsComponent },
   { path: '**', component: NotFoundComponentComponent },
 
 ]
