@@ -11,6 +11,12 @@ import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+export interface Image {
+  id: number;
+  url: string;
+  isPrimary: boolean;
+  productId: number;
+}
 @Component({
   selector: 'app-edit-product-component',
   imports: [ReactiveFormsModule, CommonModule],
@@ -42,13 +48,15 @@ export class EditProductComponentComponent implements OnInit {
     '46mm',
     '48mm',
   ];
-
+  //interface for images
+  images: Image[] = [];
   selectedColors: string[] = [];
   selectSizes: string[] = [];
   categories: any[] = [];
   brands: any[] = [];
   product: any;
   selectImage: File[] = [];
+  genderCat: any[] = [];
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
@@ -56,7 +64,6 @@ export class EditProductComponentComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.productId = Number(this.rout.snapshot.paramMap.get('id'));
-    console.log('Product ID:', this.productId);
     this.editProductForm = this.fb.group({
       name: ['', Validators.required],
       description: [''],
@@ -70,10 +77,12 @@ export class EditProductComponentComponent implements OnInit {
       sizes: [''],
       categoryId: [0, Validators.required],
       productBrandId: [0, Validators.required],
+      images: [],
     });
     this.loadProduct();
     this.loadCategories();
     this.loadBrands();
+    this.loadGenderCategories();
   }
   //method color
   toggleColor(color: string) {
@@ -107,14 +116,15 @@ export class EditProductComponentComponent implements OnInit {
       const formData = new FormData();
       formData.append('isPrimary', 'false');
       formData.append('ProductId', this.product.id.toString());
-
       for (let img of this.selectImage) {
         formData.append('Images', img);
       }
 
       this.productService.addImage(formData).subscribe({
-        next: (res) => {
+        next: (res: Image) => {
           console.log('Uploaded successfully', res);
+          console.log('Image ID:', res.id);
+          console.log('Image URL:', res.url);
           this.loadProduct();
           this.selectImage = [];
         },
@@ -126,7 +136,23 @@ export class EditProductComponentComponent implements OnInit {
       console.log('No images selected');
     }
   }
-
+  deleteImage(imageId: number) {
+    console.log('Deleting image with ID:', imageId);
+    alert('Deleting image with ID: ' + imageId);
+    this.productService.deleteImage(imageId).subscribe({
+      next: (res) => {
+        console.log('Image deleted successfully', res);
+        this.product.images = this.product.images.filter(
+          (img: Image) => img.id !== imageId
+        );
+        // Reload the product to reflect changes
+        this.loadProduct();
+      },
+      error: (err) => {
+        console.log('Error deleting image:', err);
+      },
+    });
+  }
   //method with apis
   loadProduct() {
     this.productService.getProductById(this.productId).subscribe({
@@ -135,9 +161,12 @@ export class EditProductComponentComponent implements OnInit {
         this.editProductForm.patchValue(res);
         this.selectedColors = res.colors || [];
         this.selectSizes = res.sizes || [];
+        console.log('Loaded genderCategory:', res.genderCategory);
+        alert('Loaded genderCategory: ' + res.genderCategory);
         this.editProductForm.patchValue({
           colors: this.selectedColors,
           sizes: this.selectSizes,
+          genderCategory: res.genderCategory,
         });
       },
       error: (err) => {
@@ -153,6 +182,17 @@ export class EditProductComponentComponent implements OnInit {
       },
       error: (err) => {
         console.log('Error loading categories:', err);
+      },
+    });
+  }
+  loadGenderCategories() {
+    this.productService.getCategories().subscribe({
+      next: (res) => {
+        this.genderCat = res;
+        console.log('Gender Categories:', this.genderCat);
+      },
+      error: (err) => {
+        console.log('Error loading gender categories:', err);
       },
     });
   }
@@ -183,11 +223,16 @@ export class EditProductComponentComponent implements OnInit {
         .split(',')
         .map((s: string) => s.trim());
     }
+    if (updateProduct.genderCategory === 'Male') {
+      updateProduct.genderCategory = 0;
+    } else if (updateProduct.genderCategory === 'Female') {
+      updateProduct.genderCategory = 1;
+    }
 
     updateProduct.id = this.productId;
     updateProduct.colors = this.editProductForm.value.colors;
     updateProduct.sizes = this.editProductForm.value.sizes;
-    console.log('🟢 Update Product Body:', updateProduct);
+    console.log('Update Product Body:', updateProduct);
 
     this.productService.updateProduct(this.productId, updateProduct).subscribe({
       next: (res) => {

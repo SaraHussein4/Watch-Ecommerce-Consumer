@@ -28,16 +28,15 @@ export const routes: Routes = [
   { path: 'editProfile', component: UserEditProfileComponent },
   { path: 'viewProfile', component: UserViewProfileComponent },
   { path: 'addProduct', component: AddNewProductComponent },
-  { path: 'products/edit/:id', component: EditProductComponentComponent },
-  { path: 'adminProducts', component: AdminProductsComponent },
-  { path: 'changePassword', component: ChangePasswordComponent },
-  { path: "admin", component: AdminLayoutComponent,
+  { path: 'changePassword', component: ChangePasswordComponent },   
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
     children: [
       { path: 'customers', component: CustomersComponent },
-     
+      { path: 'products/edit/:id', component: EditProductComponentComponent }, 
+      {path: 'products', component: AdminProductsComponent}
     ]
   },
   { path: '**', component: NotFoundComponentComponent },
-
-]
-
+];
