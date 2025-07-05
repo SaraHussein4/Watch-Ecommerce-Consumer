@@ -1,0 +1,26 @@
+<div class="chat-toggle" (click)="toggleChat()">💬</div>
+
+<div class="chat-container" *ngIf="isOpen">
+  <div class="chat-header">
+    <span>Chat with us</span>
+    <button class="close-btn" (click)="toggleChat()">×</button>
+  </div>
+  <div class="chat-body">
+    <div class="messages">
+      <div
+        *ngFor="let msg of chatHistory"
+        [ngClass]="msg.from === 'user' ? 'user-message' : 'bot-message'"
+      >
+        {{ msg.message }}
+      </div>
+    </div>
+
+    <div class="loading" *ngIf="loading">Thinking...</div>
+
+    <textarea
+      [(ngModel)]="question"
+      placeholder="Ask a question..."
+    ></textarea>
+    <button (click)="handleAsk()">Ask</button>
+  </div>
+</div>

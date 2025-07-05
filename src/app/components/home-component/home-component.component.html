@@ -38,7 +38,6 @@
         <div class="card h-100">
           <img *ngIf="getPrimaryImage(product)" [src]="getPrimaryImage(product)?.url" class="card-img-top" />
           <div class="card-body text-center">
-            <h5 class="card-title">{{ product.name }}</h5>
             <p class="card-text">{{ product.productBrand.name }}</p>
             <button class="btn btn-outline-dark" (click)="filterByBrand(product.productBrand.id)">
               View Products</button>
