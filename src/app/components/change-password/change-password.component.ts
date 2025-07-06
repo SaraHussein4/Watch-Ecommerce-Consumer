@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { CustomInputComponent } from "../shared/custom-input/custom-input.component";
 import { UserService } from '../../services/user.service';
 import { ChangePassword } from '../../models/changePassword.model';
-import { Location } from '@angular/common';
+import { Location, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-change-password',
-  imports: [CustomInputComponent,FormsModule,NgFor,NgIf],
+  imports: [CustomInputComponent,FormsModule,NgFor,NgIf,NgClass],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.css'
 })
@@ -18,6 +18,9 @@ export class ChangePasswordComponent {
   confirmNewPassword = '';
   successMessage = '';
   errorMessage = '';
+  showCurrent = false;
+  showNew = false;
+  showConfirm = false;
 
    constructor(private userService: UserService, 
     private location: Location ) {}
@@ -52,4 +55,9 @@ export class ChangePasswordComponent {
   cancel() {
     this.location.back(); // ✅ Cancel navigates back
   }
+  toggleVisibility(field: 'current' | 'new' | 'confirm') {
+  if (field === 'current') this.showCurrent = !this.showCurrent;
+  if (field === 'new') this.showNew = !this.showNew;
+  if (field === 'confirm') this.showConfirm = !this.showConfirm;
+}
 }
