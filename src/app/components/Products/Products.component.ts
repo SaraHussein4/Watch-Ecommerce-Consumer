@@ -23,6 +23,7 @@ export class ProductsComponent implements OnInit {
   brands: Brand[] = [];
   categories: Category[] = [];
 
+  totalCount: number = 0;
 
   selectedCategoryIds: number[] = [];
   selectedBrandIds: number[] = [];
@@ -63,16 +64,18 @@ export class ProductsComponent implements OnInit {
       this.applyFilters();
     });
   }
+
   loadProducts() {
     this.productService.getFilteredProducts(this.filters).subscribe({
       next: (res) => {
-        this.products = res,
+        this.products = res.items,
+        this.totalCount = res.totalCount;
         console.log('product:', res);
       },
       error: (err) => console.error('Error loading products:', err)
     });
   }
-  
+
   loadBrands() {
     this.http.get<Brand[]>('https://localhost:7071/api/ProductBrand').subscribe({
       next: data => this.brands = data,
@@ -120,7 +123,11 @@ export class ProductsComponent implements OnInit {
   applyFilters() {
     console.log('Sending filters to API:', this.filters);
     this.productService.getFilteredProducts(this.filters).subscribe({
-      next: (res) => { this.products = res },
+      next: (res) => {
+        this.products = res.items,
+          this.totalCount = res.totalCount;
+        console.log('product:', res);
+      },
       error: (err) => console.error('Error loading products:', err)
     })
   }
@@ -140,6 +147,16 @@ export class ProductsComponent implements OnInit {
     this.maleChecked = true;
     this.femaleChecked = true;
     this.applyFilters();
+  }
+
+  get pageNumbers(): number[] {
+    const totalPages = Math.ceil(this.totalCount / this.filters.pageSize)
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+
+  onPageChange(newPage: number): void {
+    this.filters.page = newPage;
+    this.loadProducts();
   }
 
 }
