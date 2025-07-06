@@ -12,6 +12,7 @@ import { AdminLayoutComponent } from './components/adminLayout/adminLayout.compo
 import { CustomersComponent } from './components/Customers/Customers.component';
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
 import { FavouriteComponent } from './components/favourite/favourite.component';
+import { PaymentComponentComponent } from './components/payment-component/payment-component.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'product/:id', component: ProductComponent },
   { path: 'addProduct', component: AddNewProductComponent },
+  { path: 'payment', component: PaymentComponentComponent },
   {
     path: 'admin',
     component: AdminLayoutComponent,
