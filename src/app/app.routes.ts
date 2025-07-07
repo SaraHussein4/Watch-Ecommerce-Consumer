@@ -31,20 +31,20 @@ export const routes: Routes = [
   { path: 'product/:id', component: ProductComponent },
   { path: 'editProfile', component: UserEditProfileComponent },
   { path: 'viewProfile', component: UserViewProfileComponent },
-  { path: 'addProduct', component: AddNewProductComponent },
 
   { path: 'payment', component: PaymentComponentComponent },
 
-  { path: 'changePassword', component: ChangePasswordComponent },   
+  { path: 'changePassword', component: ChangePasswordComponent },
 
   {
     path: 'admin',
     component: AdminLayoutComponent,
     children: [
       { path: 'customers', component: CustomersComponent },
-      { path: 'products/edit/:id', component: EditProductComponentComponent }, 
-      {path: 'products', component: AdminProductsComponent}
-    ]
+      { path: 'products/edit/:id', component: EditProductComponentComponent },
+      { path: 'products', component: AdminProductsComponent },
+      { path: 'addProduct', component: AddNewProductComponent },
+    ],
   },
   { path: '**', component: NotFoundComponentComponent },
 ];
