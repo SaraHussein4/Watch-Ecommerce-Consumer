@@ -1,179 +1,127 @@
-<div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar -->
-         <!-- <div class="col-md-2 d-none d-md-block bg-light vh-100 p-0">
-           <app-side-bar></app-side-bar>
-         </div> -->
+<h1 class="hover mt-3"><strong>Add New Product</strong></h1>
 
-    <!-- Main Content -->
-    <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
-      <div class="py-4">
-        <h2>Add New Product</h2>
-        <form
-          [formGroup]="productForm"
-          (ngSubmit)="onSubmit()"
-          enctype="multipart/form-data"
-        >
-          <!-- Section: Product Info -->
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label>Product Name</label>
-              <input type="text" class="form-control" formControlName="name" />
-            </div>
-            <div class="col-md-6 mb-3">
-              <label>Price</label>
-              <input
-                type="number"
-                class="form-control"
-                formControlName="price"
-              />
-            </div>
-            <div class="col-md-12 mb-3">
-              <label>Description</label>
-              <textarea
-                rows="3"
-                class="form-control"
-                formControlName="description"
-              ></textarea>
-            </div>
-          </div>
+<div class="container mt-5 ">
+  <h2 class="product-title">Product Information</h2>
+<div class="mt-5">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
 
-          <!-- Section: Category, Brand, Gender -->
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label>Category</label>
-              <select class="form-select" formControlName="categoryId">
-                <option value="" disabled selected>Select Category</option>
-                <option *ngFor="let c of categories" [value]="c.id">
-                  {{ c.name }}
-                </option>
-              </select>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label>Gender</label>
-              <select class="form-select" formControlName="genderCategory">
-                <option value="" disabled selected>Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label>Brand</label>
-              <select class="form-select" formControlName="productBrandId">
-                <option value="" disabled selected>Select Brand</option>
-                <option *ngFor="let b of brands" [value]="b.id">
-                  {{ b.name }}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Section: Product Variations -->
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label>Sizes</label>
-              <select class="form-select" multiple formControlName="sizes">
-                <option
-                  *ngFor="let s of ['S', 'M', 'L', 'XL', 'XXL']"
-                  [value]="s"
-                >
-                  {{ s }}
-                </option>
-              </select>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label>Colors</label>
-              <select class="form-select" multiple formControlName="colors">
-                <option
-                  *ngFor="let c of ['Black', 'White', 'Red', 'Blue', 'Green']"
-                  [value]="c"
-                >
-                  {{ c }}
-                </option>
-              </select>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label>Quantity</label>
-              <input
-                type="number"
-                class="form-control"
-                formControlName="quantity"
-              />
-            </div>
-          </div>
-
-          <!-- Section: Additional Info -->
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label>Status</label>
-              <select class="form-select" formControlName="status">
-                <option value="" disabled selected>Select Status</option>
-                <option value="Active">Available</option>
-                <option value="Inactive">Unavailable</option>
-              </select>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label>Warranty Years</label>
-              <input
-                type="number"
-                class="form-control"
-                formControlName="warrentyYears"
-              />
-            </div>
-            <div class="col-md-4 mb-3 d-flex align-items-center">
-              <div class="form-check mt-4">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  formControlName="waterResistance"
-                  id="waterResistance"
-                />
-                <label class="form-check-label" for="waterResistance"
-                  >Water Resistance</label
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Section: Images Upload -->
-          <div class="mb-3">
-            <label>Product Images</label>
-            <input
-              type="file"
-              class="form-control"
-              multiple
-              (change)="onImageSelected($event)"
-            />
-          </div>
-
-          <!-- Section: Image Previews -->
-          <div class="mb-3 d-flex flex-wrap gap-3">
-            <div
-              *ngFor="let image of imagePreviews"
-              class="border rounded"
-              style="width: 120px; height: 120px; overflow: hidden"
-            >
-              <img
-                [src]="image"
-                class="w-100 h-100 object-fit-cover"
-                alt="Preview"
-              />
-            </div>
-          </div>
-
-          <!-- Submit Buttons -->
-          <div class="d-flex justify-content-end mt-4">
-            <button
-              type="button"
-              class="btn btn-secondary me-2"
-              (click)="onCancel()"
-            >
-              Cancel
-            </button>
-            <button type="submit" class="btn btn-primary">Save Product</button>
-          </div>
-        </form>
+    <div class="row">
+      <div class="col-md-4 mt-3">
+        <label>Product Name</label>
+        <input  type="text" class="myInput form-control" formControlName="name" />
       </div>
-    </main>
-  </div>
+
+      <div class="col-md-4 mt-3">
+        <label>Price</label>
+        <input type="number" class="myInput form-control" formControlName="price" />
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>Quantity</label>
+        <input type="number" class="myInput form-control" formControlName="quantity" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mt-3">
+        <label>Description</label>
+        <textarea rows="3" class="myInputDescription form-control" formControlName="description"></textarea>
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>Warranty Years</label>
+        <input type="number" class="myInput form-control" formControlName="warrentyYears" />
+        <div class="mt-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="waterResistance" id="waterResistance" />
+            <label class="form-check-label" for="waterResistance">Water Resistance</label>
+          </div>
+          </div>
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>Status</label>
+        <select class="form-select category-select" formControlName="status">
+          <option value="" disabled selected>Select Status</option>
+          <option value="Active">Available</option>
+          <option value="Inactive">Unavailable</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-4 mt-3">
+        <label class="form-label">Colors</label>
+        <select class="form-select custom-select-colors" multiple formControlName="colors">
+          <option *ngFor="let c of ['Red', 'Blue', 'Green', 'Black', 'White', 'Silver']" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+      <div class="col-md-4 mt-3">
+        <label class="form-label">Sizes</label>
+        <select class="form-select custom-select-sizes custom-select-colors" multiple formControlName="sizes">
+          <option *ngFor="let s of [ '26mm',
+                '28mm',
+                '30mm',
+                '32mm',
+                '34mm',
+                '36mm',
+                '38mm',
+                '40mm',
+                '42mm',
+                '44mm',
+                '46mm',
+                '48mm',
+            ]" [value]="s">{{ s }}</option>
+        </select>
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>Gender</label>
+        <select class="form-select" formControlName="genderCategory">
+          <option value="" disabled selected>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <div class=" mt-2">
+          <label>Category</label>
+          <select class="form-select category-select" formControlName="categoryId ">
+            <option value="" disabled selected>Select Category</option>
+            <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+          </select>
+          <div class=" mt-3">
+            <label>Brand</label>
+            <select class="form-select brand-select" formControlName="productBrandId ">
+              <option value="" disabled selected>Select Brand</option>
+              <option *ngFor="let b of brands" [value]="b.id">{{ b.name }}</option>
+            </select>
+            </div>
+          </div>
+
+      </div>
+
+
+
+    </div>
+
+    <div class="row">
+      <div class="mt-3">
+        <label>Product Images</label>
+        <input type="file" class="myInpute form-control " id="imageUpload" multiple (change)="onImageSelected($event)" />
+      </div>
+
+      <div class="mt-3 d-flex flex-wrap gap-3">
+        <div *ngFor="let image of imagePreviews" class="border rounded" style="width: 150px; height: 150px; overflow: hidden">
+          <img [src]="image" class="w-100 h-100 object-fit-cover" alt="Preview" />
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="d-flex justify-content-end gap-5 mt-5 mb-4">
+      <button type="submit" class="btn btn-custom">Save Product</button>
+
+      <button type="button" class="btn btn-custom" (click)="onCancel()">Cancel</button>
+    </div>
+
+  </form>
+</div>
 </div>

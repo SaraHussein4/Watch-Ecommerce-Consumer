@@ -1,14 +1,7 @@
-  aside {
+  /* aside {
     min-height: 100vh;
   }
-  form {
-    max-width: 600px;
-    margin: 2rem auto;
-    background: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
+
   .form-label {
     font-weight: 500;
   }
@@ -16,6 +9,208 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+} */
+
+/* size */
+/* h1 */
+.hover {
+  color: #30636f;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+  display: inline-block;
 }
 
+.hover:hover {
+  background-color: #30636f;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: none;
+}
+/* title */
+.product-title {
+  text-align: center;
+  color: #30636f;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 1.5rem;
+  padding: 10px 0;
+  border-bottom: 2px solid #30636f;
+  display: inline-block;
+  transition: transform 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
 
+.product-title:hover {
+  color: #30636f;
+  transform: scale(1.05);
+  border-color: #30636f;
+  text-shadow: 0 4px 12px rgba(48, 99, 111, 0.3);
+  cursor: pointer;
+}
+/* label */
+label {
+  color: #30636f;
+  font-weight: 600;
+  display: block;
+  font-size: 20px;
+}
+.custom-select-sizes {
+  background-color: #f8f9fa;
+  border: 2px solid #0d6efd;
+  border-radius: 10px;
+  padding: 10px;
+  height: 180px;
+  font-weight: 500;
+  transition: box-shadow 0.3s ease;
+}
+/* input*/
+.myInput {
+  border-radius: 20px;
+  border: 1px solid #e1e4e8;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+
+}
+
+.myInput:hover {
+  border-color: #30636f;
+  box-shadow: 0 0 5px rgba(48, 99, 111, 0.3);
+  background-color: #d9e4e5;
+}
+
+.myInput:focus {
+  border-color: #30636f;
+  box-shadow: 0 0 8px rgba(48, 99, 111, 0.5);
+  outline: none;
+}
+.myInputDescription {
+
+  border: 1px solid #e1e4e8;
+  border-radius: 20px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+.custom-select-sizes:focus {
+  border-color: #6610f2;
+  box-shadow: 0 0 5px rgba(102, 16, 242, 0.5);
+}
+/* category&& brand */
+.category-select {
+
+  border: 1px solid #e1e4e8;
+  border-radius: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.category-select:hover {
+  border-color: #30636f;
+  box-shadow: 0 0 5px rgba(48, 99, 111, 0.3);
+  background-color: #d9e4e5;
+}
+
+.category-select:focus {
+  border-color: #30636f;
+  box-shadow: 0 0 8px rgba(48, 99, 111, 0.5);
+  outline: none;
+}
+.brand-select {
+
+  border: 1px solid #e1e4e8;
+  border-radius: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.brand-select:hover {
+  border-color: #30636f;
+  box-shadow: 0 0 5px rgba(48, 99, 111, 0.3);
+  background-color: #d9e4e5;
+}
+
+.brand-select:focus {
+  border-color: #30636f;
+  box-shadow: 0 0 8px rgba(48, 99, 111, 0.5);
+  outline: none;
+}
+/* colors && sizes*/
+.custom-select-sizes option {
+  padding: 5px;
+}
+
+label.form-label {
+  font-weight: 600;
+  color: #30636f;
+}
+.custom-select-colors {
+  background-color: #f8f9fa;
+  border: 2px solid #30636f;
+  border-radius: 10px;
+  padding: 10px;
+  height: 180px;
+  font-weight: 500;
+  transition: box-shadow 0.3s ease;
+}
+
+.custom-select-colors:focus {
+  border-color: #30636f;
+  box-shadow: 0 0 5px rgba(48, 99, 111, 0.5);
+}
+
+.custom-select-colors option {
+  padding: 5px;
+}
+
+label.form-label {
+  font-weight: 600;
+  color: #30636f;
+}
+/* image */
+#imageUpload {
+
+  padding: 10px;
+  border: 2px dashed #30636f;
+  border-radius: 10px;
+  background-color: #d9e4e5;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+#imageUpload:hover {
+  border-color: #204952;
+  background-color: #d9e4e5;
+  cursor: pointer;
+}
+
+#imageUpload:focus {
+  outline: none;
+  border-color: #204952;
+  box-shadow: 0 0 5px rgba(48, 99, 111, 0.5);
+}
+/* btn */
+.btn-custom {
+  background-color: #30636f;
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 10px 25px;
+  border-radius: 25px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-custom:hover {
+  background-color: #204952;
+  transform: scale(1.05);
+}
+
+.btn-custom:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(48, 99, 111, 0.6);
+}
