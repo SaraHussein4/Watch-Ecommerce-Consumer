@@ -1,0 +1,38 @@
+.sidebar-container {
+  background-color: #f6f6f6;
+  padding: 20px;
+  height: 100vh;
+}
+
+.nav-item {
+  margin-bottom: 35px;
+}
+
+.nav-link {
+  color: #30636f;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 8px;
+  padding: 10px 15px;
+}
+
+.nav-link:hover {
+  background-color: #30636f;
+  color: #fff;
+}
+
+.nav-link i,
+.my-watch-icon {
+  color: #30636f;
+  font-size: 22px;
+  margin-right: 10px;
+}
+
+.nav-link:hover i,
+.nav-link:hover .my-watch-icon {
+  color: #fff;
+}

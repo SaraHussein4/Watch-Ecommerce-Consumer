@@ -7,4 +7,5 @@ export interface PaymentItems {
   category: string;
   quantity: number;
   deliveryMethodId: number;
+  amount: number;
 }
