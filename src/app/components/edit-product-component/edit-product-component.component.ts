@@ -73,8 +73,8 @@ export class EditProductComponentComponent implements OnInit {
       genderCategory: [0, Validators.required],
       waterResistance: [false],
       warrentyYears: [0],
-      colors: [''],
-      sizes: [''],
+      colors: [],
+      sizes: [],
       categoryId: [0, Validators.required],
       productBrandId: [0, Validators.required],
       images: [],
@@ -82,7 +82,7 @@ export class EditProductComponentComponent implements OnInit {
     this.loadProduct();
     this.loadCategories();
     this.loadBrands();
-    this.loadGenderCategories();
+    // this.loadGenderCategories();
   }
   //method color
   toggleColor(color: string) {
@@ -137,8 +137,8 @@ export class EditProductComponentComponent implements OnInit {
     }
   }
   deleteImage(imageId: number) {
-    console.log('Deleting image with ID:', imageId);
-    alert('Deleting image with ID: ' + imageId);
+    // console.log('Deleting image with ID:', imageId);
+    // alert('Deleting image with ID: ' + imageId);
     this.productService.deleteImage(imageId).subscribe({
       next: (res) => {
         console.log('Image deleted successfully', res);
@@ -161,11 +161,12 @@ export class EditProductComponentComponent implements OnInit {
         this.editProductForm.patchValue(res);
         this.selectedColors = res.colors || [];
         this.selectSizes = res.sizes || [];
-        console.log('Loaded genderCategory:', res.genderCategory);
-        alert('Loaded genderCategory: ' + res.genderCategory);
+        // console.log('Loaded genderCategory:', res.genderCategory);
+        // alert('Loaded genderCategory: ' + res.genderCategory);
         this.editProductForm.patchValue({
           colors: this.selectedColors,
           sizes: this.selectSizes,
+
           genderCategory: res.genderCategory,
         });
       },
@@ -212,17 +213,19 @@ export class EditProductComponentComponent implements OnInit {
     updateProduct.genderCategory = Number(updateProduct.genderCategory);
 
     console.log(updateProduct);
-    if (typeof updateProduct.colors === 'string') {
-      updateProduct.colors = updateProduct.colors
-        .split(',')
-        .map((c: string) => c.trim());
-    }
+    // if (typeof updateProduct.colors === 'string') {
+    //   updateProduct.colors = updateProduct.colors
+    //     .split(',')
+    //     .map((c: string) => c.trim());
+    // }
 
-    if (typeof updateProduct.sizes === 'string') {
-      updateProduct.sizes = updateProduct.sizes
-        .split(',')
-        .map((s: string) => s.trim());
-    }
+    // if (typeof updateProduct.sizes === 'string') {
+    //   updateProduct.sizes = updateProduct.sizes
+    //     .split(',')
+    //     .map((s: string) => s.trim());
+    // }
+    updateProduct.colors = this.selectedColors;
+    updateProduct.sizes = this.selectSizes;
     if (updateProduct.genderCategory === 'Male') {
       updateProduct.genderCategory = 0;
     } else if (updateProduct.genderCategory === 'Female') {
@@ -230,8 +233,8 @@ export class EditProductComponentComponent implements OnInit {
     }
 
     updateProduct.id = this.productId;
-    updateProduct.colors = this.editProductForm.value.colors;
-    updateProduct.sizes = this.editProductForm.value.sizes;
+    // updateProduct.colors = this.editProductForm.value.colors;
+    // updateProduct.sizes = this.editProductForm.value.sizes;
     console.log('Update Product Body:', updateProduct);
 
     this.productService.updateProduct(this.productId, updateProduct).subscribe({

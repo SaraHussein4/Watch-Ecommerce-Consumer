@@ -1,0 +1,12 @@
+<h1>Payment Details</h1>
+<div *ngIf="Data">
+  <h2>Payment ID: {{ Data.id }}</h2>
+  <p>Client Secret: {{ Data.clientSecret }}</p>
+
+  <h3>Items:</h3>
+  <ul>
+    <li *ngFor="let item of Data.items">
+      {{ item.name }} - {{ item.price }} EGP-{{item.amount}} EGP
+    </li>
+  </ul>
+</div>
