@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { HttpClient } from '@angular/common/http';
-import { SideBarComponent } from "../admin-side-bar/side-bar.component";
+// import { SideBarComponent } from "../admin-side-bar/side-bar.component";
 import { ProductFilter } from '../../models/ProductFilter';
 import { Brand } from '../../models/brand.model';
 import { Category } from '../../models/category.model';

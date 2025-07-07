@@ -9,12 +9,12 @@ import { BrandService } from '../../services/brand.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SideBarComponent } from "../admin-side-bar/side-bar.component";
+// import { SideBarComponent } from "../admin-side-bar/side-bar.component";
 
 @Component({
   selector: 'app-add-new-product',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, SideBarComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './add-new-product.component.html',
   styleUrls: ['./add-new-product.component.css'],
 })
