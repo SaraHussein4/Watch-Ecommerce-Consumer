@@ -14,7 +14,11 @@ import { FormsModule, NgModel } from '@angular/forms';
 })
 export class UserEditProfileComponent {
 profile: UserProfile = history.state.profile;
- constructor(private userService: UserService, private router: Router) {}
+selectedDefaultIndex: number = this.profile.addresses.findIndex(a => a.isDefault);
+
+ constructor(private userService: UserService, private router: Router) {
+ this.selectedDefaultIndex = this.profile.addresses.findIndex(a => a.isDefault);
+ }
 
   updateProfile(): void {
     // Ensure only one address is default
@@ -32,6 +36,7 @@ profile: UserProfile = history.state.profile;
   }
 
 setDefaultAddress(index: number): void {
+  this.selectedDefaultIndex = index;
   this.profile.addresses.forEach((addr, i) => {
     addr.isDefault = i === index;
   });
@@ -60,4 +65,4 @@ removeAddress(index: number): void {
 changePassword(){
   this.router.navigate(['/changePassword']);
 }
-} 
+}

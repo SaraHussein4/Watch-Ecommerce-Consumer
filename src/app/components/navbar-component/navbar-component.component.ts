@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Route, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Observable, Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { Store } from '@ngrx/store';
 import { FavouriteService } from '../../services/favourite.service';
@@ -11,7 +11,7 @@ import { initFavouriteCounter } from '../../Store/FavouriteCounter.action';
 @Component({
   selector: 'app-navbar-component',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, NgIf],
   templateUrl: './navbar-component.component.html',
   styleUrls: ['./navbar-component.component.css']
 })
@@ -29,7 +29,7 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private favouriteService: FavouriteService,
     private store: Store<{ favouriteCounter: number }>,
-  ) { 
+  ) {
 
     this.favouriteCount = this.store.select(state => state.favouriteCounter);
   }
@@ -37,11 +37,11 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
   initialCount:number = 0;
   ngOnInit() {
      this.favouriteService.getCount().subscribe({
-      next: (response) => { 
+      next: (response) => {
         this.initialCount = response;
         this.store.dispatch(initFavouriteCounter({ initialCount: this.initialCount }));
         console.log('Product added to cart successfully:', response);
-        
+
       },
       error: (err) => {
         console.error('Failed to add product to cart:', err);
@@ -49,7 +49,7 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
     });
 
 
-    
+
     this.authSub = this.authService.userData.subscribe(user => {
       this.isLoggedIn = !!user;
 
