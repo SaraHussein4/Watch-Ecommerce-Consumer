@@ -4,6 +4,7 @@ import { FooterComponentComponent } from './components/footer-component/footer-c
 import { NavbarComponentComponent } from './components/navbar-component/navbar-component.component';
 import { Router } from '@angular/router';
 import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
+import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-root',
   imports: [
@@ -12,6 +13,7 @@ import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
     RouterOutlet,
     RouterModule,
     ChatBotComponent,
+    NgIf
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

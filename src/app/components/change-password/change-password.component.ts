@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { CustomInputComponent } from "../shared/custom-input/custom-input.component";
 import { UserService } from '../../services/user.service';
 import { ChangePassword } from '../../models/changePassword.model';
 import { Location, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-change-password',
-  imports: [CustomInputComponent,FormsModule,NgFor,NgIf,NgClass],
+  imports: [FormsModule, NgIf, NgClass],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.css'
 })
@@ -22,7 +21,7 @@ export class ChangePasswordComponent {
   showNew = false;
   showConfirm = false;
 
-   constructor(private userService: UserService, 
+   constructor(private userService: UserService,
     private location: Location ) {}
 
  onSubmit() {
