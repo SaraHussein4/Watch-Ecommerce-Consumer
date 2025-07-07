@@ -1,95 +1,134 @@
- body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa; /* Light background for the page */
-            display: flex; /* Use flexbox for centering */
-            flex-direction: column; /* Stack content vertically */
-            justify-content: center; /* Center content vertically if space allows */
-            align-items: center; /* Center content horizontally */
-            min-height: 100vh; /* Ensure it takes full viewport height */
-            margin: 0;
-            padding: 20px; /* Add overall padding to the body to create space at top/bottom/sides */
-            box-sizing: border-box; /* Include padding in element's total width and height */
-        }
-        .signup-container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 500px; /* Limit width for better readability */
-            width: 100%;
-            margin-top: auto; /* Push content away from top, centering vertically */
-            margin-bottom: auto; /* Push content away from bottom, centering vertically */
-        }
-        .signup-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #343a40;
-        }
-        .login-link-text {
-            font-size: 0.9rem;
-            color: #6c757d;
-            margin-bottom: 30px;
-        }
-        .login-link-text a {
-            color: #007bff; /* Bootstrap primary blue */
-            text-decoration: none;
-        }
-        .login-link-text a:hover {
-            text-decoration: underline;
-        }
-        .form-label {
-            font-weight: 500;
-            color: #495057;
-            margin-bottom: 5px; /* Small margin below label */
-        }
-        .form-control {
-            border-radius: 8px; /* Rounded input fields */
-            padding: 10px 15px;
-            border: 1px solid #ced4da;
-        }
-        .form-control:focus {
-            border-color: #8c7ae6; /* Purple border on focus */
-            box-shadow: 0 0 0 0.25rem rgba(140, 122, 230, 0.25);
-        }
-        .btn-create-account {
-            background-color: #212529; /* Dark button background */
-            color: #ffffff;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 20px; /* Pill-shaped button */
-            width: 100%;
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .btn-create-account:hover {
-            background-color: #343a40; /* Darker on hover */
-            transform: translateY(-2px);
-            color: #ffffff; /* Ensure text remains white */
-        }
-        .form-check-label {
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
-        /* Adjust column spacing for address fields */
-        .address-row .col-md-6,
-        .address-row .col-md-4 {
-            padding-right: 10px;
-            padding-left: 10px;
-        }
-        .address-row .col-md-6:last-child,
-        .address-row .col-md-4:last-child {
-            padding-right: 0;
-        }
-        .address-row .col-md-6:first-child,
-        .address-row .col-md-4:first-child {
-            padding-left: 0;
-        }
-        .form-floating label {
-            padding-left: 15px;
-        }
-        .form-floating > .form-control {
-            padding: 1rem 0.75rem;
-        }
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  /* background-image: url(https://stock.adobe.com/images/luxury-watch-with-black-background-watch-on-a-black-background-isolated-leather-belt-40mm-disc-women-s-men-s-watch/345638885);
+  background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
+}
+
+.register-container {
+  max-width: 500px;
+  width: 100%;
+}
+
+.register-card {
+  background-color: #f6f6f6;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(7, 35, 41, 0.4);
+}
+
+.register-title {
+  font-size: 35px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #30636f;
+  text-align: center;
+}
+
+.register-subtitle {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #30636f;
+  margin-bottom: 30px;
+}
+
+.register-subtitle a {
+  color: #30636f;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.register-subtitle a:hover {
+  color: #072329;
+  text-shadow: 0 2px 5px rgba(7, 35, 41, 0.2);
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 18px;
+  color: #30636f;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 10px 15px;
+  border: 1px solid #ced4da;
+}
+
+.form-control:focus {
+  border-color: #30636f;;
+  box-shadow: 0 0 0 0.25rem rgba(7, 35, 41, 0.4);
+}
+
+.btn-register {
+  background-color: #30636f;
+  color: #ffffff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 20px;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-register:hover {
+  background-color: #075364;
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.register-login-link {
+  font-size: 0.9rem;
+  color:#30636f;
+}
+
+.register-login-link a {
+  color: #30636f;
+  text-decoration: none;
+}
+
+.register-login-link a:hover {
+  color: #072329;
+  text-shadow: 0 2px 5px rgba(7, 35, 41, 0.2);
+}
+input {
+  background-color: #ffff;
+}
+.login-input{
+  border-radius: 50px;
+}
+input:hover {
+  background-color: #d9e4e5;
+}
+.alert.alert-danger {
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 0, 0, 0.05);
+  color: #d9534f;
+  font-size: 0.9rem;
+  padding: 10px 15px;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+
+.alert.alert-danger p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.alert.alert-danger::before {
+  margin-right: 5px;
+}

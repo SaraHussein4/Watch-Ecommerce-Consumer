@@ -1,38 +1,39 @@
-<div class="signup-container container mt-3">
-    <h2 class="signup-title">Signup</h2>
+<div class="login-container container mt-5">
+  <div class="login-card mx-auto">
+    <h2 class="login-title">Login</h2>
+    <p class="login-subtitle">Don't have an account? <a href="/register">Create a new one.</a>
+    </p>
 
-    <form [formGroup]="loginForm" class="signup-form" (ngSubmit)="onSubmit()"> 
-      
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Enter Your Email</label>
+        <input type="email" class="form-control login-input" formControlName="email" id="email"
+          placeholder="you@example.com" required>
+      </div>
+      <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched)" class="alert alert-danger mb-3"
+        role="alert">
+        <p *ngIf="loginForm.get('email')?.errors?.['required']">Email is Required</p>
+        <p *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email address.</p>
+      </div>
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Email Address*</label>
-            <input type="email" class="form-control" formControlName="email" id="email" placeholder="Enter your email address" required>
-        </div>
-        <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched)" class="alert alert-danger mb-3" role="alert">
-            <p *ngIf="loginForm.get('email')?.errors?.['required']">Email is Required</p>
-            <p *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email address.</p>
-        </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Enter Your Password</label>
+        <input type="password" class="form-control login-input" formControlName="password" id="password"
+          placeholder="Enter your password" required>
+      </div>
+      <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched)"
+        class="alert alert-danger mb-3" role="alert">
+        <p *ngIf="loginForm.get('password')?.errors?.['required']">Password is Required</p>
+        <p *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</p>
+      </div>
 
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-login">Login</button>
+      </div>
 
-
-        <div class="mb-3">
-            <label for="password" class="form-label">Password*</label>
-            <input type="password" class="form-control" formControlName="password" id="password" placeholder="Enter your password" required>
-        </div>
-
-        <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched)" class="alert alert-danger mb-3" role="alert">
-            <p *ngIf="loginForm.get('password')?.errors?.['required']">Password is Required</p>
-            <p *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</p>
-        </div>
-
-
-
-        <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-create-account">Sign In</button>
-        </div>
-
-        <p class="text-center mt-3 login-link-text">
-            Don't have an account?  <a routerLink="register">Signup</a>
-        </p>
+      <p class="text-center mt-3 login-forgot">
+        <a routerLink="/forget-password">Forgot Your Password?</a>
+      </p>
     </form>
+  </div>
 </div>

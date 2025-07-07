@@ -12,7 +12,6 @@ import { AdminLayoutComponent } from './components/adminLayout/adminLayout.compo
 import { CustomersComponent } from './components/Customers/Customers.component';
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
 import { FavouriteComponent } from './components/favourite/favourite.component';
-
 import { PaymentComponentComponent } from './components/payment-component/payment-component.component';
 
 import { UserEditProfileComponent } from './components/user-edit-profile/user-edit-profile.component';
