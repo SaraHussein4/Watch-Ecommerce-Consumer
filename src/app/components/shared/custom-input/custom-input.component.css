@@ -1,0 +1,20 @@
+.custom-input{
+  display: flex;
+  flex-direction: column;
+}
+
+.input{
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input:focus{
+  border-color: #007bff;
+  outline: none;
+}
+
+.required{
+  color: red;
+  font-size: 12px;
+}

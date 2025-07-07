@@ -1,0 +1,25 @@
+<div *ngIf="profile" class="container mt-4 p-4 border rounded shadow-sm bg-light">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-primary">{{ profile.name }}</h2>
+    <button class="btn btn-outline-primary" (click)="editProfile()">Edit Profile</button>
+  </div>
+
+  <div class="mb-3">
+    <p><strong>Email:</strong> {{ profile.email }}</p>
+    <p><strong>Phone:</strong> {{ profile.phoneNumber }}</p>
+  </div>
+
+  <h4 class="text-secondary mt-4">Addresses</h4>
+  <ul class="list-group">
+    <li
+      *ngFor="let address of profile.addresses"
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      <span>
+        {{ address.street }}, {{ address.state }} - {{ address.buildingNumber }}
+      </span>
+      <span *ngIf="address.isDefault" class="badge bg-success">Default</span>
+    </li>
+  </ul>
+</div>
+
