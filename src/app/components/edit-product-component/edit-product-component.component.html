@@ -1,135 +1,4 @@
-<!-- <h1 class="hover mt-3"><strong>Edit Product</strong></h1>
 
-<div class="container mt-5 me-5 " >
-  <h2 class="product-title ">Product Information</h2>
-  <div class="row col-md-12">
-<form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
-  <div class="mt-3">
-    <label class="mb-1">Product Name:</label>
-    <div></div>
-    <input class="myInput" type="text" formControlName="name" />
-  </div>
-
-  <div class="mt-3">
-    <label class="mb-1">Description:</label>
-    <textarea class="myInputDescription" formControlName="description"></textarea>
-  </div>
-
-  <div class="mt-3">
-    <label class="mb-1">Price:</label>
-    <div></div>
-    <input class="myInput" type="number" formControlName="price" />
-  </div>
-
-  <div class="mt-3">
-    <label class="mb-1">Quantity:</label>
-    <div></div>
-    <input class="myInput" type="number" formControlName="quantity" />
-  </div>
-
-  <div class="mt-3">
-    <label class="mb-1">Status:</label>
-    <div></div>
-    <input class="myInput" type="text" formControlName="status" />
-  </div>
-
-  <div class="mt-3" style="display: flex; align-items: center;">
-    <label class="mb-1" style="margin-right: 10px;">Gender Category:</label>
-    <select class="gender" formControlName="genderCategory">
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-    </select>
-  </div>
-
-
-  <div class="mt-3 water-resistance-container">
-    <label class="mb-1">Water Resistance:</label>
-    <input class="water-checkbox" type="checkbox" formControlName="waterResistance" />
-    <span class="water-label">Water Resistance</span>
-  </div>
-
-
-
-  <div class="mt-3">
-    <label class="mb-1">Warranty Years:</label>
-    <input class="myInput" type="number" formControlName="warrentyYears" />
-  </div>
-
-  <div class="mt-3">
-    <label class="mb-1">Colors:</label>
-    <div class="colors-grid">
-      <div *ngFor="let color of availableColors" class="color-item">
-        <input type="checkbox" [checked]="selectedColors.includes(color)" (change)="toggleColor(color)">
-        {{color}}
-      </div>
-    </div>
-  </div>
-
-  <div class="mt-3">
-    <label class="mb-1">Sizes:</label>
-    <div class="sizes-grid">
-      <div *ngFor="let size of availableSizes" class="size-item">
-        <input type="checkbox" [checked]="selectSizes.includes(size)" (change)="toggleSize(size)">
-        {{size}}
-      </div>
-    </div>
-  </div>
-
-  <div class="mt-3">
-    <label class="mb-1">Category:</label>
-    <select formControlName="categoryId" class="category-select">
-      <option *ngFor="let cat of categories" [value]="cat.id">
-        {{cat.name}}
-      </option>
-    </select>
-  </div>
-
-  <div class="mt-3">
-    <label class="mb-1">Brand:</label>
-    <select formControlName="productBrandId" class="brand-select">
-      <option *ngFor="let brd of brands" [value]="brd.id">
-        {{brd.name}}
-      </option>
-    </select>
-  </div>
-
-  <div class="mt-3">
-    <div *ngIf="product?.images && product.images.length > 0">
-      <label class="mb-1">Product Images:</label>
-      <div class="product-images-container">
-        <div *ngFor="let img of product.images" class="image-wrapper">
-          <img [src]="'https://localhost:7071' + img.url" alt="Product Image" class="product-image">
-          <button type="button" (click)="deleteImage(img.id)" class="delete-button m-1">
-            <i class="fa fa-trash"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-<div class="mb-3 mt-5">
-  <label for="imageUpload" class="form-label fw-semibold">Add New Images:</label>
-  <input type="file" id="imageUpload" (change)="onImageSelected($event)" multiple class="form-control"
-    accept="image/*" />
-</div>
-
-<div class="d-flex justify-content-end">
-  <button type="button" class="btn btn-custom" (click)="uploadImages()">
-    Add New Images
-  </button>
-</div>
-
-<div style="display: flex; justify-content: center; gap: 50px; margin-top: 50px; margin-bottom: 40px;">
-  <button type="submit" class="btn btn-custom">Update Product</button>
-  <button type="button" class="btn btn-custom" (click)="onCancel()">Cancel</button>
-</div>
-
-
-</form>
-</div>
-</div> -->
 <h1 class="hover mt-3"><strong>Edit Product</strong></h1>
 
 <div class="container mt-5 me-5">
@@ -160,7 +29,7 @@
 
       <div class="col-md-6 mt-3">
         <label class="mb-1">Brand:</label>
-        <select formControlName="productBrandId" class="form-control">
+        <select formControlName="productBrandId" class="form-control brand-select">
           <option *ngFor="let brd of brands" [value]="brd.id">{{brd.name}}</option>
         </select>
       </div>
@@ -175,7 +44,8 @@
 
       <div class="col-md-6 mt-3">
         <label class="mb-1">Category:</label>
-        <select formControlName="categoryId" class="form-control">
+        <select formControlName="categoryId" class="form-control category-select">
+
           <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
         </select>
       </div>
