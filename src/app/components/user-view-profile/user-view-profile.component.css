@@ -1,0 +1,28 @@
+.edit-Button {
+  background-color: #316270;
+  border: 1px solid white;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 10px;
+}
+.edit-Button:hover {
+  background-color: #6d8f99;
+  color: white;
+}
+.text {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #295460;
+}
+.title{
+  font-size: 30px;
+  font-weight: bold;
+}
+:host ::ng-deep .bg-success{
+  background-color: #317049 !important;
+}
