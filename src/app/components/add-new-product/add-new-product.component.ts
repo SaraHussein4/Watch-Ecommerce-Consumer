@@ -52,10 +52,10 @@ export class AddNewProductComponent implements OnInit {
       genderCategory: ['', Validators.required],
       waterResistance: [false],
       WarrentyYears: [1, [Validators.min(0)]],
-      colors: ['', Validators.required],  // comma-separated
-      sizes: ['', Validators.required],   // comma-separated
+      colors: ['', Validators.required], // comma-separated
+      sizes: ['', Validators.required], // comma-separated
       productBrandId: ['', Validators.required],
-      categoryId: ['', Validators.required]
+      categoryId: ['', Validators.required],
     });
   }
 
