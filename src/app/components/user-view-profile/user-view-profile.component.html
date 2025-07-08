@@ -1,25 +1,30 @@
-<div *ngIf="profile" class="container mt-4 p-4 border rounded shadow-sm bg-light">
+<div
+  *ngIf="profile"
+  class="container mt-4 p-4 border rounded shadow-sm bg-light"
+>
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="text-primary">{{ profile.name }}</h2>
-    <button class="btn btn-outline-primary" (click)="editProfile()">Edit Profile</button>
+    <h2 class="text title">
+      <span class="text-dark">Welcome Back,</span> {{ profile.name }}
+    </h2>
+    <button class="edit-Button" (click)="editProfile()">Edit Profile</button>
   </div>
 
   <div class="mb-3">
-    <p><strong>Email:</strong> {{ profile.email }}</p>
-    <p><strong>Phone:</strong> {{ profile.phoneNumber }}</p>
+    <p class="text"><strong>Email:</strong> {{ profile.email }}</p>
+    <p class="text"><strong>Phone:</strong> {{ profile.phoneNumber }}</p>
   </div>
 
-  <h4 class="text-secondary mt-4">Addresses</h4>
+  <h4 class="text mt-4"><strong>Addresses</strong></h4>
   <ul class="list-group">
     <li
       *ngFor="let address of profile.addresses"
       class="list-group-item d-flex justify-content-between align-items-center"
     >
-      <span>
-        {{ address.street }}, {{ address.state }} - {{ address.buildingNumber }}
+      <span class="text">
+        {{ address.buildingNumber }} {{ address.street }} St,
+        {{ address.state }}
       </span>
       <span *ngIf="address.isDefault" class="badge bg-success">Default</span>
     </li>
   </ul>
 </div>
-

@@ -41,8 +41,13 @@ export class ProductCardComponent implements OnInit {
   }
 
   editProduct(id: any) {
+
     console.log('Edit Product ID:', id);
     this.routre.navigateByUrl(`/products/edit/${id}`);
+
+//     console.log("Edit Product ID:", id);
+//     this.routre.navigateByUrl(`/admin/products/edit/${id}`);
+
   }
   deleteProduct(id: any) {
     if (confirm('Are you sure you want to delete this product?')) {

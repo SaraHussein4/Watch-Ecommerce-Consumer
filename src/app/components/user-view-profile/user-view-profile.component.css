@@ -1,0 +1,52 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  background-color: #fdfdfd;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.edit-Button {
+  background-color: #316270;
+  border: none;
+  color: white;
+  font-size: 15px;
+  padding: 10px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.edit-Button:hover {
+  background-color: #3e7b8d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.text {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #295460;
+  line-height: 1.6;
+}
+.title{
+  font-size: 32px;
+  font-weight: 700px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+:host ::ng-deep .bg-success{
+  background-color: #2e8b57 !important;
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+.list-group-item {
+  border: none;
+  border-radius: 10px !important;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  padding: 15px 20px;
+  font-size: 15px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}

@@ -51,9 +51,11 @@ export class AddNewProductComponent implements OnInit {
       status: ['', Validators.required],
       genderCategory: ['', Validators.required],
       waterResistance: [false],
+
       WarrentyYears: [1, [Validators.min(0)]],
       colors: ['', Validators.required], // comma-separated
       sizes: ['', Validators.required], // comma-separated
+
       productBrandId: ['', Validators.required],
       categoryId: ['', Validators.required],
     });
@@ -105,9 +107,9 @@ export class AddNewProductComponent implements OnInit {
     formData.append('Status', formValue.status);
     formData.append('GenderCategory', formValue.genderCategory);
     formData.append('WaterResistance', formValue.waterResistance.toString());
-    formData.append('WarrentyYears', formValue.WarrentyYears.toString());
-    formData.append('ProductBrandId', formValue.productBrandId.toString());
-    formData.append('CategoryId', formValue.categoryId.toString());
+    formData.append('warrentyYears', formValue.warrentyYears.toString());
+    formData.append('productBrandId', formValue.productBrandId.toString());
+    formData.append('categoryId', formValue.categoryId.toString());
 
     // Add multiple colors/sizes
     // formValue.colors.split(',').map((c: string) => c.trim()).forEach((c: string) => formData.append('Colors', c));

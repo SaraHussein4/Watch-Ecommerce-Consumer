@@ -1,0 +1,93 @@
+ /* ===== Card Container ===== */
+.product-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #ffffff;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Product Image ===== */
+.product-image {
+  height: 250px;
+  object-fit: cover;
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* ===== Typography ===== */
+.card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #212529;
+  margin-bottom: 8px;
+}
+
+.product-price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #316270;
+  margin-bottom: 12px;
+}
+
+/* ===== Delete Icon for Admin ===== */
+.btn-delete-icon {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-delete-icon:hover {
+  background-color: #bb2d3b;
+}
+
+/* ===== Primary Teal Themed Button (Show Details) ===== */
+.btn-outline-teal {
+  border: 2px solid #316270;
+  color: #316270;
+  background-color: transparent;
+  border-radius: 20px;
+  padding: 6px 16px;
+  transition: all 0.2s ease;
+  font-weight: bold;
+}
+
+.btn-outline-teal:hover {
+  background-color: #316270;
+  color: white;
+}
+
+/* ===== Edit Button (Indigo Variant) ===== */
+/* ===== Edit Button (Darker Teal Variant) ===== */
+.btn-outline-edit {
+  border: 2px solid #2a4d55;
+  color: #2a4d55;
+  background-color: transparent;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-edit:hover {
+  background-color: #2a4d55;
+  color: white;
+}
+
+
+/* ===== General Button Style Fix (Fallback for bold) ===== */
+button.btn {
+  font-weight: bold !important;
+}
