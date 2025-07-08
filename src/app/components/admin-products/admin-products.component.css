@@ -1,0 +1,64 @@
+ /* Container */
+.admin-container {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Inputs & Selects */
+.custom-input,
+.custom-select {
+  border: 2px solid #316270;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.custom-input:focus,
+.custom-select:focus {
+  border-color: #316270;
+  box-shadow: 0 0 0 0.2rem rgba(49, 98, 112, 0.25);
+  outline: none;
+}
+
+/* Add Button */
+.btn-add-product {
+  background-color: #316270;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+.btn-add-product:hover {
+  background-color: #254953;
+}
+
+/* Pagination */
+.pagination .page-link {
+  border-radius: 30px;
+  margin: 0 5px;
+  padding: 8px 16px;
+  color: #316270;
+  border: 1px solid #316270;
+  background-color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.pagination .page-item.active .page-link {
+  background-color: #316270;
+  color: white;
+  border-color: #316270;
+}
+.pagination .page-item.disabled .page-link {
+  color: #999;
+  border-color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .btn-add-product {
+    width: 100%;
+  }
+}
