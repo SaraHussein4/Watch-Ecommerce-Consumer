@@ -17,6 +17,7 @@ import { PaymentComponentComponent } from './components/payment-component/paymen
 import { UserEditProfileComponent } from './components/user-edit-profile/user-edit-profile.component';
 import { UserViewProfileComponent } from './components/user-view-profile/user-view-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 
 
 export const routes: Routes = [
@@ -34,6 +35,8 @@ export const routes: Routes = [
   { path: 'payment', component: PaymentComponentComponent },
 
   { path: 'changePassword', component: ChangePasswordComponent },
+  { path: 'payment-success', component: PaymentSuccessComponent }
+,
 
   {
     path: 'admin',

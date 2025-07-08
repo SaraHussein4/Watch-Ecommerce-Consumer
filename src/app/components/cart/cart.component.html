@@ -132,6 +132,21 @@
   <div class="text-danger small" *ngIf="deliveryMethodId.invalid && deliveryMethodId.touched">
     Delivery Method is required.
   </div>
+<select
+  class="form-select mb-3"
+  [(ngModel)]="checkoutData.paymentMethod"
+  name="paymentMethod"
+  required
+  #paymentMethod="ngModel"
+>
+  <option value="" disabled selected>-- Select Payment Method --</option>
+  <option value="cash">Cash on Delivery</option>
+  <option value="card">Credit/Debit Card</option>
+</select>
+<div class="text-danger small" *ngIf="paymentMethod.invalid && paymentMethod.touched">
+  Payment Method is required.
+</div>
+
 </form>
 
       </div>

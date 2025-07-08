@@ -69,4 +69,17 @@ private cartItemCountSubject = new BehaviorSubject<number>(0);
     const count = basket?.items?.reduce((sum, item) => sum + item.quantity, 0) ?? 0;
     this.cartItemCountSubject.next(count);
   }
+
+  addItemToBasket(newItem: CartItem): Observable<CustomerBasket> {
+  return new Observable(observer => {
+    this.httpClient.post<CustomerBasket>(`${this.baseUrl}/AddItem`, newItem).subscribe({
+      next: updatedBasket => {
+        this.updateCartCount(updatedBasket);
+        observer.next(updatedBasket);
+        observer.complete();
+      },
+      error: err => observer.error(err)
+    });
+  });
+}
 }

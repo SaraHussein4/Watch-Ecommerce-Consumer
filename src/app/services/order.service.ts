@@ -38,5 +38,11 @@ export class OrderService {
     `${this.baseUrl}/DeliveryCost?governorateId=${governorateId}&deliveryMethodId=${deliveryMethodId}`
   );
 }
+createStripeSession(orderData: CreateOrderRequest): Observable<{url: string}> {
+  return this.httpClient.post<{url: string}>(`${this.baseUrl}/CreateStripe`, orderData);
+}
+confirmPayment(sessionId: string): Observable<any> {
+  return this.httpClient.post(`${this.baseUrl}/confirm-payment?sessionId=${sessionId}`, {});
+}
 
 }
