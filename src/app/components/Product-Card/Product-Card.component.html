@@ -49,10 +49,9 @@
         *ngIf="isAdmin"
 
         class="btn btn-outline-warning"
-        [routerLink]="['/admin/products/edit', product.id]"
+        [routerLink]="['/admin/products/edit/', product.id]"
 
-        class="btn btn-outline-edit"
-        (click)="editProduct(product.id)"
+      
 
       >
         Edit

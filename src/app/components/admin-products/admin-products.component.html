@@ -71,12 +71,14 @@
 
         <!-- Pagination Controls -->
         <nav *ngIf="totalCount > filters.pageSize">
-          <ul class="pagination justify-content-center mt-4">
+          <nav class="pagination justify-content-center mt-4">
             <li class="page-item" [class.disabled]="filters.page === 1">
               <button class="page-link" (click)="onPageChange(filters.page - 1)">
                 Previous
               </button>
             </li>
+          </nav>
+        </nav>
 
         <!-- Brand Filter -->
         <select
@@ -90,14 +92,14 @@
             {{ brand.name }}
           </option>
         </select>
-      </div>
+      <!-- </div> -->
 
 
       <!-- Add Product Button -->
       <button [routerLink]="['/admin/addProduct']" class="btn btn-add-product">
         + Add New Product
       </button>
-    </div>
+    <!-- </div> -->
 
     <!-- Product Cards -->
     <div class="row g-4">
@@ -109,10 +111,10 @@
         ></app-Product-Card>
       </div>
 
-    </main>
+    <!-- </main> -->
   </div>
 
-    </div>
+    <!-- </div> -->
 
     <!-- Pagination -->
     <nav *ngIf="totalCount > filters.pageSize">
@@ -134,4 +136,5 @@
     </nav>
   </main>
 
+</div>
 </div>
