@@ -8,6 +8,7 @@ export interface Order {
   deliveryMethodId: number;
   subTotal: number;
   userId: number;
+  paymentStatus: string;
 }
 
 export interface OrderItem {
@@ -21,6 +22,7 @@ export interface OrderItem {
 export interface CreateOrderRequest {
   shippingAddress: ShippingAddress;
   deliveryMethodId: number;
+  paymentMethod: string;
 }
 
 export interface ShippingAddress {

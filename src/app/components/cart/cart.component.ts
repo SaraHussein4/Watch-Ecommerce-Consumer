@@ -31,7 +31,8 @@ export class CartComponent implements OnInit {
       street: '',
       governorateId: 0
     },
-    deliveryMethodId: 0
+    deliveryMethodId: 0,
+     paymentMethod: 'cash'
   };
 
   constructor(
@@ -72,13 +73,26 @@ export class CartComponent implements OnInit {
     });
   }
 
-  updateQuantity(item: CartItem, delta: number) {
-    item.quantity += delta;
-    if (item.quantity < 1) {
-      item.quantity = 1;
-    }
+ updateQuantity(item: CartItem, delta: number) {
+  const newQuantity = item.quantity + delta;
+  if (newQuantity < 1) {
+    item.quantity = 1;
+    return;
+  }
+  
+  const diff = delta;
+  if (diff > 0) {
+    this.cartService.addItemToBasket({ ...item, quantity: diff }).subscribe({
+      next: updatedBasket => this.basket = updatedBasket,
+      error: err => console.error(err)
+    });
+  } else {
+    
+    item.quantity = newQuantity;
     this.updateBasket();
   }
+}
+
 
   updateBasket() {
     if (!this.basket) return;
@@ -106,16 +120,16 @@ export class CartComponent implements OnInit {
     });
   }
 
-  submitOrder(checkoutForm: NgForm) {
-    if (!this.basket) return;
-     if (checkoutForm.invalid) {
-    Object.values(checkoutForm.controls).forEach(control => {
-      control.markAsTouched();
-    });
+submitOrder(checkoutForm: NgForm) {
+  if (!this.basket) return;
+
+  if (checkoutForm.invalid) {
+    Object.values(checkoutForm.controls).forEach(control => control.markAsTouched());
     alert('Please fill all required fields.');
     return;
   }
-     if (
+
+  if (
     this.checkoutData.shippingAddress.governorateId === 0 ||
     this.checkoutData.deliveryMethodId === 0
   ) {
@@ -123,6 +137,14 @@ export class CartComponent implements OnInit {
     return;
   }
 
+  if (this.checkoutData.paymentMethod === 'card') {
+    this.orderService.createStripeSession(this.checkoutData).subscribe({
+      next: (res) => {
+        window.location.href = res.url;
+      },
+      error: (err) => console.error('Failed to create Stripe session:', err),
+    });
+  } else {
     this.orderService.createOrder(this.checkoutData).subscribe({
       next: (res) => {
         console.log('Order placed:', res);
@@ -136,9 +158,12 @@ export class CartComponent implements OnInit {
 
         alert('Order submitted successfully!');
       },
-      error: (err) => console.error('Order failed:', err)
+      error: (err) => console.error('Order failed:', err),
     });
   }
+}
+
+
    loadGovernorates() {
     this.orderService.getAllGovernorates().subscribe({
       next: (res) => this.governorates = res,
@@ -175,5 +200,14 @@ export class CartComponent implements OnInit {
     if (imageUrl.startsWith('http')) return imageUrl;
     return `https://localhost:7071${imageUrl}`;
   }
+
+  addNewItem(item: CartItem) {
+  this.cartService.addItemToBasket(item).subscribe({
+    next: updatedBasket => {
+      this.basket = updatedBasket;
+    },
+    error: err => console.error('Failed to add item:', err)
+  });
+}
 
 }
