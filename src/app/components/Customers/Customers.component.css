@@ -1,16 +1,25 @@
 .table-responsive {
   border-radius: 0.5rem;
   overflow: hidden;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.5rem 1rem rgba(48, 99, 111, 0.6);
 }
 
 .table th {
   vertical-align: middle;
   white-space: nowrap;
+  background-color: #30636f;
+  color: white;
+  text-align: center;
+  font-size: 22px;
+    font-weight: 900;
 }
 
 .table td {
   vertical-align: middle;
+  color:#30636f;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .btn-sm {
@@ -20,4 +29,19 @@
 
 .bi {
   margin-right: 0.25rem;
+}
+
+h1 {
+  color: #30636f;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+h1:hover {
+  background-color: #30636f;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: none;
 }

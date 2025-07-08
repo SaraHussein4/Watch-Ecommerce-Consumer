@@ -1,4 +1,8 @@
- <div class="admin-container container-fluid py-4">
+
+<div class="container-fluid">
+  <div class="row">
+
+
   <main class="px-md-4">
     <!-- Filter Controls & Add Product Button -->
     <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
@@ -13,6 +17,7 @@
           style="width: 250px;"
         />
 
+
         <!-- Category Filter -->
         <select
           class="form-select custom-select"
@@ -25,6 +30,53 @@
             {{ category.name }}
           </option>
         </select>
+
+
+            <!-- First Dropdown -->
+            <select class="form-select" style="width: 180px;" [(ngModel)]="selectedCategoryId"
+              (change)="onCategoryChange()">
+              <option value="" selected>All categories</option>
+              <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+
+            <!-- Second Dropdown -->
+            <select class="form-select" style="width: 180px;" [(ngModel)]="selectedBrandId" (change)="onBrandChange()">
+              <option value="" selected>All Brands</option>
+              <option *ngFor="let brand of brands" [value]="brand.id">
+                {{ brand.name }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Add Product Button (stays on right) -->
+          <button [routerLink]="['/admin/addProduct']" class="btn btn-primary">
+            Add New Product
+          </button>
+        </div>
+
+        <!-- Rest of your existing template remains the same -->
+        <div class="row g-4">
+          <!-- ... existing product grid ... -->
+        </div>
+
+        <!-- Products Grid -->
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6" *ngFor="let product of products">
+            <app-Product-Card [product]="product" [isAdmin]="true"
+              (productDeleted)="onProductDeleted($event)"></app-Product-Card>
+          </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <nav *ngIf="totalCount > filters.pageSize">
+          <ul class="pagination justify-content-center mt-4">
+            <li class="page-item" [class.disabled]="filters.page === 1">
+              <button class="page-link" (click)="onPageChange(filters.page - 1)">
+                Previous
+              </button>
+            </li>
 
         <!-- Brand Filter -->
         <select
@@ -39,6 +91,7 @@
           </option>
         </select>
       </div>
+
 
       <!-- Add Product Button -->
       <button [routerLink]="['/admin/addProduct']" class="btn btn-add-product">
@@ -55,6 +108,10 @@
           (productDeleted)="onProductDeleted($event)"
         ></app-Product-Card>
       </div>
+
+    </main>
+  </div>
+
     </div>
 
     <!-- Pagination -->
@@ -76,4 +133,5 @@
       </ul>
     </nav>
   </main>
+
 </div>
