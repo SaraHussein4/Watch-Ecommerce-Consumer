@@ -41,20 +41,18 @@
 
     <!-- Action Buttons -->
     <div class="d-flex gap-2 flex-wrap mt-2">
-      <button class="btn btn-outline-teal" (click)="showDetails(product.id)">
+      <button
+        *ngIf="!isAdmin"
+      class="btn btn-outline-teal" (click)="showDetails(product.id)">
         Show Details
       </button>
 
       <button
         *ngIf="isAdmin"
-
-        class="btn btn-outline-warning"
+        class="btn btn-outline-teal"
         [routerLink]="['/admin/products/edit/', product.id]"
-
-      
-
       >
-        Edit
+        Edit Product 
       </button>
     </div>
   </div>
