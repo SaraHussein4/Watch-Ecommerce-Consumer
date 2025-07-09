@@ -36,7 +36,7 @@ onSubmit() {
         this.authService.decodeUserData();
         console.log('Login successful:', res);
 
-        this.router.navigate(['/product']);
+        this.router.navigate(['/home']);
 
 
       },
