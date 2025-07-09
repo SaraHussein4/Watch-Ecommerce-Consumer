@@ -3,7 +3,7 @@ export interface ProductCreateRequest {
   description?: string;
   price: number;
   quantity: number;
-  status: string;
+  // status: string;
   genderCategory: string;
   waterResistance: boolean;
   warrentyYears: number;
