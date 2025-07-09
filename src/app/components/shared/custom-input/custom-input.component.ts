@@ -14,10 +14,7 @@ export class CustomInputComponent {
   @Input() placeholder: string = '';
   @Input() type: 'text' | 'email' | 'password' |'number' = 'text';
   @Input() isRequired: boolean = false;
+  @Input() isPhone: boolean = false;
   @Output() valueChange = new EventEmitter<string | number>();
-  // showPassword = false;
-  // toggleVisibility() {
-  //   this.showPassword = !this.showPassword;
-  // }
 
 }

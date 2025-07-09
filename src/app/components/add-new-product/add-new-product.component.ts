@@ -48,7 +48,7 @@ export class AddNewProductComponent implements OnInit {
       description: [''],
       price: [0, [Validators.required, Validators.min(0.01)]],
       quantity: [1, [Validators.required, Validators.min(1)]],
-      status: ['', Validators.required],
+      // status: ['', Validators.required],
       genderCategory: ['', Validators.required],
       waterResistance: [false],
 
@@ -104,7 +104,7 @@ export class AddNewProductComponent implements OnInit {
     formData.append('Description', formValue.description ?? '');
     formData.append('Price', formValue.price.toString());
     formData.append('Quantity', formValue.quantity.toString());
-    formData.append('Status', formValue.status);
+    // formData.append('Status', formValue.status);
     formData.append('GenderCategory', formValue.genderCategory);
     formData.append('WaterResistance', formValue.waterResistance.toString());
     formData.append('warrentyYears', formValue.warrentyYears.toString());

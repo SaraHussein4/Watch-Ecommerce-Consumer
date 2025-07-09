@@ -15,12 +15,29 @@ import { FormsModule, NgModel } from '@angular/forms';
 export class UserEditProfileComponent {
 profile: UserProfile = history.state.profile;
 selectedDefaultIndex: number = this.profile.addresses.findIndex(a => a.isDefault);
+duplicateAddressMessage: string = '';
+
 
  constructor(private userService: UserService, private router: Router) {
  this.selectedDefaultIndex = this.profile.addresses.findIndex(a => a.isDefault);
  }
 
   updateProfile(): void {
+    this.duplicateAddressMessage = '';
+
+  const hasDuplicate = this.profile.addresses.some((addr, i, arr) => {
+    return arr.findIndex(a =>
+      a.street === addr.street &&
+      a.state === addr.state &&
+      a.buildingNumber === addr.buildingNumber
+    ) !== i;
+  });
+
+  if (hasDuplicate) {
+    this.duplicateAddressMessage = 'Duplicate address found. Please remove or change it.';
+    return;
+  }
+
     // Ensure only one address is default
     this.profile.addresses.forEach((addr, idx) => {
       addr.isDefault = idx === this.profile.addresses.findIndex(a => a.isDefault);
@@ -30,6 +47,7 @@ selectedDefaultIndex: number = this.profile.addresses.findIndex(a => a.isDefault
       next: () => this.router.navigate(['/viewProfile']),
       error: (err) => console.error('Update failed', err)
     });
+
   }
   cancel(): void {
     this.router.navigate(['/viewProfile']);
