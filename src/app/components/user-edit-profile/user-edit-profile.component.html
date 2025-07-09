@@ -23,6 +23,7 @@
     label="Phone Number"
     [(value)]="profile.phoneNumber"
     [type]="'text'"
+    [isPhone]="true"
   ></app-custom-input>
   <!-- </div> -->
 
@@ -96,6 +97,10 @@
   <div class="d-flex justify-content-end mb-4">
     <button class="btn btn-add" (click)="addAddress()">+ Add Address</button>
   </div>
+
+  <div *ngIf="duplicateAddressMessage" class="alert alert-danger">
+  {{ duplicateAddressMessage }}
+</div>
 
   <!-- Buttons -->
   <div class="d-flex justify-content-end gap-3">

@@ -9,14 +9,12 @@
     [(ngModel)]="value"
     (ngModelChange)="valueChange.emit($event)"
     [placeholder]="placeholder"
+    [pattern]="isPhone ? '^01[0-2,5]\\d{8}$' : ''"
+    #phoneModel="ngModel"
   />
-   <!-- Show toggle only for password fields -->
-  <!-- <button
-    *ngIf="type === 'password'"
-    type="button"
-    class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2 border-0 bg-transparent"
-    (click)="toggleVisibility()"
-  >
-    <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-  </button> -->
+   <!-- Only show validation message if it's a phone field -->
+  <div *ngIf="isPhone && phoneModel.invalid && phoneModel.touched" class="text-danger mt-1">
+    <div *ngIf="phoneModel.errors?.['pattern']">Phone must be 11 digits and start with 011, 012, 010, or 015.</div>
+  </div>
 </div>
+
