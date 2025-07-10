@@ -142,7 +142,8 @@ export class ProductComponent implements OnInit {
       price: this.product.price,
       category: this.product.category.name,
       brand: this.product.productBrand.name,
-      quantity: this.quantity
+      quantity: this.quantity,
+      productQuantity: this.product.quantity
     }];
 
     this.productService.addProductToCart(cartItem).subscribe({

@@ -75,25 +75,30 @@ export class CartComponent implements OnInit {
 
  updateQuantity(item: CartItem, delta: number) {
   const newQuantity = item.quantity + delta;
+
   if (newQuantity < 1) {
     item.quantity = 1;
     return;
   }
-  
-  const diff = delta;
-  if (diff > 0) {
-    this.cartService.addItemToBasket({ ...item, quantity: diff }).subscribe({
+
+  if (newQuantity > item.productQuantity) {
+    alert(`Cannot add more than available stock (${item.productQuantity})`);
+    return;
+  }
+
+  if (delta > 0) {
+    this.cartService.addItemToBasket({ ...item, quantity: delta }).subscribe({
       next: updatedBasket => this.basket = updatedBasket,
       error: err => console.error(err)
     });
   } else {
-    
+  
     item.quantity = newQuantity;
     this.updateBasket();
   }
 }
 
-
+ 
   updateBasket() {
     if (!this.basket) return;
     this.cartService.updateBasket(this.basket.items).subscribe({
@@ -102,9 +107,13 @@ export class CartComponent implements OnInit {
     });
   }
 
-  getTotal() {
-    return this.basket?.items.reduce((sum, item) => sum + item.price * item.quantity, 0) ?? 0;
-  }
+ getSubtotal() {
+  return this.basket?.items.reduce((sum, item) => sum + item.price * item.quantity, 0) ?? 0;
+}
+
+getTotal() {
+  return this.getSubtotal() + this.deliveryCost;
+}
 
   removeItem(item: CartItem) {
     if (!item) return;
