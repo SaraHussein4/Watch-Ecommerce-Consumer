@@ -4,7 +4,7 @@ import { FooterComponentComponent } from './components/footer-component/footer-c
 import { NavbarComponentComponent } from './components/navbar-component/navbar-component.component';
 import { Router ,NavigationEnd} from '@angular/router';
 import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
-import { NgIf } from '@angular/common';
+import { CommonModule} from '@angular/common';
 @Component({
   selector: 'app-root',
   imports: [
@@ -13,6 +13,7 @@ import { NgIf } from '@angular/common';
     RouterOutlet,
     RouterModule,
     ChatBotComponent,
+    CommonModule
 
     // RouterLinkActive
     ],

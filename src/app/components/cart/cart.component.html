@@ -153,12 +153,12 @@
 
 
       <div class="modal-footer">
-              <div class="mt-4 border-top pt-3">
+           <div class="mt-4 border-top pt-3">
   <h5>Order Summary</h5>
 
   <div class="d-flex justify-content-between">
     <span>Subtotal:</span>
-    <strong>EGP {{ getTotal() }}</strong>
+    <strong>EGP {{ getSubtotal() }}</strong>
   </div>
 
   <div class="d-flex justify-content-between">
@@ -168,7 +168,7 @@
 
   <div class="d-flex justify-content-between mt-2 border-top pt-2">
     <span>Total:</span>
-    <strong>EGP {{ getTotal() + deliveryCost }}</strong>
+    <strong>EGP {{ getTotal() }}</strong>
   </div>
 </div>
         <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
