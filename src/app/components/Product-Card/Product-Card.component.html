@@ -1,6 +1,6 @@
 <!-- <div class="card h-100"> -->
-  <!-- IMAGE DISPLAY -->
-  <!-- <img *ngIf="getPrimaryImage(product)" [src]="getPrimaryImage(product)?.url" alt="Product Image" class="card-img-top"
+<!-- IMAGE DISPLAY -->
+<!-- <img *ngIf="getPrimaryImage(product)" [src]="getPrimaryImage(product)?.url" alt="Product Image" class="card-img-top"
     style="height: 250px; object-fit: cover" />
   <div class="card-body">
     <h5 class="card-title">{{ product.name }}</h5>
@@ -36,26 +36,40 @@
 
   <!-- Product Content -->
   <div class="card-body">
-    <h5 class="card-title">{{ product.name }}</h5>
-    <p class="product-price">{{ product.price | currency }}</p>
+    <h5 class="card-title">
+      {{ isBrandCard ? product.productBrand?.name : product.name }}
+    </h5>
+    <p *ngIf="!isBrandCard" class="product-price">
+      {{ product.price | currency }}
+    </p>
 
     <!-- Action Buttons -->
     <div class="d-flex gap-2 flex-wrap mt-2">
+       <!-- Normal Product View -->
       <button
-        *ngIf="!isAdmin"
-      class="btn btn-outline-teal" (click)="showDetails(product.id)">
+        *ngIf="!isAdmin && !isBrandCard"
+        class="btn btn-outline-teal"
+        (click)="showDetails(product.id)"
+      >
         Show Details
       </button>
 
+    <!-- Brand Card View -->
+    <button
+      *ngIf="isBrandCard"
+      class="btn btn-outline-teal"
+      (click)="viewBrandProducts.emit(product.productBrand.id)">
+      View Products
+    </button>
+    
+    <!-- Admin Controls -->
       <button
-        *ngIf="isAdmin"
+        *ngIf="isAdmin && !isBrandCard"
         class="btn btn-outline-teal"
         [routerLink]="['/admin/products/edit/', product.id]"
       >
-        Edit Product 
+        Edit Product
       </button>
     </div>
   </div>
 </div>
-
-

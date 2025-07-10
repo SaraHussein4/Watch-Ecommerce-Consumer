@@ -1,11 +1,16 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/home">
       <i class="fa-solid fa-clock me-2"></i>
       <span>Ora Collective</span>
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarContent"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -26,40 +31,41 @@
       </ul>
 
       <div class="d-flex align-items-center">
+        <!-- Favourite -->
         <a *ngIf="isLoggedIn" class="nav-link me-3 position-relative" routerLink="/favourite">
-          <i class="fa-solid fa-heart text-white fs-5"></i>
+          <i class="fa-solid fa-heart"></i>
           <span *ngIf="(favouriteCount | async) ?? 0 > 0"
-            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            class="badge position-absolute top-0 start-100 translate-middle">
             {{ favouriteCount | async }}
           </span>
         </a>
+
+        <!-- Cart -->
         <a *ngIf="isLoggedIn" class="nav-link me-3 position-relative" routerLink="/cart">
-          <i class="fa-solid fa-cart-shopping text-white fs-5"></i>
+          <i class="fa-solid fa-cart-shopping"></i>
           <span *ngIf="cartItemCount > 0"
-            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            class="badge position-absolute top-0 start-100 translate-middle">
             {{ cartItemCount }}
           </span>
         </a>
 
+        <!-- Profile Dropdown -->
         <div class="dropdown" *ngIf="isLoggedIn">
-          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-solid fa-user me-1"></i>
+          <button class="btn btn-user-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user"></i>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" routerLink="/viewProfile"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
             <li><a class="dropdown-item" routerLink="/orders"><i class="fa-solid fa-box me-2"></i>Orders</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" (click)="logout()"><i
-                  class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" (click)="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
           </ul>
         </div>
 
+        <!-- Auth Buttons -->
         <div *ngIf="!isLoggedIn">
-          <button class="btn btn-outline-primary me-2" routerLink="/login">Login</button>
-          <button class="btn btn-primary" routerLink="/register">Register</button>
+          <button class="btn btn-custom me-2" routerLink="/login">Login</button>
+          <button class="btn btn-custom" routerLink="/register">Register</button>
         </div>
       </div>
     </div>

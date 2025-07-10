@@ -8,9 +8,10 @@
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(34, 139, 87, 0.35); /* subtle green glow */
 }
+
 
 /* ===== Product Image ===== */
 .product-image {
@@ -21,7 +22,7 @@
 
 /* ===== Typography ===== */
 .card-title {
-  font-weight: 600;
+  font-weight: bold;
   font-size: 1.1rem;
   color: #212529;
   margin-bottom: 8px;

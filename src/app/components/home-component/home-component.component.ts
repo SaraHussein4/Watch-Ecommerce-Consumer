@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductCardComponent } from "../Product-Card/Product-Card.component";
+import { AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +16,11 @@ import { ProductCardComponent } from "../Product-Card/Product-Card.component";
   styleUrls: ['./home-component.component.css'],
   providers: [ProductService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit  {
   products: Product[] = [];
   brands: Brand[] = [];
   featuredBrandProducts: Product[] = [];
+   @ViewChild('typewriterEl', { static: false }) typewriterEl!: ElementRef;
 
   constructor(
     private productService: ProductService,
@@ -30,6 +32,34 @@ export class HomeComponent implements OnInit {
     this.loadProducts();
     this.loadBrands();
     this.loadBrandProducts();
+  }
+    ngAfterViewInit(): void {
+    this.startTyping();
+  }
+   startTyping() {
+    const el = this.typewriterEl?.nativeElement;
+    const words = ['Welcome', 'to', 'Ora', 'Collective'];
+    let wordIndex = 0;
+
+    const typeLoop = () => {
+      if (!el) return;
+      el.textContent = '';
+      let current = 0;
+
+      const typeNextWord = () => {
+        if (current < words.length) {
+          el.textContent += (current > 0 ? ' ' : '') + words[current];
+          current++;
+          setTimeout(typeNextWord, 600); // Delay between words
+        } else {
+          setTimeout(typeLoop, 1500); // Restart after short pause
+        }
+      };
+
+      typeNextWord();
+    };
+
+    typeLoop();
   }
 
   loadProducts() {

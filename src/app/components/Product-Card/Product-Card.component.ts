@@ -16,6 +16,9 @@ import { RouterModule } from '@angular/router';
 export class ProductCardComponent implements OnInit {
   @Input() product: any; // Replace 'any' with your actual product type
   @Input() isAdmin: boolean = false; // Flag to check if the user is an admin
+  @Input() isBrandCard: boolean = false; 
+  @Output() viewBrandProducts = new EventEmitter<number>();
+
   @Output() productDeleted = new EventEmitter<number>(); // Event emitter to notify parent component about product deletion
   constructor(private routre: Router, private productService: ProductService) {}
 

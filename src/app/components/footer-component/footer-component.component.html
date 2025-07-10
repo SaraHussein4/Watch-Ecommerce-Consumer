@@ -1,1 +1,61 @@
-<p>footer-component works!</p>
+<footer class="footer mt-5 text-white">
+  <div class="container py-5">
+    <div class="row">
+      <!-- About Us -->
+      <div class="col-md-3 mb-4">
+        <h5 class="footer-title">About</h5>
+        <p class="small">
+          Ora Collective offers a curated collection of timeless watches from
+          trusted global brands.
+        </p>
+      </div>
+
+      <!-- Products -->
+      <div class="col-md-3 mb-4">
+        <h5 class="footer-title">Products </h5>
+        <ul class="footer-links list-unstyled">
+          <li><a [routerLink]="'/products'">All Watches</a></li>
+          <!-- <li><a routerLink="/products?brandId=1">Featured Brands</a></li> -->
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-md-3 mb-4">
+        <h5 class="footer-title">Contact Us</h5>
+        <ul class="footer-links list-unstyled">
+          <li><i class="fas fa-phone me-2 text-white"></i>+20 123 456 7890</li>
+          <li>
+            <i class="fas fa-envelope me-2 text-white"></i>
+            Support&#64;oracollective.com
+          </li>
+          <li>
+            <i class="fas fa-map-marker-alt me-2 text-white"></i> Cairo, Egypt
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div class="col-md-3 mb-4">
+        <h5 class="footer-title">Follow Us</h5>
+        <div class="social-icons d-flex gap-3">
+          <a href="#" target="_blank"
+            ><i class="fab fa-facebook-f text-white"></i
+          ></a>
+          <a href="#" target="_blank"
+            ><i class="fab fa-instagram text-white"></i
+          ></a>
+          <a href="#" target="_blank"
+            ><i class="fab fa-twitter text-white"></i
+          ></a>
+          <a href="#" target="_blank"
+            ><i class="fab fa-linkedin-in text-white"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center pt-4 border-top border-light mt-4 small">
+      &copy; {{ currentYear }} Ora Collective. All rights reserved.
+    </div>
+  </div>
+</footer>

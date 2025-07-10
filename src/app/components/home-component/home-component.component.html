@@ -1,50 +1,50 @@
 <!-- Hero Section -->
 <section class="hero">
-  <img src="assets/bg1.jpg" alt="Background Image" class="baner-image" />
+  <img src="assets/hero-bg.jpg" alt="Background Image" class="baner-image" />
   <div class="container hero-text">
-    <h1>Welcome to Ora Collective</h1>
-    <p class="lead">Find your perfect watch. Timeless elegance awaits.</p>
+    <h1 #typewriterEl class="display-1 animated-text"></h1>
+    <p class="lead text-light">
+      Find your perfect watch. Timeless elegance awaits.
+    </p>
   </div>
 </section>
-
 <!-- Best Sellers -->
 <section class="products py-5">
   <div class="container">
-    <h2 class="mb-4">Best Sellers</h2>
+    <h2 class="section-title mb-4">Best Sellers</h2>
     <div class="row g-4">
       <div class="col-md-4" *ngFor="let product of products">
         <app-Product-Card [product]="product"></app-Product-Card>
-
       </div>
     </div>
   </div>
 </section>
 
 <!-- Look Section -->
-<section class="look-section">
-  <img src="assets/bg.avif" alt="Collections Image" class="look-image" />
+<section class="look-section position-relative">
+  <img src="assets/look-img.jpg" alt="Collections" class="look-img" />
+  <div class="look-overlay"></div>
   <div class="container look-text">
-    <h2>Have a Look at Our Collections</h2>
-    <p>Elegant designs, trusted brands, and timeless quality just for you.</p>
+    <h2 class="display-4">Have a Look at Our Collections</h2>
+    <p class="lead">
+      Elegant designs, trusted brands, and timeless quality just for you.
+    </p>
   </div>
 </section>
 
 <!-- Shop by Brand -->
-<section class="brands py-5 bg-light">
+<section class="brands py-5">
   <div class="container">
-    <h2 class="mb-4">Shop by Brand</h2>
+    <h2 class="section-title mb-4">Shop by Brand</h2>
     <div class="row g-4">
       <div class="col-md-3" *ngFor="let product of featuredBrandProducts">
-        <div class="card h-100">
-          <img *ngIf="getPrimaryImage(product)" [src]="getPrimaryImage(product)?.url" class="card-img-top" />
-          <div class="card-body text-center">
-            <p class="card-text">{{ product.productBrand.name }}</p>
-            <button class="btn btn-outline-dark" (click)="filterByBrand(product.productBrand.id)">
-              View Products</button>
-          </div>
-        </div>
+        <app-Product-Card
+          [product]="product"
+          [isBrandCard]="true"
+          (viewBrandProducts)="filterByBrand($event)"
+        >
+        </app-Product-Card>
       </div>
     </div>
   </div>
 </section>
-
