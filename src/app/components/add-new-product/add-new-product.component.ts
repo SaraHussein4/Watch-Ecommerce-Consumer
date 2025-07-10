@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AddCategoryComponent } from '../add-category/add-category.component';
+import { MultiSelectModule } from 'primeng/multiselect';
 // import { SideBarComponent } from "../admin-side-bar/side-bar.component";
 
 @Component({
   selector: 'app-add-new-product',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, AddCategoryComponent],
+  imports: [CommonModule, ReactiveFormsModule,
+             RouterModule, AddCategoryComponent,
+             MultiSelectModule],
   templateUrl: './add-new-product.component.html',
   styleUrls: ['./add-new-product.component.css'],
 })
@@ -29,8 +32,29 @@ export class AddNewProductComponent implements OnInit {
   imagePreviews: string[] = [];
   isCategoryModalOpen = false;
   isBrandModalOpen = false;
+  colorOptions = [
+  { name: 'Red', value: 'Red' },
+  { name: 'Blue', value: 'Blue' },
+  { name: 'Green', value: 'Green' },
+  { name: 'Black', value: 'Black' },
+  { name: 'White', value: 'White' },
+  { name: 'Silver', value: 'Silver' },
+];
 
-
+sizeOptions = [
+  { name: '26mm', value: '26mm' },
+  { name: '28mm', value: '28mm' },
+  { name: '30mm', value: '30mm' },
+  { name: '32mm', value: '32mm' },
+  { name: '34mm', value: '34mm' },
+  { name: '36mm', value: '36mm' },
+  { name: '38mm', value: '38mm' },
+  { name: '40mm', value: '40mm' },
+  { name: '42mm', value: '42mm' },
+  { name: '44mm', value: '44mm' },
+  { name: '46mm', value: '46mm' },
+  { name: '48mm', value: '48mm' },
+];
   constructor(
     private fb: FormBuilder,
     private productService: ProductAdminService,
@@ -132,12 +156,9 @@ onBrandModalClosed(refresh: boolean) {
     formData.append('categoryId', formValue.categoryId.toString());
 
     // Add multiple colors/sizes
-    // formValue.colors.split(',').map((c: string) => c.trim()).forEach((c: string) => formData.append('Colors', c));
-    // formValue.sizes.split(',').map((s: string) => s.trim()).forEach((s: string) => formData.append('Sizes', s));
-    // formValue.colors.forEach((color: string) => formData.append('Colors', color));
-    // formValue.sizes.forEach((size: string) => formData.append('Sizes', size));
-    formData.append('Colors', formValue.colors.join(','));
-    formData.append('Sizes', formValue.sizes.join(','));
+    formData.append('Colors', (formValue.colors || []).join(','));
+    formData.append('Sizes', (formValue.sizes || []).join(','));
+
 
     // Add images
     for (let file of this.selectedImages) {
