@@ -9,12 +9,13 @@ import { BrandService } from '../../services/brand.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AddCategoryComponent } from '../add-category/add-category.component';
 // import { SideBarComponent } from "../admin-side-bar/side-bar.component";
 
 @Component({
   selector: 'app-add-new-product',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, AddCategoryComponent],
   templateUrl: './add-new-product.component.html',
   styleUrls: ['./add-new-product.component.css'],
 })
@@ -26,6 +27,9 @@ export class AddNewProductComponent implements OnInit {
   genders: string[] = ['Male', 'Female'];
   selectedImages: File[] = [];
   imagePreviews: string[] = [];
+  isCategoryModalOpen = false;
+  isBrandModalOpen = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +37,7 @@ export class AddNewProductComponent implements OnInit {
     private categoryService: CategoryService,
     private brandService: BrandService,
     private router: Router,
-      private location: Location,
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -93,6 +97,22 @@ export class AddNewProductComponent implements OnInit {
   onCancel(): void {
     this.location.back(); // Go back to the previous page
   }
+
+openCategoryModal() {
+  this.isCategoryModalOpen = true;
+}
+openBrandModal() {
+  this.isBrandModalOpen = true;
+}
+onCategoryModalClosed(refresh: boolean) {
+  this.isCategoryModalOpen = false;
+  if (refresh) this.loadCategories();
+}
+onBrandModalClosed(refresh: boolean) {
+  this.isBrandModalOpen = false;
+  if (refresh) this.loadBrands();
+}
+
 
   onSubmit(): void {
     if (this.productForm.invalid) return;
