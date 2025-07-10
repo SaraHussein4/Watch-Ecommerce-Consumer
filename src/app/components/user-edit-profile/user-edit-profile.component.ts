@@ -22,25 +22,27 @@ duplicateAddressMessage: string = '';
  this.selectedDefaultIndex = this.profile.addresses.findIndex(a => a.isDefault);
  }
 
-  updateProfile(): void {
-    this.duplicateAddressMessage = '';
+hasDuplicateAddress(): boolean {
+  const seen = new Set<string>();
 
-  const hasDuplicate = this.profile.addresses.some((addr, i, arr) => {
-    return arr.findIndex(a =>
-      a.street === addr.street &&
-      a.state === addr.state &&
-      a.buildingNumber === addr.buildingNumber
-    ) !== i;
-  });
-
-  if (hasDuplicate) {
-    this.duplicateAddressMessage = 'Duplicate address found. Please remove or change it.';
-    return;
+  for (const addr of this.profile.addresses) {
+    const key = `${addr.street}-${addr.state}-${addr.buildingNumber}`;
+    if (seen.has(key)) return true;
+    seen.add(key);
   }
 
+  return false;
+}
+
+  updateProfile(): void {
+    this.duplicateAddressMessage = '';
+    if (this.hasDuplicateAddress()) {
+      this.duplicateAddressMessage = 'Duplicate addresses found. Please remove duplicates before saving.';
+      return;
+    }
     // Ensure only one address is default
     this.profile.addresses.forEach((addr, idx) => {
-      addr.isDefault = idx === this.profile.addresses.findIndex(a => a.isDefault);
+      addr.isDefault = idx === this.selectedDefaultIndex;
     });
 
     this.userService.updateProfile(this.profile).subscribe({
@@ -67,6 +69,9 @@ setDefaultAddress(index: number): void {
     buildingNumber: 0,
     isDefault: false
   });
+    this.duplicateAddressMessage = this.hasDuplicateAddress()
+    ? 'Duplicate address found. Please remove or change it.'
+    : '';
 }
 removeAddress(index: number): void {
   const confirmed = window.confirm('Are you sure you want to delete this address?');
@@ -78,6 +83,10 @@ removeAddress(index: number): void {
   if (wasDefault && this.profile.addresses.length > 0) {
     this.profile.addresses[0].isDefault = true;
   }
+
+  this.duplicateAddressMessage = this.hasDuplicateAddress()
+      ? 'Duplicate address found. Please remove or change it.'
+      : '';
 }
 }
 changePassword(){
