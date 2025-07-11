@@ -8,9 +8,10 @@
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(34, 139, 87, 0.35); /* subtle green glow */
 }
+
 
 /* ===== Product Image ===== */
 .product-image {
@@ -21,7 +22,7 @@
 
 /* ===== Typography ===== */
 .card-title {
-  font-weight: 600;
+  font-weight: bold;
   font-size: 1.1rem;
   color: #212529;
   margin-bottom: 8px;
@@ -53,7 +54,7 @@
   background-color: #bb2d3b;
 }
 
-/* ===== Primary Teal Themed Button (Show Details) ===== */
+/* ===== Primary Teal Themed Button (Show Details or Edit) ===== */
 .btn-outline-teal {
   border: 2px solid #316270;
   color: #316270;
@@ -68,24 +69,6 @@
   background-color: #316270;
   color: white;
 }
-
-/* ===== Edit Button (Indigo Variant) ===== */
-/* ===== Edit Button (Darker Teal Variant) ===== */
-.btn-outline-edit {
-  border: 2px solid #2a4d55;
-  color: #2a4d55;
-  background-color: transparent;
-  border-radius: 20px;
-  padding: 6px 16px;
-  font-weight: bold;
-  transition: all 0.2s ease;
-}
-
-.btn-outline-edit:hover {
-  background-color: #2a4d55;
-  color: white;
-}
-
 
 /* ===== General Button Style Fix (Fallback for bold) ===== */
 button.btn {

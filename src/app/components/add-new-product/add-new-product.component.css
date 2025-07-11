@@ -206,3 +206,68 @@ option{
   font-weight: bold;
   color: #30636f;
 }
+/* Circle button for adding category */
+.btn-outline-success {
+  font-weight: bold;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-circle {
+  font-weight: bold;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border: 2px solid #30636f;
+  background-color: white;
+  color: #30636f;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 3px;
+}
+
+.btn-circle:hover {
+  background-color: #30636f;
+  color: white;
+  box-shadow: 0 0 5px rgba(48, 99, 111, 0.5);
+}
+.btn-circle:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(48, 99, 111, 0.5);
+}
+
+/* PrimeNG MultiSelect Styling */
+::ng-deep .custom-multiselect .p-multiselect {
+  background-color: #f8f9fa;
+  border: 2px solid #30636f;
+  border-radius: 10px;
+  padding: 5px;
+  min-height: 50px;
+  font-weight: 500;
+  color: #30636f;
+  transition: box-shadow 0.3s ease;
+}
+
+::ng-deep .custom-multiselect .p-multiselect:hover {
+  border-color: #204952;
+  background-color: #d9e4e5;
+}
+
+::ng-deep .custom-multiselect .p-multiselect:focus {
+  border-color: #30636f;
+  box-shadow: 0 0 5px rgba(48, 99, 111, 0.5);
+}
+
+::ng-deep .p-multiselect-panel {
+  border: 1px solid #30636f;
+}
+
+

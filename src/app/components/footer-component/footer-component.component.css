@@ -1,0 +1,56 @@
+.footer {
+  background-color: #204952;
+  color: #ffffff;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+.footer a:hover i {
+  color: #30636f; /* or any hover color matching your theme */
+}
+
+.footer-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.footer-links a {
+  color: #dbe4ea;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+}
+
+.footer .social-icons a {
+  color: #dbe4ea;
+  font-size: 1.2rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.footer .fa-phone,
+.footer .fa-envelope,
+.footer .fa-map-marker-alt {
+  color: #a0b4c2;
+}
+.small{
+  letter-spacing: 1px;
+}
+
+a[routerLink] {
+  cursor: pointer;
+}
+/* a[routerLink]:hover {
+  text-decoration: underline;
+} */
+
