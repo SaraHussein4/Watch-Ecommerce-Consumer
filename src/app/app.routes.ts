@@ -18,31 +18,55 @@ import { UserEditProfileComponent } from './components/user-edit-profile/user-ed
 import { UserViewProfileComponent } from './components/user-view-profile/user-view-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
+import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
+import { CustomerLayoutComponent } from './components/customerLayout/customerLayout.component';
+
+import { GuestLayoutComponent } from './components/guestLayout/guestLayout.component';
+import { guestGuard } from './guards/guest.guard';
+import { authGuard } from './guards/auth.guard';
+import { customerGuard } from './guards/customer.guard';
+import { adminGuard } from './guards/admin.guard';
+import { notAdminGuard } from './guards/not-admin.guard';
+import { OrdersComponent } from './components/orders/orders.component';
+
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponentComponent },
-  { path: 'register', component: RegisterComponentComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'favourite', component: FavouriteComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'product/:id', component: ProductComponent },
-  { path: 'editProfile', component: UserEditProfileComponent },
-  { path: 'viewProfile', component: UserViewProfileComponent },
-
-  { path: 'payment', component: PaymentComponentComponent },
-
-  { path: 'changePassword', component: ChangePasswordComponent },
-  { path: 'payment-success', component: PaymentSuccessComponent }
-,
 
   {
-    path: 'admin',
-    component: AdminLayoutComponent,
+    path: '',
+    component: GuestLayoutComponent,
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent, canActivate:[notAdminGuard] },
+      { path: 'login', component: LoginComponentComponent, canActivate: [guestGuard] },
+      { path: 'register', component: RegisterComponentComponent, canActivate: [guestGuard] },
+    ],
+  },
+
+  {
+    path: '', component: CustomerLayoutComponent,
+    canActivate: [authGuard, customerGuard],
+    children: [
+      { path: 'cart', component: CartComponent },
+      { path: 'favourite', component: FavouriteComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'product/:id', component: ProductComponent },
+      { path: 'editProfile', component: UserEditProfileComponent },
+      { path: 'viewProfile', component: UserViewProfileComponent },
+      { path: 'payment', component: PaymentComponentComponent },
+      { path: 'changePassword', component: ChangePasswordComponent },
+      { path: 'payment-success', component: PaymentSuccessComponent },
+      { path: 'orders', component: OrdersComponent },
+    ]
+  },
+  
+  {
+    path: 'admin', component: AdminLayoutComponent,
+    canActivate: [authGuard, adminGuard],
     children: [
       { path: 'customers', component: CustomersComponent },
+      { path: 'orders', component: AdminOrdersComponent },
       { path: 'products/edit/:id', component: EditProductComponentComponent },
       { path: 'products', component: AdminProductsComponent },
       { path: 'addProduct', component: AddNewProductComponent },

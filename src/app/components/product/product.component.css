@@ -5,28 +5,11 @@
   width: 30px;
   height: 30px;
   border-radius: 5px;
-  border: 2px solid #ccc;
   cursor: pointer;
 }
 
-.color-box.black {
-  background-color: #222;
-}
-
-.color-box.gray {
-  background-color: #ccc;
-}
-
-.color-box.lavender {
-  background-color: #dcd0ff;
-}
-
-.color-box.purple {
-  background-color: #4b0082;
-}
-
 .color-box.selected {
-  border: 2px solid #000;
+  border: 2px solid  rgba(32, 73, 82, 0.95);
 }
 
 .thumbnail {
@@ -42,4 +25,63 @@ button.btn-sm {
   padding: 0;
   font-size: 1.2rem;
   line-height: 1;
+}
+
+.primary-img-container{
+
+}
+
+.primary-img{
+  height: 425px;
+  width: 399px;
+  object-fit: contain;
+  object-position: center;
+  overflow: hidden;
+  margin: auto;
+
+}
+
+.name{
+  font-weight: bold;
+}
+.description{
+  color: #818181;
+}
+.price{
+  font-weight: 600;
+}
+.plus-button{
+  background-color: rgba(32, 73, 82, 0.95);
+}
+
+.plus-button:hover{
+  background-color: rgba(32, 73, 82, 0.85);
+}
+
+.size-button{
+  background-color: rgba(32, 73, 82, 0.95);
+  color: white;
+  border: 1px solid rgba(32, 73, 82, 0.95);
+
+}
+.size-button-outline{
+  border: 1px solid rgba(32, 73, 82, 0.95);
+} 
+
+
+.addtocart-button{
+  background-color: rgba(32, 73, 82, 0.95);
+  padding: 10px 45px;
+  color: white;
+}
+
+.addtocart-button:hover{
+  background-color: rgba(32, 73, 82, 0.90);
+}
+
+.addtofav-button{
+  color: #E53935 ;
+  border: 1px solid #E53935;
+  padding: 10px 45px;
+
 }

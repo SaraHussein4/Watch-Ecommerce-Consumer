@@ -36,3 +36,14 @@
 .nav-link:hover .my-watch-icon {
   color: #fff;
 }
+
+
+.vh-100{
+}
+
+
+.sidebar{
+  height: 100vh;
+  position: fixed;
+  
+}
