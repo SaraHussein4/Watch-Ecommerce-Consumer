@@ -49,6 +49,7 @@
 .look-section {
   height: 60vh;
   position: relative;
+  overflow: hidden;
 }
 .look-img {
   width: 100%;
