@@ -1,43 +1,69 @@
-<div class="cart" *ngIf="basket">
-  <h2>Your Cart</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Price</th>
-        <th>Picture</th>
-        <th>Quantity</th>
-        <th>Subtotal</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of basket.items">
-        <td>{{ item.name }}</td>
-        <td>{{ item.price }}</td>
-        <td><img [src]="getImageUrl(item.pictureUrl)" alt="" width="60" /></td>
-        <td>
-          <button (click)="updateQuantity(item, -1)">-</button>
-          {{ item.quantity }}
-          <button (click)="updateQuantity(item, 1)">+</button>
-        </td>
-        <td>{{ item.price * item.quantity }}</td>
-        <td>
-          <button (click)="removeItem(item)" class="btn btn-sm btn-outline-danger" title="Delete">
-            🗑
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container my-5">
+  <div class="cart-section" *ngIf="basket && basket.items.length > 0">
+    <h2 class="section-title">Shopping Cart</h2>
 
-  <h4>Total: {{ getTotal() }}</h4>
-  <button class="btn btn-danger" (click)="removeBasket()">Clear Cart</button>
-  <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#checkoutModal">Checkout</button>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="cart-items-container">
+          <div class="cart-item" *ngFor="let item of basket.items">
+            <div class="item-image">
+              <img [src]="getImageUrl(item.pictureUrl)" alt="{{ item.name }}" />
+            </div>
+            <div class="item-details">
+              <h5 class="item-name">{{ item.name }}</h5>
+              <p class="item-price">EGP {{ item.price }}</p>
+            </div>
+            <div class="item-quantity">
+              <button class="quantity-btn" (click)="updateQuantity(item, -1)">-</button>
+              <span class="quantity-value">{{ item.quantity }}</span>
+              <button class="quantity-btn" (click)="updateQuantity(item, 1)">+</button>
+            </div>
+            <div class="item-subtotal">
+              EGP {{ item.price * item.quantity }}
+            </div>
+            <div class="item-delete">
+              <button (click)="removeItem(item)" class="delete-btn" title="Delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<!-- Modal -->
+      <div class="col-md-4">
+        <div class="cart-summary card shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title">Cart Total</h4>
+            <div class="d-flex justify-content-between my-2">
+              <span>Subtotal:</span>
+              <strong>EGP {{ getSubtotal() }}</strong>
+            </div>
+        
+            <hr>
+            <div class="d-flex justify-content-between total-amount">
+              <span>Total:</span>
+              <strong>EGP {{ getTotal() }}</strong>
+            </div>
+            <button class="btn btn-primary-custom w-100 mt-4" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+              Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end mt-4">
+        <button class="btn btn-outline-danger" (click)="removeBasket()">Clear Cart</button>
+    </div>
+  </div>
+
+  <div style="height: 50vh;" class="empty-cart-message text-center my-5" *ngIf="!basket || basket.items.length === 0">
+    <p>Your cart is empty.</p>
+    <a routerLink="/products" class="btn btn-primary-custom">Continue Shopping</a>
+  </div>
+</div>
+
 <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
       <div class="modal-header">
@@ -46,140 +72,222 @@
       </div>
 
       <div class="modal-body">
-       <form #checkoutForm="ngForm" novalidate>
-  <input
-    type="text"
-    class="form-control mb-1"
-    placeholder="First Name"
-    [(ngModel)]="checkoutData.shippingAddress.firstName"
-    name="firstName"
-    required
-    #firstName="ngModel"
-  />
-  <div class="text-danger small" *ngIf="firstName.invalid && firstName.touched">
-    First Name is required.
-  </div>
+        <div class="row">
+          <div class="col-md-7 border-end pe-4">
+            <h5 class="mb-3">Billing Details</h5>
+            <form #checkoutForm="ngForm" novalidate>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control custom-input"
+                    placeholder="First Name"
+                    [(ngModel)]="checkoutData.shippingAddress.firstName"
+                    name="firstName"
+                    required
+                    #firstName="ngModel"
+                  />
+                  <div class="text-danger small" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                    First Name is required.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control custom-input"
+                    placeholder="Last Name"
+                    [(ngModel)]="checkoutData.shippingAddress.lastName"
+                    name="lastName"
+                    required
+                    #lastName="ngModel"
+                  />
+                  <div class="text-danger small" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                    Last Name is required.
+                  </div>
+                </div>
+              </div>
 
-  <input
-    type="text"
-    class="form-control mb-1"
-    placeholder="Last Name"
-    [(ngModel)]="checkoutData.shippingAddress.lastName"
-    name="lastName"
-    required
-    #lastName="ngModel"
-  />
-  <div class="text-danger small" *ngIf="lastName.invalid && lastName.touched">
-    Last Name is required.
-  </div>
 
-  <input
-    type="text"
-    class="form-control mb-1"
-    placeholder="City"
-    [(ngModel)]="checkoutData.shippingAddress.city"
-    name="city"
-    required
-    #city="ngModel"
-  />
-  <div class="text-danger small" *ngIf="city.invalid && city.touched">
-    City is required.
-  </div>
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control custom-input"
+                  placeholder="Email"
+                  [(ngModel)]="checkoutData.shippingAddress.email"
+                  name="email"
+                  required
+                  email
+                  #email="ngModel"
+                />
+                <div class="text-danger small" *ngIf="email.invalid && (email.dirty || email.touched)">
+                  Please enter a valid email.
+                </div>
+              </div>
 
-  <input
-    type="text"
-    class="form-control mb-1"
-    placeholder="Street"
-    [(ngModel)]="checkoutData.shippingAddress.street"
-    name="street"
-    required
-    #street="ngModel"
-  />
-  <div class="text-danger small" *ngIf="street.invalid && street.touched">
-    Street is required.
-  </div>
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control custom-input"
+                  placeholder="Address"
+                  [(ngModel)]="checkoutData.shippingAddress.street"
+                  name="street"
+                  required
+                  #street="ngModel"
+                />
+                <div class="text-danger small" *ngIf="street.invalid && (street.dirty || street.touched)">
+                  Address is required.
+                </div>
+              </div>
 
-  <select
-    class="form-select mb-1"
-    [(ngModel)]="checkoutData.shippingAddress.governorateId"
-    name="governorateId"
-    required
-    #governorateId="ngModel"
-    (change)="onShippingOptionChanged()"
-  >
-    <option [ngValue]="0" disabled>-- Select Governorate --</option>
-    <option *ngFor="let gov of governorates" [ngValue]="gov.id">
-      {{ gov.name }} (EGP {{ gov.deliveryCost }})
-    </option>
-  </select>
-  <div class="text-danger small" *ngIf="governorateId.invalid && governorateId.touched">
-    Governorate is required.
-  </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control custom-input"
+                    placeholder="City"
+                    [(ngModel)]="checkoutData.shippingAddress.city"
+                    name="city"
+                    required
+                    #city="ngModel"
+                  />
+                  <div class="text-danger small" *ngIf="city.invalid && (city.dirty || city.touched)">
+                    City is required.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <select
+                    class="form-select custom-select"
+                    [(ngModel)]="checkoutData.shippingAddress.governorateId"
+                    name="governorateId"
+                    required
+                    #governorateId="ngModel"
+                    (change)="onShippingOptionChanged()"
+                  >
+                    <option [ngValue]="0" disabled>-- Select Governorate --</option>
+                    <option *ngFor="let gov of governorates" [ngValue]="gov.id">
+                      {{ gov.name }} (EGP {{ gov.deliveryCost }})
+                    </option>
+                  </select>
+                  <div class="text-danger small" *ngIf="governorateId.invalid && (governorateId.dirty || governorateId.touched)">
+                    Governorate is required.
+                  </div>
+                </div>
+              </div>
 
-  <select
-    class="form-select mb-1"
-    [(ngModel)]="checkoutData.deliveryMethodId"
-    name="deliveryMethodId"
-    required
-    #deliveryMethodId="ngModel"
-    (change)="onShippingOptionChanged()"
-  >
-    <option [ngValue]="0" disabled>-- Select Delivery Method --</option>
-    <option *ngFor="let method of deliveryMethods" [ngValue]="method.id">
-      {{ method.shortName }} - {{ method.deliveryTime }} (EGP {{ method.cost }})
-    </option>
-  </select>
-  <div class="text-danger small" *ngIf="deliveryMethodId.invalid && deliveryMethodId.touched">
-    Delivery Method is required.
-  </div>
-<select
-  class="form-select mb-3"
-  [(ngModel)]="checkoutData.paymentMethod"
-  name="paymentMethod"
-  required
-  #paymentMethod="ngModel"
->
-  <option value="" disabled selected>-- Select Payment Method --</option>
-  <option value="cash">Cash on Delivery</option>
-  <option value="card">Credit/Debit Card</option>
-</select>
-<div class="text-danger small" *ngIf="paymentMethod.invalid && paymentMethod.touched">
-  Payment Method is required.
-</div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control custom-input"
+                    placeholder="Zip Code"
+                    [(ngModel)]="checkoutData.shippingAddress.zipCode"
+                    name="zipCode"
+                    required
+                    #zipCode="ngModel"
+                  />
+                  <div class="text-danger small" *ngIf="zipCode.invalid && (zipCode.dirty || zipCode.touched)">
+                    Zip Code is required.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <input
+                    type="tel"
+                    class="form-control custom-input"
+                    placeholder="Phone No"
+                    [(ngModel)]="checkoutData.shippingAddress.phone"
+                    name="phone"
+                    required
+                    #phone="ngModel"
+                  />
+                  <div class="text-danger small" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+                    Phone number is required.
+                  </div>
+                </div>
+              </div>
 
-</form>
+              <div class="mb-3">
+                <select
+                  class="form-select custom-select"
+                  [(ngModel)]="checkoutData.deliveryMethodId"
+                  name="deliveryMethodId"
+                  required
+                  #deliveryMethodId="ngModel"
+                  (change)="onShippingOptionChanged()"
+                >
+                  <option [ngValue]="0" disabled>-- Select Delivery Method --</option>
+                  <option *ngFor="let method of deliveryMethods" [ngValue]="method.id">
+                    {{ method.shortName }} - {{ method.deliveryTime }} (EGP {{ method.cost }})
+                  </option>
+                </select>
+                <div class="text-danger small" *ngIf="deliveryMethodId.invalid && (deliveryMethodId.dirty || deliveryMethodId.touched)">
+                  Delivery Method is required.
+                </div>
+              </div>
 
+              <h5 class="mb-3 mt-4">Payment Method</h5>
+              <div class="form-check mb-2">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="cashOnDelivery"
+                  value="cash"
+                  name="paymentMethod"
+                  [(ngModel)]="checkoutData.paymentMethod"
+                  required
+                  #paymentMethod="ngModel"
+                >
+                <label class="form-check-label" for="cashOnDelivery">
+                  Cash on Delivery
+                </label>
+              </div>
+              <div class="form-check mb-3">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="creditDebitCard"
+                  value="card"
+                  name="paymentMethod"
+                  [(ngModel)]="checkoutData.paymentMethod"
+                  required
+                  #paymentMethod="ngModel"
+                >
+                <label class="form-check-label" for="creditDebitCard">
+                  Credit/Debit Card
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="Mastercard" width="30" class="ms-1">
+                </label>
+              </div>
+              <div class="text-danger small" *ngIf="paymentMethod.invalid && (paymentMethod.dirty || paymentMethod.touched)">
+                Payment Method is required.
+              </div>
+            </form>
+          </div>
+
+          <div class="col-md-5 ps-4">
+            <div class="cart-summary card shadow-sm mb-4">
+              <div class="card-body">
+                <h4 class="card-title">Order Summary</h4>
+                <div class="d-flex justify-content-between my-2">
+                  <span>Subtotal:</span>
+                  <strong>EGP {{ getSubtotal() }}</strong>
+                </div>
+                <div class="d-flex justify-content-between my-2">
+                  <span>Delivery Cost:</span>
+                  <strong>EGP {{ deliveryCost }}</strong>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between total-amount">
+                  <span>Total:</span>
+                  <strong>EGP {{ getTotal() }}</strong>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary-custom w-100" (click)="submitOrder(checkoutForm)"   [disabled]="isConfirmButtonDisabled(checkoutForm)">
+              Confirm Order
+            </button>
+            <button class="btn btn-outline-secondary w-100 mt-2" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
       </div>
-
-
-      <div class="modal-footer">
-           <div class="mt-4 border-top pt-3">
-  <h5>Order Summary</h5>
-
-  <div class="d-flex justify-content-between">
-    <span>Subtotal:</span>
-    <strong>EGP {{ getSubtotal() }}</strong>
-  </div>
-
-  <div class="d-flex justify-content-between">
-    <span>Delivery:</span>
-    <strong>EGP {{ deliveryCost }}</strong>
-  </div>
-
-  <div class="d-flex justify-content-between mt-2 border-top pt-2">
-    <span>Total:</span>
-    <strong>EGP {{ getTotal() }}</strong>
-  </div>
-</div>
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button class="btn btn-primary" (click)="submitOrder(checkoutForm)">Confirm</button>
-      </div>
-
     </div>
   </div>
-</div>
-
-
-<div class="cart" *ngIf="!basket">
-  <p>Your cart is empty.</p>
 </div>

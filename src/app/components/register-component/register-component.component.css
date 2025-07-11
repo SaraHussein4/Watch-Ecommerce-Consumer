@@ -24,10 +24,17 @@ body {
   background: url("https://i.pinimg.com/736x/99/74/dd/9974ddf72340a1546df60c308ba2aba4.jpg");
 }
 .register-card {
-  background-color: #f6f6f6;
+  /* background-color: #f6f6f6;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(7, 35, 41, 0.4);
+  box-shadow: 0 4px 8px rgba(7, 35, 41, 0.4); */
+  max-width: 500px;
+  width: 100%;
+  padding: 30px;
+  border: 1px solid #30636f;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(48, 99, 111, 0.5);
+  background-color:#f6f6f6;
 }
 
 .register-title {

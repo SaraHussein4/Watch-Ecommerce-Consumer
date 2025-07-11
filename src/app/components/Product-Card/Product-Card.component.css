@@ -1,31 +1,43 @@
  /* ===== Card Container ===== */
 .product-card {
   border-radius: 12px;
+  background-color: #fff;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background-color: #ffffff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   height: 100%;
 }
 
 .product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 18px rgba(34, 139, 87, 0.35); /* subtle green glow */
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(34, 139, 87, 0.2); /* subtle green glow */
 }
 
 
 /* ===== Product Image ===== */
-.product-image {
-  height: 250px;
+.product-image-wrapper  {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+.product-image{
+  height: 100%;
+  width: 100%;
   object-fit: cover;
-  border-bottom: 1px solid #e9ecef;
+  transition: transform 0.3s ease;
+}
+.product-image:hover {
+  transform: scale(1.05);
 }
 
 /* ===== Typography ===== */
 .card-title {
+ font-size: 1rem;
   font-weight: bold;
-  font-size: 1.1rem;
   color: #212529;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-price {
@@ -48,6 +60,7 @@
   justify-content: center;
   border: none;
   transition: background-color 0.2s ease;
+  z-index: 10;
 }
 
 .btn-delete-icon:hover {
