@@ -6,6 +6,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { OrderService } from '../../services/order.service';
 import { DeliveryMethod, Governorate } from '../../models/order';
+import { RouterLink } from '@angular/router';
 
 interface ExtendedCartItem extends CartItem {
   productQuantity: number; 
@@ -34,7 +35,7 @@ interface CheckoutData {
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
