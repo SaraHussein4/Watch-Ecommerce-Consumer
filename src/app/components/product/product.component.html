@@ -1,78 +1,84 @@
-<div class="product">
+<div class="container product">
     <div class="row g-5">
-    <!-- Left Section -->
-    <div class="col-md-6">
-        <div class="text-center">
-            <!-- <img src="https://localhost:7071{{mainImage}}" class="img-fluid rounded" alt="Hoodie" /> -->
-            <img [src]="mainImage.startsWith('http') ? mainImage : (mainImage.includes('/Images') ? 'https://localhost:7071' + mainImage : 'https://localhost:7071/images/' + mainImage)"
-              class="img-fluid rounded" alt="Product Image" />
-        </div>
-        <div class="d-flex justify-content-center gap-2 mt-3">
-            <!-- <img *ngFor="let img of product.images" src="https://localhost:7071{{img.url}}" class="thumbnail img-thumbnail" (click)="changeMainImage(img.url)" /> -->
-            <img *ngFor="let img of product.images"
-              [src]="img.url.startsWith('http') ? img.url : (img.url.includes('/Images') ? 'https://localhost:7071' + img.url : 'https://localhost:7071/images/' + img.url)"
-              class="thumbnail img-thumbnail"
-              (click)="changeMainImage(img.url)" />
+        <!-- Left Section -->
+        <div class="col-md-6">
+            <div class="text-center primary-img-container">
+                <img [src]="mainImage.startsWith('http') 
+            ? mainImage 
+            : (mainImage.includes('/Images') 
+                ? 'https://localhost:7071' + mainImage 
+                : 'https://localhost:7071/images/' + mainImage)" class="img-fluid rounded primary-img"
+                    alt="Product Image" />
+            </div>
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                <!-- <img *ngFor="let img of product.images" src="https://localhost:7071{{img.url}}" class="thumbnail img-thumbnail" (click)="changeMainImage(img.url)" /> -->
+                <img *ngFor="let img of product.images"
+                    [src]="img.url.startsWith('http') ? img.url : (img.url.includes('/Images') ? 'https://localhost:7071' + img.url : 'https://localhost:7071/images/' + img.url)"
+                    class="thumbnail img-thumbnail" (click)="changeMainImage(img.url)" />
 
-        </div>
-    </div>
-
-    <!-- Right Section -->
-    <div class="col-md-6">
-        <h2>{{product.name}}</h2>
-        <p>
-            <span class="h4">{{product.price | currency}}</span>
-        </p>
-
-        <h6>Description:</h6>
-        <p>
-            {{ product.description }}
-        </p>
-
-        <h6>Color: <span>{{ selectedColor }}</span></h6>
-        <div class="d-flex gap-2 mb-3">
-            <div *ngFor="let color of product.colors" class="color-box"
-            [ngStyle]="{ 'background-color': color}"
-            [ngClass]="{ 'selected': color === selectedColor }"
-            (click)="selectColor(color)"
-                >
             </div>
         </div>
 
-        <h6>Size: <span class="ms-2 fw-normal">({{ selectedSize }})</span> <a href="#" class="ms-2">View Size Chart</a>
-        </h6>
-        <div class="btn-group mb-3" role="group">
-            <button *ngFor="let size of product.sizes" type="button" class="btn"
-                [ngClass]="size === selectedSize ? 'btn-dark active' : 'btn-outline-dark'"
-                (click)="selectedSize = size">
-                {{ size}}
-            </button>
-        </div>
+        <!-- Right Section -->
+        <div class="col-md-6">
+            <h2 class="name">{{product.name}}</h2>
+            <p class="description">
+                {{ product.description }}
+            </p>
+            <p class="price">
+                <span class="h4">{{product.price | currency}}</span>
+            </p>
+            <div class="border-top pt-3">
+                <div class="row">
+                    <div class="colors col-4">
+                        <h6 class="fw-bold">Color: <span class="fw-normal">{{ selectedColor }}</span></h6>
+                        <div class="d-flex gap-2 mb-3">
+                            <div *ngFor="let color of product.colors" class="color-box"
+                                [ngStyle]="{ 'background-color': color}"
+                                [ngClass]="{ 'selected': color === selectedColor }" (click)="selectColor(color)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sizes col-8">
+                        <h6>Size: <span class="ms-2 fw-normal">({{ selectedSize }})</span>
+                        </h6>
+                        <div class="btn-group mb-3" role="group">
+                            <button *ngFor="let size of product.sizes" type="button" class="btn"
+                                [ngClass]="size === selectedSize ? 'size-button active' : 'size-button-outline'"
+                                (click)="selectedSize = size">
+                                {{ size}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-        <h6>Quantity:
-        </h6>
-        <div class="btn-group mb-3" role="group">
-            <div class="d-flex align-items-center bg-light rounded-pill px-2 py-1">
-            <button class="btn btn-sm btn-light rounded-circle" (click)="decreaseQuantity()">−</button>
-            <span class="mx-2 fw-bold" style="min-width: 20px; text-align: center;">{{ quantity}}</span>
-            <button class="btn btn-sm btn-dark rounded-circle text-white" (click)="increaseQuantity()">＋</button>
+
+                <h6>Quantity:
+                </h6>
+                <div class="btn-group mb-3" role="group">
+                    <div class="d-flex align-items-center bg-light rounded-pill px-2 py-1">
+                        <button class="btn btn-sm btn-light rounded-circle" (click)="decreaseQuantity()">−</button>
+                        <span class="mx-2 fw-bold" style="min-width: 20px; text-align: center;">{{ quantity}}</span>
+                        <button class="btn btn-sm rounded-circle text-white plus-button"
+                            (click)="increaseQuantity()">＋</button>
+                    </div>
+                </div>
+
+
+                <div class="d-flex gap-3 mt-3">
+                    <button class="btn btn-lg addtocart-button" (click)="addToCart()"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+                    <button class="btn  btn-lg addtofav-button" (click)="addToFavourite()"><i class="fa-solid fa-heart"></i> Add to Favourite</button>
+                </div>
+            </div>
+
+            <div class="mt-4 border-top pt-3">
+                <h6>Return</h6>
+                <p>You have <strong>60 days</strong> to return the item(s):</p>
+                <ul>
+                    <li>Free store return</li>
+                    <li>Free returns via USPS Dropoff Service</li>
+                </ul>
             </div>
         </div>
-
-
-        <div class="d-flex gap-3 mt-3">
-            <button class="btn btn-primary btn-lg" (click)="addToCart()">Add to Cart</button>
-            <button class="btn btn-outline-secondary btn-lg" (click)="addToFavourite()">Add to favourite</button>
-        </div>
-
-        <div class="mt-4 border-top pt-3">
-            <h6>Return</h6>
-            <p>You have <strong>60 days</strong> to return the item(s):</p>
-            <ul>
-                <li>Free store return</li>
-                <li>Free returns via USPS Dropoff Service</li>
-            </ul>
-        </div>
     </div>
-</div>
 </div>

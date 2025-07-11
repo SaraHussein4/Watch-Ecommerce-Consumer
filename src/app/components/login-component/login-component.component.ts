@@ -33,10 +33,16 @@ onSubmit() {
     this.authService.login(userData).subscribe({
       next: res => {
         localStorage.setItem('token', res.token);
+        localStorage.setItem('role', res.role);
         this.authService.decodeUserData();
         console.log('Login successful:', res);
-
-        this.router.navigate(['/home']);
+        if(res.role.toLowerCase() == "user"){
+          
+          this.router.navigateByUrl('/home');
+        }
+        else {
+          this.router.navigate(['/admin'])
+        }
 
 
       },
