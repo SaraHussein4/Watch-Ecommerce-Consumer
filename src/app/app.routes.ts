@@ -31,24 +31,43 @@ import { notAdminGuard } from './guards/not-admin.guard';
 import { OrdersComponent } from './components/orders/orders.component';
 
 import { AboutComponent } from './components/about/about.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 export const routes: Routes = [
-
   {
     path: '',
     component: GuestLayoutComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent, canActivate:[notAdminGuard] },
-      { path: 'about', component: AboutComponent, canActivate:[notAdminGuard] },
-      { path: 'login', component: LoginComponentComponent, canActivate: [guestGuard] },
-      { path: 'register', component: RegisterComponentComponent, canActivate: [guestGuard] },
+      { path: 'home', component: HomeComponent, canActivate: [notAdminGuard] },
+      {
+        path: 'about',
+        component: AboutComponent,
+        canActivate: [notAdminGuard],
+      },
+      {
+        path: 'contact',
+        component: ContactComponent,
+        canActivate: [notAdminGuard],
+      },
+
+      {
+        path: 'login',
+        component: LoginComponentComponent,
+        canActivate: [guestGuard],
+      },
+      {
+        path: 'register',
+        component: RegisterComponentComponent,
+        canActivate: [guestGuard],
+      },
     ],
   },
 
   {
-    path: '', component: CustomerLayoutComponent,
+    path: '',
+    component: CustomerLayoutComponent,
     canActivate: [authGuard, customerGuard],
     children: [
       { path: 'cart', component: CartComponent },
@@ -61,11 +80,12 @@ export const routes: Routes = [
       { path: 'changePassword', component: ChangePasswordComponent },
       { path: 'payment-success', component: PaymentSuccessComponent },
       { path: 'orders', component: OrdersComponent },
-    ]
+    ],
   },
-  
+
   {
-    path: 'admin', component: AdminLayoutComponent,
+    path: 'admin',
+    component: AdminLayoutComponent,
     canActivate: [authGuard, adminGuard],
     children: [
       { path: 'customers', component: CustomersComponent },

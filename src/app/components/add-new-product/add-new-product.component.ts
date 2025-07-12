@@ -12,7 +12,6 @@ import { RouterModule } from '@angular/router';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 // import { SideBarComponent } from "../admin-side-bar/side-bar.component";
-
 @Component({
   selector: 'app-add-new-product',
   standalone: true,
