@@ -1,5 +1,5 @@
-<!-- <nav>
-  <div class="position-sticky pt-3 sidebar-container mt-4">
+ <nav>
+  <div class="position-sticky pt-3 sidebar-container mt-4" >
     <ul class="nav flex-column">
       <li class="nav-item">
         <a class="nav-link active" href="#">
@@ -27,50 +27,11 @@
       </li>
     </ul>
   </div>
-</nav> -->
-<nav class="admin-sidebar">
-  <div class="position-sticky pt-3 sidebar-container mt-4">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="/admin/dashboard"
-          routerLinkActive="active"
-        >
-          <i class="fa-solid fa-house me-2"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="/admin/products"
-          routerLinkActive="active"
-        >
-          <i class="fa-solid fa-box-open me-2"></i>
-          <span>Products</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="/admin/orders"
-          routerLinkActive="active"
-        >
-          <i class="fa-solid fa-clipboard-list me-2"></i>
-          <span>Orders</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="/admin/customers"
-          routerLinkActive="active"
-        >
-          <i class="fa-solid fa-users me-2"></i>
-          <span>Customers</span>
-        </a>
-      </li>
-    </ul>
+  <!-- Logout Button -->
+  <div class="mt-auto p-3">
+    <button class="btn btn-danger w-100" (click)="logout()">
+      <i class="fa-solid fa-right-from-bracket me-2"></i>
+      Logout
+    </button>
   </div>
 </nav>

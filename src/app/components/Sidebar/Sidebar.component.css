@@ -55,3 +55,14 @@
 .nav-link.active i {
   color: #ffffff;
 }
+
+
+.vh-100{
+}
+
+
+.sidebar{
+  height: 100vh;
+  position: fixed;
+  
+}
