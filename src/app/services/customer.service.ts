@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class CustomerService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<Customer[]> {
-    return this.http.get<Customer[]>('https://localhost:7071/api/customers');
+  getCustomers(page: number, pageSize: number): Observable<{customers:Customer[], totalCount: number}> {
+      return this.httpClient.get<{customers: Customer[], totalCount: number}>(`https://localhost:7071/api/customers?page=${page}&pageSize=${pageSize}`);
   }
 }

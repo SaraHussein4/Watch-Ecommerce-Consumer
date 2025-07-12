@@ -1,26 +1,27 @@
-<h1 class="mt-5 mb-5"><strong>Customer List</strong> </h1>
 
 <div class="container mt-4">
-
+  
+  <h1 class="mt-5 mb-2 ps-0"><strong>Orders</strong> </h1>
   <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
           <!-- <th scope="col">ID</th> -->
-          <th scope="col">Name</th>
           <th scope="col">Email</th>
-          <th scope="col">Phone</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Ordered At</th>
+          <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let customer of customers">
-          <!-- <td>{{ customer.id }}</td> -->
-          <td>{{ customer.name }}</td>
-          <td>{{ customer.email }}</td>
-          <td>{{ customer.phoneNumber }}</td>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.email }}</td>
+          <td>{{ order.amount }}</td>
+          <td>{{ order.date | date }}</td>
+          <td>{{ order.status }}</td>
         </tr>
-        <tr *ngIf="customers.length === 0">
-          <td colspan="5" class="text-center">No customers found</td>
+        <tr *ngIf="orders.length === 0">
+          <td colspan="5" class="text-center">No Orders found</td>
         </tr>
       </tbody>
     </table>
