@@ -64,3 +64,43 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
+
+
+/* Pagination */
+/* Pagination Button Base */
+.pagination .page-link {
+  border-radius: 30px;
+  margin: 0 5px;
+  padding: 8px 16px;
+  color: #316270;
+  border: 2px solid #316270; /* <- Ensure teal border */
+  background-color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.pagination .page-link:hover {
+  background-color: #316270;
+  color: white;
+}
+
+/* Active Page Button */
+.pagination .page-item.active .page-link {
+  background-color: #316270;
+  color: white;
+  border-color: #316270;
+}
+
+/* Disabled Page Button */
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
+  border-color: #ccc;
+  background-color: #f1f1f1;
+  cursor: not-allowed;
+}
+.pagination .page-link:focus {
+  border-color: #316270 !important;
+  box-shadow: 0 0 0 0.2rem rgba(49, 98, 112, 0.25); /* Teal glow */
+  outline: none;
+}
