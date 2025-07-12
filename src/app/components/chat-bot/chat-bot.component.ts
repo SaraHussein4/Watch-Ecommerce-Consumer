@@ -17,7 +17,7 @@ export class ChatBotComponent {
   isOpen = false;
   loading = false;
   question = '';
-  chatHistory: { from: 'user' | 'bot'; message: string }[] = [];
+  chatHistory: { from: 'user' | 'bot'; message: string; isHtml?: boolean }[] = [];
   products: Product[] = [];
   lastDiscussedProduct: Product | null = null;
 
