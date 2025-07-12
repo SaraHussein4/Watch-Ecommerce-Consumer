@@ -41,10 +41,11 @@ export const routes: Routes = [
 ,
 
   {
-    path: 'admin',
-    component: AdminLayoutComponent,
+    path: 'admin', component: AdminLayoutComponent,
+    canActivate: [authGuard, adminGuard],
     children: [
       { path: 'customers', component: CustomersComponent },
+      { path: 'orders', component: AdminOrdersComponent },
       { path: 'products/edit/:id', component: EditProductComponentComponent },
       { path: 'products', component: AdminProductsComponent },
       { path: 'addProduct', component: AddNewProductComponent },

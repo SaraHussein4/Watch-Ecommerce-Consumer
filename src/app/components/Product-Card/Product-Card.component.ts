@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-Product-Card',
   templateUrl: './Product-Card.component.html',
@@ -19,8 +20,13 @@ export class ProductCardComponent implements OnInit {
   @Input() isBrandCard: boolean = false; 
   @Output() viewBrandProducts = new EventEmitter<number>();
 
-  @Output() productDeleted = new EventEmitter<number>(); 
-  constructor(private routre: Router, private productService: ProductService) {}
+
+  @Output() productDeleted = new EventEmitter<number>(); // Event emitter to notify parent component about product deletion
+  constructor(
+    private routre: Router,
+    private productService: ProductService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     
@@ -42,7 +48,12 @@ export class ProductCardComponent implements OnInit {
 
   showDetails(id: any) {
     console.log('Product ID:', id);
-    this.routre.navigateByUrl(`/product/${id}`);
+    if(this.authService.isUser()){
+      this.routre.navigateByUrl(`/product/${id}`);
+    }
+    else{
+      this.routre.navigateByUrl(`/login`)
+    }
   }
 
   editProduct(id: any) {

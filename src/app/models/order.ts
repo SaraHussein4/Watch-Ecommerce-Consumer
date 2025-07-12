@@ -11,6 +11,14 @@ export interface Order {
   paymentStatus: string;
 }
 
+export interface OrderOverview {
+  id: number;
+  date: Date;
+  status: string;
+  amount: number;
+  email: string;
+}
+
 export interface OrderItem {
   productId: number;
   productName: string;
