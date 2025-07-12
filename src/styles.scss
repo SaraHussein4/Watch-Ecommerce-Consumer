@@ -1,1 +1,30 @@
 @use "primeicons/primeicons.css";
+
+.p-multiselect {
+  border: 2px solid #92a3a2 !important;
+  border-radius: 10px;
+  color: #204952 !important;
+  font-weight: 600;
+}
+.p-multiselect:focus{
+  border: 2px solid #30636f !important;
+}
+
+.p-multiselect-panel {
+  border: 1px solid #204952 !important;
+}
+
+.p-multiselect-option {
+  background-color: white !important;
+  color: #204952 !important;
+}
+
+.p-multiselect-option.p-highlight,
+.p-multiselect-option.p-highlight:hover {
+  background-color: #30636f !important;
+  color: white !important;
+}
+
+.p-icon {
+  color: #204952 !important;
+}

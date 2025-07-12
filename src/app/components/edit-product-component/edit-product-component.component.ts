@@ -9,8 +9,11 @@ import {
 } from '@angular/forms';
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+
 export interface Image {
   id: number;
   url: string;
@@ -19,35 +22,35 @@ export interface Image {
 }
 @Component({
   selector: 'app-edit-product-component',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,MultiSelectModule,RouterModule],
   templateUrl: './edit-product-component.component.html',
   styleUrl: './edit-product-component.component.css',
 })
 export class EditProductComponentComponent implements OnInit {
   editProductForm!: FormGroup;
   productId!: number;
-  availableColors: string[] = [
-    'Red',
-    'Blue',
-    'Green',
-    'Black',
-    'White',
-    'Silver',
-  ];
-  availableSizes: string[] = [
-    '26mm',
-    '28mm',
-    '30mm',
-    '32mm',
-    '34mm',
-    '36mm',
-    '38mm',
-    '40mm',
-    '42mm',
-    '44mm',
-    '46mm',
-    '48mm',
-  ];
+    colorOptions = [
+  { name: 'Red', value: 'Red' },
+  { name: 'Blue', value: 'Blue' },
+  { name: 'Green', value: 'Green' },
+  { name: 'Black', value: 'Black' },
+  { name: 'White', value: 'White' },
+  { name: 'Silver', value: 'Silver' },
+];
+sizeOptions = [
+  { name: '26mm', value: '26mm' },
+  { name: '28mm', value: '28mm' },
+  { name: '30mm', value: '30mm' },
+  { name: '32mm', value: '32mm' },
+  { name: '34mm', value: '34mm' },
+  { name: '36mm', value: '36mm' },
+  { name: '38mm', value: '38mm' },
+  { name: '40mm', value: '40mm' },
+  { name: '42mm', value: '42mm' },
+  { name: '44mm', value: '44mm' },
+  { name: '46mm', value: '46mm' },
+  { name: '48mm', value: '48mm' },
+];
   //interface for images
   images: Image[] = [];
   selectedColors: string[] = [];
@@ -60,7 +63,9 @@ export class EditProductComponentComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
-    private rout: ActivatedRoute
+    private rout: ActivatedRoute,
+    private router: Router,
+
   ) {}
   ngOnInit(): void {
     this.productId = Number(this.rout.snapshot.paramMap.get('id'));
@@ -69,12 +74,12 @@ export class EditProductComponentComponent implements OnInit {
       description: [''],
       price: [0, [Validators.required, Validators.min(0)]],
       quantity: [0, [Validators.required, Validators.min(0)]],
-      status: [''],
+      // status: [''],
       genderCategory: [0, Validators.required],
       waterResistance: [false],
       warrentyYears: [0],
-      colors: [],
-      sizes: [],
+      colors: '',
+      sizes: '',
       categoryId: [0, Validators.required],
       productBrandId: [0, Validators.required],
       images: [],
@@ -158,17 +163,21 @@ export class EditProductComponentComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe({
       next: (res) => {
         this.product = res;
-        this.editProductForm.patchValue(res);
+        // this.editProductForm.patchValue(res);
         this.selectedColors = res.colors || [];
         this.selectSizes = res.sizes || [];
         // console.log('Loaded genderCategory:', res.genderCategory);
         // alert('Loaded genderCategory: ' + res.genderCategory);
-        this.editProductForm.patchValue({
-          colors: this.selectedColors,
-          sizes: this.selectSizes,
-
-          genderCategory: res.genderCategory,
-        });
+        let gender =
+          (res.genderCategory as any) === 0 ? 'Male' :
+          (res.genderCategory as any) === 1 ? 'Female' :
+          '';
+      this.editProductForm.patchValue({
+        ...res,
+        colors: this.selectedColors,
+        sizes: this.selectSizes,
+        genderCategory: gender,
+      });
       },
       error: (err) => {
         console.log(err);
@@ -208,11 +217,11 @@ export class EditProductComponentComponent implements OnInit {
       },
     });
   }
-  onSubmit() {
-    let updateProduct = this.editProductForm.value;
-    updateProduct.genderCategory = Number(updateProduct.genderCategory);
+  // onSubmit() {
+    // let updateProduct = this.editProductForm.value;
+    // updateProduct.genderCategory = Number(updateProduct.genderCategory);
 
-    console.log(updateProduct);
+    // console.log(updateProduct);
     // if (typeof updateProduct.colors === 'string') {
     //   updateProduct.colors = updateProduct.colors
     //     .split(',')
@@ -224,31 +233,69 @@ export class EditProductComponentComponent implements OnInit {
     //     .split(',')
     //     .map((s: string) => s.trim());
     // }
-    updateProduct.colors = this.selectedColors;
-    updateProduct.sizes = this.selectSizes;
-    if (updateProduct.genderCategory === 'Male') {
-      updateProduct.genderCategory = 0;
-    } else if (updateProduct.genderCategory === 'Female') {
-      updateProduct.genderCategory = 1;
-    }
+  // updateProduct.colors = this.selectedColors.join(',');
+  // updateProduct.sizes = this.selectSizes.join(',');
 
-    updateProduct.id = this.productId;
+  //   if (updateProduct.genderCategory === 'Male') {
+  //     updateProduct.genderCategory = 0;
+  //   } else if (updateProduct.genderCategory === 'Female') {
+  //     updateProduct.genderCategory = 1;
+  //   }
+
+  //   updateProduct.id = this.productId;
     // updateProduct.colors = this.editProductForm.value.colors;
     // updateProduct.sizes = this.editProductForm.value.sizes;
-    console.log('Update Product Body:', updateProduct);
+    // console.log('Update Product Body:', updateProduct);
 
-    this.productService.updateProduct(this.productId, updateProduct).subscribe({
-      next: (res) => {
-        alert('Product updated successfully!');
-        console.log('Product updated:', res);
-        this.loadProduct();
-      },
-      error: (err) => {
-        alert('Error updating product!');
-        console.log(err);
-      },
-    });
+    // this.productService.updateProduct(this.productId, updateProduct).subscribe({
+    //   next: (res) => {
+    //     alert('Product updated successfully!');
+    //     console.log('Product updated:', res);
+    //     this.loadProduct();
+    //   },
+    //   error: (err) => {
+    //     alert('Error updating product!');
+    //     console.log(err);
+    //   },
+    // });
+  // }
+  onSubmit() {
+  const formData = new FormData();
+  const formValue = this.editProductForm.value;
+
+  // Append scalar values
+  formData.append('id', this.productId.toString());
+  formData.append('name', formValue.name);
+  formData.append('description', formValue.description || '');
+  formData.append('price', formValue.price.toString());
+  formData.append('quantity', formValue.quantity.toString());
+  formData.append('genderCategory', formValue.genderCategory);
+  formData.append('waterResistance', formValue.waterResistance.toString());
+  formData.append('warrentyYears', formValue.warrentyYears.toString());
+  formData.append('categoryId', formValue.categoryId.toString());
+  formData.append('productBrandId', formValue.productBrandId.toString());
+
+  // Convert arrays to comma-separated strings
+  formData.append('colors', formValue.colors.join(','));
+  formData.append('sizes', formValue.sizes.join(','));
+
+  // Append selected new images if any
+  for (let image of this.selectImage) {
+    formData.append('images', image); // name must match your DTO property
   }
+
+  this.productService.updateProduct(formData, this.productId).subscribe({
+    next: () =>{
+       alert('✅ Product added successfully');
+        this.router.navigate(['/admin/products']);
+    },
+    error: err =>{
+      console.error('Validation Errors:', err.error.errors),
+      alert('❌ Failed to add product');
+    }  
+  });
+}
+
   onCancel() {
     window.history.back();
   }
