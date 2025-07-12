@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 import { LoginComponentComponent } from './components/login-component/login-component.component';
 import { RegisterComponentComponent } from './components/register-component/register-component.component';
@@ -29,6 +30,7 @@ import { adminGuard } from './guards/admin.guard';
 import { notAdminGuard } from './guards/not-admin.guard';
 import { OrdersComponent } from './components/orders/orders.component';
 
+import { AboutComponent } from './components/about/about.component';
 
 
 export const routes: Routes = [
@@ -39,6 +41,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, canActivate:[notAdminGuard] },
+      { path: 'about', component: AboutComponent, canActivate:[notAdminGuard] },
       { path: 'login', component: LoginComponentComponent, canActivate: [guestGuard] },
       { path: 'register', component: RegisterComponentComponent, canActivate: [guestGuard] },
     ],
