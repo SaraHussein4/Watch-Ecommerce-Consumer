@@ -18,11 +18,13 @@ import { UserEditProfileComponent } from './components/user-edit-profile/user-ed
 import { UserViewProfileComponent } from './components/user-view-profile/user-view-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponentComponent },
   { path: 'register', component: RegisterComponentComponent },
   { path: 'cart', component: CartComponent },
