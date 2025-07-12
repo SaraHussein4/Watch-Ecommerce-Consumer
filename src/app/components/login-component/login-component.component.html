@@ -1,10 +1,10 @@
-<div class="login-container container mt-5">
+<div class="login-container container-fluid mt-5">
   <div class="login-card mx-auto">
     <h2 class="login-title">Login</h2>
     <p class="login-subtitle">Don't have an account? <a href="/register">Create a new one.</a>
     </p>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" class="form " (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label for="email" class="form-label">Enter Your Email</label>
         <input type="email" class="form-control login-input" formControlName="email" id="email"
