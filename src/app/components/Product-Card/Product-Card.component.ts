@@ -15,10 +15,11 @@ import { AuthService } from '../../services/auth.service';
   imports: [CommonModule, RouterModule, RouterLink],
 })
 export class ProductCardComponent implements OnInit {
-  @Input() product: any; // Replace 'any' with your actual product type
-  @Input() isAdmin: boolean = false; // Flag to check if the user is an admin
+  @Input() product: any; 
+  @Input() isAdmin: boolean = false; 
   @Input() isBrandCard: boolean = false; 
   @Output() viewBrandProducts = new EventEmitter<number>();
+
 
   @Output() productDeleted = new EventEmitter<number>(); // Event emitter to notify parent component about product deletion
   constructor(
@@ -27,7 +28,9 @@ export class ProductCardComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
   getPrimaryImage(product: Product) {
     const img = product.images?.find((img) => img.isPrimary);
@@ -58,8 +61,7 @@ export class ProductCardComponent implements OnInit {
     console.log('Edit Product ID:', id);
     this.routre.navigateByUrl(`/products/edit/${id}`);
 
-//     console.log("Edit Product ID:", id);
-//     this.routre.navigateByUrl(`/admin/products/edit/${id}`);
+    this.routre.navigateByUrl(`/admin/products/edit/${id}`);
 
   }
   deleteProduct(id: any) {
@@ -67,7 +69,7 @@ export class ProductCardComponent implements OnInit {
       this.productService.deleteProduct(id).subscribe({
         next: () => {
           alert('✅ Product deleted successfully');
-          this.productDeleted.emit(id); // Notify parent to remove product
+          this.productDeleted.emit(id); 
         },
         error: (error) => {
           console.error('Error deleting product', error);

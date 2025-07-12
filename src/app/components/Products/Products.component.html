@@ -26,7 +26,7 @@
               type="button"
               (click)="onSearch()"
             >
-              🔍
+              <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </div>
         </div>
@@ -104,15 +104,14 @@
       </div>
     </div>
 
-    <!-- Products Section (Right) -->
     <div class="col-md-9">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h4>Our Products</h4>
       </div>
 
       <div class="row">
-        <div class="col-lg-4 col-md-6" *ngFor="let product of products">
-          <app-Product-Card [product]="product"></app-Product-Card>
+        <div class="col-lg-3 col-md-6" *ngFor="let product of products" style="margin-bottom: 30px;">
+          <app-Product-Card  [product]="product"></app-Product-Card>
         </div>
       </div>
               <nav *ngIf="totalCount > filters.pageSize">
