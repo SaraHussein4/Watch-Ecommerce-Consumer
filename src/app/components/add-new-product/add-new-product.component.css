@@ -139,6 +139,7 @@ option {
   padding: 10px 25px;
   border-radius: 25px;
   transition: background-color 0.3s, transform 0.2s, color 0.3s;
+  /* margin-bottom : 10px; */
 }
 
 .btn-custom:hover {
@@ -211,6 +212,7 @@ option {
   justify-content: flex-end;
   gap: 1.5rem;
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 .image-preview-box {
   width: 150px;         /* adjust width as needed */
