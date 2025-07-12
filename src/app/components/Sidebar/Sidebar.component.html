@@ -1,35 +1,57 @@
- <nav>
-  <div class="position-sticky pt-3 sidebar-container mt-4" >
+<nav class="admin-sidebar d-flex flex-column">
+  <div class="sidebar-container pt-4 px-3">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" href="#">
-          <i class="fa-solid fa-house me-2"></i>
-          <strong>Dashboard</strong>
+        <a
+          class="nav-link"
+          routerLink="/admin/dashboard"
+          routerLinkActive="active"
+        >
+          <i class="fa-solid fa-chart-line"></i>
+          <!-- <i class="fa-solid fa-table-columns me-2"></i> -->
+          <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/admin/products']">
-          <span class="my-watch-icon">&#8986;</span>
-          Products
+        <a
+          class="nav-link"
+          routerLink="/admin/products"
+          routerLinkActive="active"
+        >
+          <i class="fa-solid fa-box-open"></i>
+          <!-- <i class="fa-solid fa-file-lines me-2"></i> -->
+          <span>Products</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fa-solid fa-list-check me-2"></i>
-          Orders
+        <a
+          class="nav-link"
+          routerLink="/admin/orders"
+          routerLinkActive="active"
+        >
+          <!-- <i class="fa-solid fa-boxes-stacked me-2"></i> -->
+          <!-- <i class="fa-solid fa-receipt me-2"></i> -->
+          <i class="fa-solid fa-cart-shopping me-2"></i>
+          <!-- <i class="fa-solid fa-file-lines me-2"></i> -->
+          <span>Orders</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/admin/customers']">
-          <i class="bi bi-people me-2"></i>
-          Customers
+        <a
+          class="nav-link"
+          routerLink="/admin/customers"
+          routerLinkActive="active"
+        >
+          <i class="fa-solid fa-users"></i>
+          <span>Customers</span>
         </a>
       </li>
     </ul>
   </div>
+
   <!-- Logout Button -->
-  <div class="mt-auto p-3">
-    <button class="btn btn-danger w-100" (click)="logout()">
+  <div class="sidebar-footer mt-auto p-3">
+    <button class="btn logout-btn w-100" (click)="logout()">
       <i class="fa-solid fa-right-from-bracket me-2"></i>
       Logout
     </button>

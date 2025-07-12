@@ -1,68 +1,79 @@
- .admin-sidebar {
-  width: 100%;
-  height: 100vh;
+/* Sidebar container */
+.admin-sidebar {
   background-color: #f6f6f6;
-  border-right: 1px solid #dee2e6;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 15px;
 }
 
-.sidebar-container {
-  padding: 20px;
-  height: 100%;
-}
-
-.nav-item {
-  margin-bottom: 25px;
-}
-
+/* Nav link style */
 .nav-link {
   display: flex;
-  align-items: center;
+  align-items: center; /* Align icon and text vertically */
+  gap: 10px;
   color: #30636f;
   font-size: 18px;
-  font-weight: 600;
-  padding: 10px 18px;
+  font-weight: 500;
+  padding: 10px 15px;
   border-radius: 8px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
   text-decoration: none;
 }
 
+/* Icon style */
 .nav-link i {
   font-size: 20px;
-  margin-right: 12px;
   color: #30636f;
-  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
 }
 
-.nav-link span {
-  flex: 1;
-}
-
-.nav-link:hover {
-  background-color: #30636f;
-  color: #ffffff;
-}
-
-.nav-link:hover i {
-  color: #ffffff;
-}
-
-/* Active link (based on routerLinkActive) */
+/* Active link style */
 .nav-link.active {
   background-color: #204952;
   color: #ffffff;
+  font-weight: 600;
 }
 
 .nav-link.active i {
   color: #ffffff;
 }
 
-
-.vh-100{
+/* Hover effect */
+.nav-link:hover {
+  background-color: #30636f;
+  color: white;
 }
 
+.nav-link:hover i {
+  color: white;
+}
 
-.sidebar{
-  height: 100vh;
-  position: fixed;
-  
+/* Sidebar nav item spacing */
+.nav-item {
+  margin-bottom: 20px;
+}
+
+/* Logout button */
+.admin-sidebar .btn-danger {
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 25px;
+}
+
+/* Logout button */
+.logout-btn {
+  background-color: #d9534f;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #c9302c;
 }

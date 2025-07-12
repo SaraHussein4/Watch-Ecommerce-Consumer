@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink ,RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-Sidebar',
   templateUrl: './Sidebar.component.html',
   styleUrls: ['./Sidebar.component.css'],
-  imports: [RouterLink]
+  imports: [RouterLink,RouterModule]
 })
 export class SidebarComponent implements OnInit {
 
