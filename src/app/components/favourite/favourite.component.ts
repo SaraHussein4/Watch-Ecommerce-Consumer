@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { decreaseFavouriteCounter } from '../../Store/FavouriteCounter.action';
+import { ProductCardComponent } from '../Product-Card/Product-Card.component';
 @Component({
   selector: 'app-favourite',
   templateUrl: './favourite.component.html',
   styleUrls: ['./favourite.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule,ProductCardComponent]
 })
 export class FavouriteComponent implements OnInit {
   products: Product[] = []; // Adjust the type as per your model
