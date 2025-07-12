@@ -1,14 +1,12 @@
-<div class="container favourite">
+<!-- <div class="container favourite">
   <div class="row">
     <div class="col-lg-4 col-md-6" *ngFor="let product of products">
 
       <div class="card h-100 position-relative">
-        <!-- ❌ Top-Right Delete Icon for Admin -->
         <button  class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2"
           (click)="deleteProduct(product.id)">
           <i class="bi bi-x-lg"></i>
         </button>
-        <!-- IMAGE DISPLAY -->
         <img *ngIf="getPrimaryImage(product)" [src]="getPrimaryImage(product)?.url" alt="Product Image"
           class="card-img-top" style="height: 250px; object-fit: cover" />
 
@@ -16,7 +14,7 @@
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="text-primary fw-bold">{{ product.price | currency }}</p>
 
-          <!-- Buttons with spacing -->
+  
           <div class="d-flex gap-2 flex-wrap">
             <button class="btn btn-outline-primary" (click)="showDetails(product.id)">
               Show Details
@@ -26,4 +24,12 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+<div class="container favourite">
+    <div class="row g-4">
+      <div class="col-md-3" *ngFor="let product of products">
+        <app-Product-Card [product]="product"></app-Product-Card>
+      </div>
+    </div>
+    </div>
