@@ -31,11 +31,15 @@ export class ProductService {
     return this.http.get<Product>(`https://localhost:7071/api/Product/${id}`);
   }
 
-  updateProduct(id: number, product: Product): Observable<Product> {
-    return this.http.put<Product>(
-      `https://localhost:7071/api/Product/${id}`,
-      product
-    );
+  // updateProduct(id: number, product: Product): Observable<Product> {
+  //   return this.http.put<Product>(
+  //     `https://localhost:7071/api/Product/${id}`,
+  //     product
+  //   );
+  // }
+  
+  updateProduct(formData: FormData, id: number) {
+    return this.http.put(`https://localhost:7071/api/Product/${id}`, formData);
   }
 
   //getCategory
