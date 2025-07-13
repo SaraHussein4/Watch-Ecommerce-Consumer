@@ -1,0 +1,29 @@
+<div *ngIf="loading" class="text-center py-4">Loading...</div>
+<div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
+
+<div *ngIf="!loading && !error" class="dashboard-container">
+  <h1 class="dashboard-title">Dashboard Overview</h1>
+
+  <div class="dashboard-stats">
+    <div class="stat-box">
+      <div class="stat-label">Total Products</div>
+      <div class="stat-value">{{ stats?.totalProducts }}</div>
+      <div class="stat-change">{{ stats?.productsChange }}</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Total Orders</div>
+      <div class="stat-value">{{ stats?.totalOrders }}</div>
+      <div class="stat-change">{{ stats?.ordersChange }}</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Total Customers</div>
+      <div class="stat-value">{{ stats?.totalCustomers }}</div>
+      <div class="stat-change">{{ stats?.customersChange }}</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Revenue Growth</div>
+      <div class="stat-value">{{ stats?.revenueGrowth }}%</div>
+      <div class="stat-change">{{ stats?.revenueChange }}</div>
+    </div>
+  </div>
+</div>

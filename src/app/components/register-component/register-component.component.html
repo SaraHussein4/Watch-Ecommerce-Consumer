@@ -2,11 +2,10 @@
 <div class="register-container container mt-5">
   <div class="register-card mx-auto ">
     <h2 class="register-title mb-5 ">Signup</h2>
-    <!-- <p class="register-subtitle">Already have an account? <a href="/login">Login here.</a></p> -->
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
-        <label for="name" class="form-label">Full Name*</label>
+        <label for="name" class="form-label">Full Name</label>
         <input type="text" class="form-control login-input" formControlName="name" id="name" placeholder="Enter your full name"
           required>
       </div>
@@ -17,7 +16,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="email" class="form-label">Email Address*</label>
+        <label for="email" class="form-label">Email Address</label>
         <input type="email" class="form-control login-input" formControlName="email" id="email"
           placeholder="Enter your email address" required>
       </div>
@@ -28,7 +27,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="phone" class="form-label">Phone Number*</label>
+        <label for="phone" class="form-label">Phone Number</label>
         <input type="tel" class="form-control login-input" formControlName="phoneNumber" id="phone"
           placeholder="Enter your phone number" required>
       </div>
@@ -57,7 +56,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="password" class="form-label">Password*</label>
+        <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control login-input" formControlName="password" id="password"
           placeholder="Enter your password" required>
       </div>
@@ -68,7 +67,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="confirmPassword" class="form-label login-input">Confirm Password*</label>
+        <label for="confirmPassword" class="form-label login-input">Confirm Password</label>
         <input type="password" class="form-control login-input" formControlName="confirmPassword" id="confirmPassword"
           placeholder="Confirm your password" required>
       </div>
@@ -83,7 +82,7 @@
       </div>
 
       <p class="text-center mt-3 register-login-link">
-        Already have an account? <a href="/login">Login here.</a>
+        Already have an account? <a href="/login" class="loginHere">Login here.</a>
       </p>
     </form>
   </div>

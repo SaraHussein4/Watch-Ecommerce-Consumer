@@ -41,7 +41,7 @@ onSubmit() {
           this.router.navigateByUrl('/home');
         }
         else {
-          this.router.navigate(['/admin'])
+          this.router.navigate(['/admin/dashboard']);
         }
 
 
