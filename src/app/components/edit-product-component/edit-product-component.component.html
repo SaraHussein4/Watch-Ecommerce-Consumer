@@ -9,15 +9,27 @@
         <div class="row">
           <div class="col-md-4 mt-3">
             <label>Product Name</label>
-            <input class="myInput form-control" type="text" formControlName="name" />
+            <input
+              class="myInput form-control"
+              type="text"
+              formControlName="name"
+            />
           </div>
           <div class="col-md-4 mt-3">
             <label>Price</label>
-            <input class="myInput form-control" type="number" formControlName="price" />
+            <input
+              class="myInput form-control"
+              type="number"
+              formControlName="price"
+            />
           </div>
           <div class="col-md-4 mt-3">
             <label>Quantity</label>
-            <input class="myInput form-control" type="number" formControlName="quantity" />
+            <input
+              class="myInput form-control"
+              type="number"
+              formControlName="quantity"
+            />
           </div>
         </div>
       </div>
@@ -30,14 +42,29 @@
         <div class="row">
           <div class="col-md-4 mt-3">
             <label>Description</label>
-            <textarea rows="3" class="myInputDescription form-control" formControlName="description"></textarea>
+            <textarea
+              rows="3"
+              class="myInputDescription form-control"
+              formControlName="description"
+            ></textarea>
           </div>
           <div class="col-md-4 mt-3">
             <label>Warranty Years</label>
-            <input class="myInput form-control" type="number" formControlName="warrentyYears" />
+            <input
+              class="myInput form-control"
+              type="number"
+              formControlName="warrentyYears"
+            />
             <div class="form-check mt-4">
-              <input class="form-check-input" type="checkbox" formControlName="waterResistance" id="waterResistance" />
-              <label class="form-check-label" for="waterResistance">Water Resistance</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="waterResistance"
+                id="waterResistance"
+              />
+              <label class="form-check-label" for="waterResistance"
+                >Water Resistance</label
+              >
             </div>
           </div>
         </div>
@@ -49,30 +76,6 @@
       <div class="card-body">
         <h5 class="form-section-title">Attributes</h5>
         <div class="row">
-          <div class="col-md-4 mt-3">
-            <label>Gender</label>
-            <select class="form-select brand-select" formControlName="genderCategory">
-              <option value="" disabled>Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-
-            <div class="mt-2">
-              <label class="form-label mb-0">Category</label>
-              <select class="form-select category-select" formControlName="categoryId">
-                <option value="" disabled>Select Category</option>
-                <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
-              </select>
-            </div>
-
-            <div class="mt-3">
-              <label class="form-label mb-0">Brand</label>
-              <select class="form-select brand-select" formControlName="productBrandId">
-                <option value="" disabled>Select Brand</option>
-                <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
-              </select>
-            </div>
-          </div>
           <div class="col-md-4 mt-3">
             <label class="form-label">Colors</label>
             <p-multiSelect
@@ -99,7 +102,43 @@
             ></p-multiSelect>
           </div>
 
+          <div class="col-md-4 mt-3">
+            <label>Gender</label>
+            <select
+              class="form-select brand-select"
+              formControlName="genderCategory"
+            >
+              <option value="" disabled>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
 
+            <div class="mt-2">
+              <label class="form-label mb-0">Category</label>
+              <select
+                class="form-select category-select"
+                formControlName="categoryId"
+              >
+                <option value="" disabled>Select Category</option>
+                <option *ngFor="let cat of categories" [value]="cat.id">
+                  {{ cat.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label mb-0">Brand</label>
+              <select
+                class="form-select brand-select"
+                formControlName="productBrandId"
+              >
+                <option value="" disabled>Select Brand</option>
+                <option *ngFor="let brand of brands" [value]="brand.id">
+                  {{ brand.name }}
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -109,20 +148,41 @@
       <div class="card-body">
         <h5 class="form-section-title">Images</h5>
 
-        <label for="imageUpload" class="form-label fw-semibold">Add New Images</label>
-        <input type="file" id="imageUpload" (change)="onImageSelected($event)" multiple class="form-control"
-          accept="image/*" />
+        <label for="imageUpload" class="form-label fw-semibold"
+          >Add New Images</label
+        >
+        <input
+          type="file"
+          id="imageUpload"
+          (change)="onImageSelected($event)"
+          multiple
+          class="form-control"
+          accept="image/*"
+        />
 
-        <div class="d-flex justify-content-end mt-3">
-          <button type="button" class="btn btn-custom" (click)="uploadImages()">Add Images</button>
+        <div class="d-flex justify-content-center mt-3">
+          <button type="button" class="btn btn-custom" (click)="uploadImages()">
+            Add Images
+          </button>
         </div>
 
         <div *ngIf="product?.images?.length > 0" class="mt-4">
           <label class="mb-1">Existing Images:</label>
           <div class="product-images-container d-flex flex-wrap gap-3">
-            <div *ngFor="let img of product.images" class="image-preview-box position-relative image-preview-box">
-              <img [src]="'https://localhost:7071' + img.url" alt="Product Image" class="product-image w-100 h-100" />
-              <button type="button" (click)="deleteImage(img.id)" class="delete-button position-absolute top-0 end-0 m-1">
+            <div
+              *ngFor="let img of product.images"
+              class="image-preview-box position-relative image-preview-box"
+            >
+              <img
+                [src]="'https://localhost:7071' + img.url"
+                alt="Product Image"
+                class="product-image w-100 h-100"
+              />
+              <button
+                type="button"
+                (click)="deleteImage(img.id)"
+                class="delete-button position-absolute top-0 end-0 m-1"
+              >
                 <i class="fa fa-trash text-danger"></i>
               </button>
             </div>
@@ -134,7 +194,9 @@
     <!-- Footer Buttons -->
     <div class="d-flex justify-content-end gap-5 mt-5 mb-4">
       <button type="submit" class="btn btn-custom">Update Product</button>
-      <button type="button" class="btn btn-cancel" (click)="onCancel()">Cancel</button>
+      <button type="button" class="btn btn-cancel" (click)="onCancel()">
+        Cancel
+      </button>
     </div>
   </form>
 </div>

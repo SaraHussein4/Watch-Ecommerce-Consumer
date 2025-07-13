@@ -77,7 +77,7 @@ sizeOptions = [
       price: [0, [Validators.required, Validators.min(0)]],
       quantity: [0, [Validators.required, Validators.min(0)]],
       // status: [''],
-      genderCategory: [0, Validators.required],
+      genderCategory: ['', Validators.required],
       waterResistance: [false],
       warrentyYears: [0],
       colors: '',
@@ -170,15 +170,11 @@ sizeOptions = [
         this.selectSizes = res.sizes || [];
         // console.log('Loaded genderCategory:', res.genderCategory);
         // alert('Loaded genderCategory: ' + res.genderCategory);
-        let gender =
-          (res.genderCategory as any) === 0 ? 'Male' :
-          (res.genderCategory as any) === 1 ? 'Female' :
-          '';
       this.editProductForm.patchValue({
         ...res,
         colors: this.selectedColors,
         sizes: this.selectSizes,
-        genderCategory: gender,
+        genderCategory: res.genderCategory,
       });
       },
       error: (err) => {
@@ -262,8 +258,11 @@ sizeOptions = [
     // });
   // }
   onSubmit() {
-  const formData = new FormData();
-  const formValue = this.editProductForm.value;
+    const formValue = this.editProductForm.value;
+    // const genderCategory =
+    // formValue.genderCategory === 'Male' ? '0' :
+    // formValue.genderCategory === 'Female' ? '1' : '';
+    const formData = new FormData();
 
   // Append scalar values
   formData.append('id', this.productId.toString());
