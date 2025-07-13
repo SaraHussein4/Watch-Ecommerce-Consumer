@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ToastrService } from 'ngx-toastr';
 import { SharedComponentsService } from '../../services/sharedComponents.service';
 
 
@@ -66,6 +67,7 @@ sizeOptions = [
     private fb: FormBuilder,
     private rout: ActivatedRoute,
     private router: Router,
+    private toastr: ToastrService,
     private sharedComponent: SharedComponentsService
 
   ) {}
@@ -77,7 +79,7 @@ sizeOptions = [
       price: [0, [Validators.required, Validators.min(0)]],
       quantity: [0, [Validators.required, Validators.min(0)]],
       // status: [''],
-      genderCategory: [0, Validators.required],
+      genderCategory: ['', Validators.required],
       waterResistance: [false],
       warrentyYears: [0],
       colors: '',
@@ -170,15 +172,11 @@ sizeOptions = [
         this.selectSizes = res.sizes || [];
         // console.log('Loaded genderCategory:', res.genderCategory);
         // alert('Loaded genderCategory: ' + res.genderCategory);
-        let gender =
-          (res.genderCategory as any) === 0 ? 'Male' :
-          (res.genderCategory as any) === 1 ? 'Female' :
-          '';
       this.editProductForm.patchValue({
         ...res,
         colors: this.selectedColors,
         sizes: this.selectSizes,
-        genderCategory: gender,
+        genderCategory: res.genderCategory,
       });
       },
       error: (err) => {
@@ -262,8 +260,11 @@ sizeOptions = [
     // });
   // }
   onSubmit() {
-  const formData = new FormData();
-  const formValue = this.editProductForm.value;
+    const formValue = this.editProductForm.value;
+    // const genderCategory =
+    // formValue.genderCategory === 'Male' ? '0' :
+    // formValue.genderCategory === 'Female' ? '1' : '';
+    const formData = new FormData();
 
   // Append scalar values
   formData.append('id', this.productId.toString());
@@ -288,13 +289,19 @@ sizeOptions = [
 
   this.productService.updateProduct(formData, this.productId).subscribe({
     next: () =>{
-       this.sharedComponent.showSuccessMessage('Product added successfully');
-        this.router.navigate(['/admin/products']);
+
+      //  this.sharedComponent.showSuccessMessage('Product added successfully');
+        this.toastr.success('Product updated successfully!', 'Success');
+        this.router.navigate(['/admin/products']).then(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+});
     },
     error: err =>{
       console.error('Validation Errors:', err.error.errors),
-      this.sharedComponent.showErrorMessage('Failed to add product');
-    }  
+      // this.sharedComponent.showErrorMessage('Failed to add product');
+        this.toastr.error('Failed to update product', 'Error');
+
+    }
   });
 }
 

@@ -31,7 +31,7 @@
     <div class="col-md-3" *ngFor="let product of products">
       <div class="card product-card h-100 position-relative shadow-sm ">
         <button class="btn btn-delete-icon position-absolute top-0 end-0 m-2"
-          (click)="confirmDelete(product.id)">
+          (click)="deleteProduct(product.id)">
           <i class="bi bi-x-lg"></i>
         </button>
 

@@ -5,17 +5,20 @@ import { NavbarComponentComponent } from './components/navbar-component/navbar-c
 import { Router ,NavigationEnd} from '@angular/router';
 import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
 import { CommonModule} from '@angular/common';
+import { ConfirmDialog } from "primeng/confirmdialog";
 @Component({
   selector: 'app-root',
   imports: [
     FooterComponentComponent,
+    NavbarComponentComponent,
     RouterOutlet,
     RouterModule,
     ChatBotComponent,
     CommonModule
-
     // RouterLinkActive
-    ],
+    ,
+    ConfirmDialog
+],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -23,6 +26,7 @@ import { CommonModule} from '@angular/common';
 export class AppComponent {
   title = 'watchEcommerce';
   showNavbar = true;
+  showFooter = true;
   constructor(private router: Router) {
     this.router.events.subscribe((event: any) => {
       if (event.url) {
@@ -30,6 +34,15 @@ export class AppComponent {
           this.showNavbar = false;
         } else {
           this.showNavbar = true;
+        }
+      }
+    });
+    this.router.events.subscribe((event: any) => {
+      if (event.url) {
+        if (event.url.includes('/admin')) {
+          this.showFooter = false;
+        } else {
+          this.showFooter = true;
         }
       }
     });
