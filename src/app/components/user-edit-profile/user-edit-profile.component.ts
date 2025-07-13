@@ -5,6 +5,8 @@ import { UserProfile } from '../../models/userProfile.model';
 import { Router } from '@angular/router';
 import { NgFor,NgIf } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-edit-profile',
@@ -18,7 +20,11 @@ selectedDefaultIndex: number = this.profile.addresses.findIndex(a => a.isDefault
 duplicateAddressMessage: string = '';
 
 
- constructor(private userService: UserService, private router: Router) {
+ constructor(private userService: UserService,
+             private router: Router,
+             private confirmationService: ConfirmationService,
+             private toastr: ToastrService
+ ) {
  this.selectedDefaultIndex = this.profile.addresses.findIndex(a => a.isDefault);
  }
 
@@ -73,22 +79,52 @@ setDefaultAddress(index: number): void {
     ? 'Duplicate address found. Please remove or change it.'
     : '';
 }
+// removeAddress(index: number): void {
+//   const confirmed = window.confirm('Are you sure you want to delete this address?');
+//   if (confirmed) {
+//   const wasDefault = this.profile.addresses[index].isDefault;
+//   this.profile.addresses.splice(index, 1);
+
+//   // Reassign default if needed
+//   if (wasDefault && this.profile.addresses.length > 0) {
+//     this.profile.addresses[0].isDefault = true;
+//   }
+
+//   this.duplicateAddressMessage = this.hasDuplicateAddress()
+//       ? 'Duplicate address found. Please remove or change it.'
+//       : '';
+// }
+// }
 removeAddress(index: number): void {
-  const confirmed = window.confirm('Are you sure you want to delete this address?');
-  if (confirmed) {
-  const wasDefault = this.profile.addresses[index].isDefault;
-  this.profile.addresses.splice(index, 1);
+  this.confirmationService.confirm({
+    message: 'Are you sure you want to delete this address?',
+    header: 'Confirm Deletion',
+      icon: 'pi pi-trash',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-secondary',
+      acceptLabel: 'Delete',
+      rejectLabel: 'Cancel',
+    accept: () => {
+      const wasDefault = this.profile.addresses[index].isDefault;
+      this.profile.addresses.splice(index, 1);
 
-  // Reassign default if needed
-  if (wasDefault && this.profile.addresses.length > 0) {
-    this.profile.addresses[0].isDefault = true;
-  }
+      // Reassign default if needed
+      if (wasDefault && this.profile.addresses.length > 0) {
+        this.profile.addresses[0].isDefault = true;
+      }
 
-  this.duplicateAddressMessage = this.hasDuplicateAddress()
-      ? 'Duplicate address found. Please remove or change it.'
-      : '';
+      this.duplicateAddressMessage = this.hasDuplicateAddress()
+        ? 'Duplicate address found. Please remove or change it.'
+        : '';
+
+      this.toastr.success('Address deleted successfully', 'Success');
+    },
+    reject: () => {
+      this.toastr.info('Address deletion cancelled', 'Info');
+    }
+  });
 }
-}
+
 changePassword(){
   this.router.navigate(['/changePassword']);
 }

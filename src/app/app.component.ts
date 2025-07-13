@@ -5,8 +5,7 @@ import { NavbarComponentComponent } from './components/navbar-component/navbar-c
 import { Router ,NavigationEnd} from '@angular/router';
 import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
 import { CommonModule} from '@angular/common';
-
-
+import { ConfirmDialog } from "primeng/confirmdialog";
 @Component({
   selector: 'app-root',
   imports: [
@@ -16,9 +15,10 @@ import { CommonModule} from '@angular/common';
     RouterModule,
     ChatBotComponent,
     CommonModule
-
     // RouterLinkActive
-    ],
+    ,
+    ConfirmDialog
+],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
