@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 import { MultiSelectModule } from 'primeng/multiselect';
-// import { SideBarComponent } from "../admin-side-bar/side-bar.component";
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-new-product',
   standalone: true,
@@ -62,6 +62,7 @@ sizeOptions = [
     private brandService: BrandService,
     private router: Router,
     private location: Location,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -162,7 +163,7 @@ onBrandModalClosed(refresh: boolean) {
 
     // Add images
     for (let file of this.selectedImages) {
-        // const cleanedFileName = file.name.trim().replace(/\s+/g, '_'); 
+        // const cleanedFileName = file.name.trim().replace(/\s+/g, '_');
         // const safeFile = new File([file], cleanedFileName, { type: file.type });
         // formData.append('Images', safeFile, safeFile.name);
       formData.append('Images', file, file.name);
@@ -170,12 +171,16 @@ onBrandModalClosed(refresh: boolean) {
 
     this.productService.addProduct(formData).subscribe({
       next: () => {
-        alert('✅ Product added successfully');
-        this.router.navigate(['/admin/products']);
+        // alert('✅ Product added successfully');
+        this.toastr.success('Product added successfully!', 'Success');
+        this.router.navigate(['/admin/products']).then(() => {
+         window.scrollTo({ top: 0, behavior: 'smooth' });
+});
       },
       error: err => {
         console.error('Error adding product:', err);
-        alert('❌ Failed to add product');
+        // alert('❌ Failed to add product');
+        this.toastr.error('Failed to add product', 'Error');
       }
     });
 
