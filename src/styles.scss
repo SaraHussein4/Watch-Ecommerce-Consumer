@@ -1,4 +1,6 @@
 @use "primeicons/primeicons.css";
+@use 'ngx-toastr/toastr.css';
+
 
 .p-multiselect {
   border: 2px solid #92a3a2 !important;
@@ -28,3 +30,6 @@
 .p-icon {
   color: #204952 !important;
 }
+// .toast {
+//   z-index: 99999 !important;
+// }

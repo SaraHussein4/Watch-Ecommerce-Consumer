@@ -7,17 +7,21 @@ import { ProductService } from '../../services/product.service';
 import { EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 @Component({
   selector: 'app-Product-Card',
   templateUrl: './Product-Card.component.html',
   styleUrls: ['./Product-Card.component.css'],
   providers: [CurrencyPipe],
-  imports: [CommonModule, RouterModule, RouterLink],
+  imports: [CommonModule, RouterModule, RouterLink,ConfirmDialogModule],
 })
 export class ProductCardComponent implements OnInit {
-  @Input() product: any; 
-  @Input() isAdmin: boolean = false; 
-  @Input() isBrandCard: boolean = false; 
+  @Input() product: any;
+  @Input() isAdmin: boolean = false;
+  @Input() isBrandCard: boolean = false;
   @Output() viewBrandProducts = new EventEmitter<number>();
 
 
@@ -25,11 +29,14 @@ export class ProductCardComponent implements OnInit {
   constructor(
     private routre: Router,
     private productService: ProductService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private confirmationService: ConfirmationService,
+
   ) {}
 
   ngOnInit() {
-    
+
   }
 
   getPrimaryImage(product: Product) {
@@ -64,18 +71,40 @@ export class ProductCardComponent implements OnInit {
     this.routre.navigateByUrl(`/admin/products/edit/${id}`);
 
   }
-  deleteProduct(id: any) {
-    if (confirm('Are you sure you want to delete this product?')) {
-      this.productService.deleteProduct(id).subscribe({
-        next: () => {
-          alert('✅ Product deleted successfully');
-          this.productDeleted.emit(id); 
-        },
-        error: (error) => {
-          console.error('Error deleting product', error);
-          alert('❌ Failed to delete product');
-        },
-      });
-    }
+  // deleteProduct(id: any) {
+  //   if (confirm('Are you sure you want to delete this product?')) {
+  //     this.productService.deleteProduct(id).subscribe({
+  //       next: () => {
+  //         // alert('✅ Product deleted successfully');
+  //       this.toastr.success('Product deleted successfully!', 'Success');
+  //         this.productDeleted.emit(id);
+  //       },
+  //       error: (error) => {
+  //         console.error('Error deleting product', error);
+  //         // alert('❌ Failed to delete product');
+  //       this.toastr.error('Failed to delete product', 'Error');
+  //       },
+  //     });
+  //   }
+  // }
+ deleteProduct(id: number) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this product?',
+      header: 'Confirm Deletion',
+      icon: 'pi pi-exclamation-triangle',
+      acceptButtonStyleClass: 'p-button-danger',
+      accept: () => {
+        this.productService.deleteProduct(id).subscribe({
+          next: () => {
+            this.toastr.success('Product deleted successfully!', 'Success');
+            this.productDeleted.emit(id);
+          },
+          error: (error) => {
+            console.error('Error deleting product', error);
+            this.toastr.error('Failed to delete product', 'Error');
+          }
+        });
+      }
+    });
   }
 }
