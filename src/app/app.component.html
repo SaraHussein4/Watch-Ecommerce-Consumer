@@ -1,8 +1,10 @@
-<!-- <app-navbar-component *ngIf="showNavbar"></app-navbar-component> -->
+<app-navbar-component *ngIf="showNavbar"></app-navbar-component>
 
 <router-outlet></router-outlet>
 <!-- <app-Products></app-Products> -->
  <!-- <app-add-new-product></app-add-new-product> -->
 
-<app-footer-component></app-footer-component>
+<!-- <app-footer-component></app-footer-component> -->
+<app-footer-component *ngIf=" showFooter"></app-footer-component>
+
 <app-chat-bot></app-chat-bot>
