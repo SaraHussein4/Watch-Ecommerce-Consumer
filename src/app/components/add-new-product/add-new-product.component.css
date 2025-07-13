@@ -1,20 +1,9 @@
-
-/* h1 */
+/* General Typography */
 .hover {
   color: #30636f;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  display: inline-block;
-  padding: 8px 16px;
+  font-size: 2rem;
 }
 
-.hover:hover {
-  background-color: #30636f;
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  cursor: none;
-}
-/* title */
 .product-title {
   text-align: center;
   color: #30636f;
@@ -29,194 +18,148 @@
 }
 
 .product-title:hover {
-  color: #30636f;
   transform: scale(1.05);
-  border-color: #30636f;
   text-shadow: 0 4px 12px rgba(48, 99, 111, 0.3);
   cursor: pointer;
 }
-/* label */
-label {
+
+label, label.form-label {
   color: #30636f;
   font-weight: 600;
   display: block;
   font-size: 20px;
 }
-.custom-select-sizes {
-  background-color: #f8f9fa;
-  border: 2px solid #0d6efd;
-  border-radius: 10px;
-  padding: 10px;
-  height: 180px;
-  font-weight: 500;
-  transition: box-shadow 0.3s ease;
-}
-/* input*/
-.myInput {
-  border-radius: 20px;
-  border: 1px solid #e1e4e8;
-  box-sizing: border-box;
-  transition: border-color 0.3s, box-shadow 0.3s;
 
-}
-
-.myInput:hover {
-  border-color: #30636f;
-  box-shadow: 0 0 5px rgba(48, 99, 111, 0.3);
-  background-color: #d9e4e5;
-}
-
-.myInput:focus {
-  border-color: #30636f;
-  box-shadow: 0 0 8px rgba(48, 99, 111, 0.5);
-  outline: none;
-}
-.myInputDescription {
-
-  border: 1px solid #e1e4e8;
-  border-radius: 20px;
-  padding: 12px;
-  box-sizing: border-box;
-}
-.custom-select-sizes:focus {
-  border-color: #6610f2;
-  box-shadow: 0 0 5px rgba(102, 16, 242, 0.5);
-}
-/* category&& brand */
-.category-select {
-
-  border: 1px solid #e1e4e8;
-  border-radius: 20px;
-  box-sizing: border-box;
-  background-color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.category-select:hover {
-  border-color: #30636f;
-  box-shadow: 0 0 5px rgba(48, 99, 111, 0.3);
-  background-color: #d9e4e5;
-}
-
-.category-select:focus {
-  border-color: #30636f;
-  box-shadow: 0 0 8px rgba(48, 99, 111, 0.5);
-  outline: none;
-}
+/* Input */
+.myInput,
+.myInputDescription,
+.form-select,
+.category-select,
 .brand-select {
-
-  border: 1px solid #e1e4e8;
   border-radius: 20px;
+  border: 1px solid #e1e4e8;
   box-sizing: border-box;
-  background-color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+.myInput:hover,
+.myInputDescription:hover,
+.form-select:hover,
+.category-select:hover,
 .brand-select:hover {
-  border-color: #30636f;
-  box-shadow: 0 0 5px rgba(48, 99, 111, 0.3);
-  background-color: #d9e4e5;
+  background-color: transparent;
+  box-shadow: none;
+  border-color: #e1e4e8;
+  cursor: pointer;
 }
 
+.myInput:focus,
+.myInputDescription:focus,
+.form-select:focus,
+.category-select:focus,
 .brand-select:focus {
-  border-color: #30636f;
-  box-shadow: 0 0 8px rgba(48, 99, 111, 0.5);
+  border: 2px solid #30636f !important;
   outline: none;
+  box-shadow: none;
 }
-/* colors && sizes*/
-.custom-select-sizes option {
-  padding: 5px;
-}
-
-label.form-label {
-  font-weight: 600;
-  color: #30636f;
-}
-.custom-select-colors {
-  background-color: #f8f9fa;
-  border: 2px solid #30636f;
-  border-radius: 10px;
-  padding: 10px;
-  height: 180px;
+.category-select,
+.brand-select {
+  font-size: 14px;
   font-weight: 500;
-  transition: box-shadow 0.3s ease;
+  color: #30636f;
+  background-color: #fff;
 }
 
-.custom-select-colors:focus {
-  border-color: #30636f;
-  box-shadow: 0 0 5px rgba(48, 99, 111, 0.5);
-}
-
-.custom-select-colors option {
-  padding: 5px;
-}
-
-label.form-label {
-  font-weight: 600;
+option {
+  font-weight: bold;
   color: #30636f;
 }
-/* image */
-#imageUpload {
 
-  padding: 10px;
-  border: 2px dashed #30636f;
+/* PrimeNG MultiSelect */
+/* :host ::ng-deep .custom-multiselect .p-multiselect {
+  background-color: #f8f9fa;
+  border: 1px solid #e1e4e8;
   border-radius: 10px;
-  background-color: #d9e4e5;
-  transition: border-color 0.3s, background-color 0.3s;
+  padding: 5px;
+  min-height: 50px;
+  font-weight: 500;
+  color: #30636f;
+  transition: border 0.3s ease;
+}
+
+:host :ng-deep .custom-multiselect .p-multiselect:focus {
+  border: 2px solid #30636f;
+  box-shadow: none;
+}
+
+:host ::ng-deep .custom-multiselect .p-multiselect:hover {
+  background-color: transparent;
+  border-color: #e1e4e8;
+}
+
+:host ::ng-deep .p-multiselect-panel {
+  border: 1px solid #30636f;
+}
+
+:host ::ng-deep .p-highlight {
+  background-color: #30636f !important;
+  color: white !important;
+} */
+
+/* Image Upload */
+#imageUpload {
+  padding: 12px;
+  border: 2px solid #30636f;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  color: #30636f;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 #imageUpload:hover {
   border-color: #204952;
-  background-color: #d9e4e5;
-  cursor: pointer;
+  background-color: #e9eff1;
 }
 
 #imageUpload:focus {
   outline: none;
-  border-color: #204952;
-  box-shadow: 0 0 5px rgba(48, 99, 111, 0.5);
+  border: 2px solid #204952;
+  box-shadow: 0 0 6px rgba(32, 73, 82, 0.4);
 }
-/* btn */
-.btn-custom {
+
+/* Buttons */
+.btn-custom,
+.btn-cancel {
   background-color: #30636f;
-  border: none;
+  border: 2px solid #30636f;
   color: white;
   font-weight: 600;
   padding: 10px 25px;
   border-radius: 25px;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s, transform 0.2s, color 0.3s;
+  /* margin-bottom : 10px; */
 }
 
 .btn-custom:hover {
   background-color: #204952;
   transform: scale(1.05);
+  color: white;
 }
 
-.btn-custom:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(48, 99, 111, 0.6);
-}
-option{
-  font-weight: bold;
+.btn-cancel {
+  background-color: transparent;
   color: #30636f;
 }
-/* Circle button for adding category */
-.btn-outline-success {
-  font-weight: bold;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+.btn-cancel:hover {
+  background-color: #30636f;
+  color: white;
 }
+
+/* Icon Circle Buttons */
+.btn-outline-success,
 .btn-circle {
   font-weight: bold;
   border-radius: 50%;
@@ -234,40 +177,152 @@ option{
   margin-bottom: 3px;
 }
 
-.btn-circle:hover {
+.btn-circle:hover,
+.btn-circle:focus {
   background-color: #30636f;
   color: white;
   box-shadow: 0 0 5px rgba(48, 99, 111, 0.5);
 }
-.btn-circle:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(48, 99, 111, 0.5);
+
+/* Cards */
+.form-section-card {
+  border-radius: 16px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  background-color: #ffffff;
 }
 
-/* PrimeNG MultiSelect Styling */
-::ng-deep .custom-multiselect .p-multiselect {
-  background-color: #f8f9fa;
-  border: 2px solid #30636f;
-  border-radius: 10px;
-  padding: 5px;
-  min-height: 50px;
-  font-weight: 500;
+.form-section-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #204952;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+option {
+  font-weight: bold;
   color: #30636f;
-  transition: box-shadow 0.3s ease;
 }
 
-::ng-deep .custom-multiselect .p-multiselect:hover {
+/* Footer */
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.image-preview-box {
+  width: 150px;         /* adjust width as needed */
+  height: 150px;        /* adjust height as needed */
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.image-preview-box img,
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* ensures image fits and keeps aspect */
+}
+
+
+/* Override Bootstrap's focus blue shadow */
+.form-check-input:focus {
+  box-shadow: none !important;
+  border-color: #30636f !important;
+  outline: none;
+}
+
+/* Set normal border and checked color */
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #30636f;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Checked state with custom color */
+.form-check-input:checked {
+  background-color: #30636f;
   border-color: #204952;
-  background-color: #d9e4e5;
 }
 
-::ng-deep .custom-multiselect .p-multiselect:focus {
-  border-color: #30636f;
-  box-shadow: 0 0 5px rgba(48, 99, 111, 0.5);
+/* Optional: Make the label match your theme too */
+.form-check-label {
+  color: #30636f;
+  font-weight: 600;
+  margin-left: 6px;
+  user-select: none;
 }
 
-::ng-deep .p-multiselect-panel {
-  border: 1px solid #30636f;
+#imageUpload {
+  padding: 12px;
+  border: 2px soild #30636f;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  color: #30636f;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  cursor: pointer;
 }
 
+/* Remove blue glow and apply custom border color on focus */
+#imageUpload:focus {
+  outline: none;
+  border: 2px solid #204952;
+  box-shadow: 0 0 6px rgba(32, 73, 82, 0.4);
+}
 
+/* Optional hover effect */
+#imageUpload:hover {
+  border-color: #204952;
+  background-color: #e9eff1;
+}
+
+/* :host ::ng-deep .p-ripple .p-multiselect-option{
+  color:red !important;
+}
+ :host ::ng-deep .p-ripple .p-multiselect-option .p-multiselect-option-selected .p-focus{
+  background-color:red !important;
+  color:red !important;
+ }
+
+ :host ::ng-deep .p-multiselect-option.p-multiselect-option-selected{
+  color: yellow !important;
+ } */
+
+/* :host{
+  ::ng-deep .p-multiselect-option.p-multiselect-option-selected{
+  color: yellow !important;
+ }
+} */
+ /* .p-multiselect-option.p-multiselect-option-selected.p-focus {
+  color:red !important;
+ } */
+
+ /* :host ::ng-deep .p-multiselect-label{
+  cursor: none !important;
+ } */
+
+ /* :host ::ng-deep .p-icon{
+  color: #204952 !important ;
+ }
+
+ :host ::ng-deep .p-ripple .p-multiselect-option{
+  color: #204952 !important ;
+ }
+
+ :host ::ng-deep .p-multiselect-option{
+  color: #204952 !important ;
+  background-color: #204952 !important;
+ }
+
+ :host ::ng-deep .p-multiselect-list:hover{
+  color: #204952 !important ;
+ } */

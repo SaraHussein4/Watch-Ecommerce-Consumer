@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Category } from '../../models/category.model';
@@ -20,6 +20,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
              MultiSelectModule],
   templateUrl: './add-new-product.component.html',
   styleUrls: ['./add-new-product.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AddNewProductComponent implements OnInit {
 
@@ -161,6 +162,9 @@ onBrandModalClosed(refresh: boolean) {
 
     // Add images
     for (let file of this.selectedImages) {
+        // const cleanedFileName = file.name.trim().replace(/\s+/g, '_'); 
+        // const safeFile = new File([file], cleanedFileName, { type: file.type });
+        // formData.append('Images', safeFile, safeFile.name);
       formData.append('Images', file, file.name);
     }
 

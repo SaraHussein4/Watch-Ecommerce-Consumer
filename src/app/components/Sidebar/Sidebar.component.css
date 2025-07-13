@@ -1,49 +1,79 @@
-.sidebar-container {
+/* Sidebar container */
+.admin-sidebar {
   background-color: #f6f6f6;
-  padding: 20px;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 15px;
 }
 
-.nav-item {
-  margin-bottom: 35px;
-}
-
+/* Nav link style */
 .nav-link {
+  display: flex;
+  align-items: center; /* Align icon and text vertically */
+  gap: 10px;
   color: #30636f;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+/* Icon style */
+.nav-link i {
   font-size: 20px;
-  font-weight: 600;
+  color: #30636f;
   display: flex;
   align-items: center;
-  text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
-  border-radius: 8px;
-  padding: 10px 15px;
 }
 
+/* Active link style */
+.nav-link.active {
+  background-color: #204952;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.nav-link.active i {
+  color: #ffffff;
+}
+
+/* Hover effect */
 .nav-link:hover {
   background-color: #30636f;
-  color: #fff;
+  color: white;
 }
 
-.nav-link i,
-.my-watch-icon {
-  color: #30636f;
-  font-size: 22px;
-  margin-right: 10px;
+.nav-link:hover i {
+  color: white;
 }
 
-.nav-link:hover i,
-.nav-link:hover .my-watch-icon {
-  color: #fff;
+/* Sidebar nav item spacing */
+.nav-item {
+  margin-bottom: 20px;
 }
 
-
-.vh-100{
+/* Logout button */
+.admin-sidebar .btn-danger {
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 25px;
 }
 
+/* Logout button */
+.logout-btn {
+  background-color: #d9534f;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
 
-.sidebar{
-  height: 100vh;
-  position: fixed;
-  
+.logout-btn:hover {
+  background-color: #c9302c;
 }
