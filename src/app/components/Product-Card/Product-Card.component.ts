@@ -11,6 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
+import { ConfirmDeleteComponent } from '../confirmDelete/confirmDelete.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-Product-Card',
   templateUrl: './Product-Card.component.html',
@@ -32,8 +34,9 @@ export class ProductCardComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     private confirmationService: ConfirmationService,
+    private modalService: NgbModal,
 
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -55,10 +58,10 @@ export class ProductCardComponent implements OnInit {
 
   showDetails(id: any) {
     console.log('Product ID:', id);
-    if(this.authService.isUser()){
+    if (this.authService.isUser()) {
       this.routre.navigateByUrl(`/product/${id}`);
     }
-    else{
+    else {
       this.routre.navigateByUrl(`/login`)
     }
   }

@@ -13,6 +13,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToastrService } from 'ngx-toastr';
+import { SharedComponentsService } from '../../services/sharedComponents.service';
 
 
 export interface Image {
@@ -66,7 +67,8 @@ sizeOptions = [
     private fb: FormBuilder,
     private rout: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private sharedComponent: SharedComponentsService
 
   ) {}
   ngOnInit(): void {
@@ -288,7 +290,7 @@ sizeOptions = [
   this.productService.updateProduct(formData, this.productId).subscribe({
     next: () =>{
 
-      //  alert('✅ Product added successfully');
+      //  this.sharedComponent.showSuccessMessage('Product added successfully');
         this.toastr.success('Product updated successfully!', 'Success');
         this.router.navigate(['/admin/products']).then(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -296,7 +298,7 @@ sizeOptions = [
     },
     error: err =>{
       console.error('Validation Errors:', err.error.errors),
-      // alert('❌ Failed to add product');
+      // this.sharedComponent.showErrorMessage('Failed to add product');
         this.toastr.error('Failed to update product', 'Error');
 
     }
@@ -306,4 +308,5 @@ sizeOptions = [
   onCancel() {
     window.history.back();
   }
+
 }

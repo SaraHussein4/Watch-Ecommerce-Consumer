@@ -27,9 +27,49 @@
 </div> -->
 
 <div class="container favourite">
-    <div class="row g-4">
-      <div class="col-md-3" *ngFor="let product of products">
-        <app-Product-Card [product]="product"></app-Product-Card>
+  <div class="row g-4">
+    <div class="col-md-3" *ngFor="let product of products">
+      <div class="card product-card h-100 position-relative shadow-sm ">
+        <button class="btn btn-delete-icon position-absolute top-0 end-0 m-2"
+          (click)="deleteProduct(product.id)">
+          <i class="bi bi-x-lg"></i>
+        </button>
+
+        <div
+          class="stock-badge position-absolute top-0 start-0 m-2 px-3 py-1 rounded-pill text-white fw-bold" [ngClass]="{
+      'bg-success': product.quantity > 0,
+      'bg-danger': product.quantity <= 0
+    }">
+          {{ product.quantity > 0 ? 'In Stock' : 'Out of Stock' }}
+        </div>
+
+        <!-- Product Image -->
+        <img *ngIf="getPrimaryImage(product)" [src]="getPrimaryImage(product)?.url" alt="{{ product.name }}"
+          class="card-img-top product-image" />
+
+        <!-- Product Content -->
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title mb-2">
+            {{ product.name }}
+          </h5>
+          <p class="product-price mb-3">
+            {{ product.price | currency }}
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="d-flex gap-2 flex-wrap mt-auto">
+            <!-- Normal Product View -->
+            <button  class="btn btn-outline-teal" (click)="showDetails(product.id)">
+              Show Details
+            </button>
+
+          </div>
+        </div>
       </div>
+
+
+
+      <!-- <app-Product-Card [product]="product"></app-Product-Card> -->
     </div>
-    </div>
+  </div>
+</div>
