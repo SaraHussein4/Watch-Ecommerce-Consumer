@@ -2,7 +2,7 @@
   <button
     *ngIf="isAdmin"
     class="btn btn-delete-icon position-absolute top-0 end-0 m-2"
-    (click)="deleteProduct(product.id)"
+    (click)="confirmDelete(product.id)"
   >
     <i class="bi bi-x-lg"></i>
   </button>

@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { SharedComponentsService } from '../../services/sharedComponents.service';
 
 
 export interface Image {
@@ -65,6 +66,7 @@ sizeOptions = [
     private fb: FormBuilder,
     private rout: ActivatedRoute,
     private router: Router,
+    private sharedComponent: SharedComponentsService
 
   ) {}
   ngOnInit(): void {
@@ -286,12 +288,12 @@ sizeOptions = [
 
   this.productService.updateProduct(formData, this.productId).subscribe({
     next: () =>{
-       alert('✅ Product added successfully');
+       this.sharedComponent.showSuccessMessage('Product added successfully');
         this.router.navigate(['/admin/products']);
     },
     error: err =>{
       console.error('Validation Errors:', err.error.errors),
-      alert('❌ Failed to add product');
+      this.sharedComponent.showErrorMessage('Failed to add product');
     }  
   });
 }
@@ -299,4 +301,5 @@ sizeOptions = [
   onCancel() {
     window.history.back();
   }
+
 }

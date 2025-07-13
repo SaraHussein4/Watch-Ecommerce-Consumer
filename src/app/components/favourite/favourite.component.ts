@@ -6,18 +6,22 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { decreaseFavouriteCounter } from '../../Store/FavouriteCounter.action';
 import { ProductCardComponent } from '../Product-Card/Product-Card.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmDeleteComponent } from '../confirmDelete/confirmDelete.component';
+
 @Component({
   selector: 'app-favourite',
   templateUrl: './favourite.component.html',
   styleUrls: ['./favourite.component.css'],
-  imports: [CommonModule,ProductCardComponent]
+  imports: [CommonModule]
 })
 export class FavouriteComponent implements OnInit {
   products: Product[] = []; // Adjust the type as per your model
   constructor(
     private favouriteService: FavouriteService,
     private router: Router,
-    private store: Store<{ favouriteCounter: number }>// Inject the store to manage the favourite counter
+    private store: Store<{ favouriteCounter: number }>,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -61,6 +65,21 @@ export class FavouriteComponent implements OnInit {
   showDetails(id: any) {
     console.log("Product ID:", id);
     this.router.navigateByUrl(`/product/${id}`);
+  }
+
+
+  confirmDelete(productId: number): void {
+    const modalRef = this.modalService.open(ConfirmDeleteComponent, {
+      centered: true
+    });
+    modalRef.componentInstance.title = 'Confirm Delete';
+    modalRef.componentInstance.message = 'Are you sure you want to delete this product?';
+
+    modalRef.result.then((result) => {
+      if (result === 'confirm') {
+        this.deleteProduct(productId);
+      }
+    }).catch(() => { });
   }
 }
 

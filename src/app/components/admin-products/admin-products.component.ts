@@ -11,6 +11,8 @@ import { Brand } from '../../models/brand.model';
 import { Category } from '../../models/category.model';
 import { NgModel } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmDeleteComponent } from '../confirmDelete/confirmDelete.component';
 @Component({
   selector: 'app-admin-products',
   imports: [RouterModule, ProductCardComponent, CommonModule, FormsModule],
@@ -39,7 +41,9 @@ export class AdminProductsComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private http: HttpClient
+    private http: HttpClient,
+    private modalService: NgbModal,
+
   ) {
 
   }
@@ -135,7 +139,7 @@ export class AdminProductsComponent implements OnInit {
   }
 
 
-    loadBrands() {
+  loadBrands() {
     this.http.get<Brand[]>('https://localhost:7071/api/ProductBrand').subscribe({
       next: data => this.brands = data,
       error: err => console.error('Failed to load brands', err)
@@ -149,9 +153,11 @@ export class AdminProductsComponent implements OnInit {
     });
   }
 
-    onSearch() {
+  onSearch() {
     this.filters.searchTerm = this.filters.searchTerm?.trim();
     this.applyFilters();
   }
+
+
 
 }
