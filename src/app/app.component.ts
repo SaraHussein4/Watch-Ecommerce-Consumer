@@ -10,6 +10,7 @@ import { ConfirmDialog } from "primeng/confirmdialog";
   selector: 'app-root',
   imports: [
     FooterComponentComponent,
+    NavbarComponentComponent,
     RouterOutlet,
     RouterModule,
     ChatBotComponent,
@@ -25,6 +26,7 @@ import { ConfirmDialog } from "primeng/confirmdialog";
 export class AppComponent {
   title = 'watchEcommerce';
   showNavbar = true;
+  showFooter = true;
   constructor(private router: Router) {
     this.router.events.subscribe((event: any) => {
       if (event.url) {
@@ -32,6 +34,15 @@ export class AppComponent {
           this.showNavbar = false;
         } else {
           this.showNavbar = true;
+        }
+      }
+    });
+    this.router.events.subscribe((event: any) => {
+      if (event.url) {
+        if (event.url.includes('/admin')) {
+          this.showFooter = false;
+        } else {
+          this.showFooter = true;
         }
       }
     });
