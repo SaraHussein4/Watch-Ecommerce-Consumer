@@ -2,14 +2,10 @@
   <div class="sidebar-container pt-4 px-3">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="/admin/dashboard"
-          routerLinkActive="active"
-        >
-          <i class="fa-solid fa-chart-line"></i>
-          <!-- <i class="fa-solid fa-table-columns me-2"></i> -->
-          <span>Dashboard</span>
+
+        <a class="nav-link active" [routerLink]="['/admin/dashboard']">
+          <i class="fa-solid fa-house me-2"></i>
+          <strong>Dashboard</strong>
         </a>
       </li>
       <li class="nav-item">
