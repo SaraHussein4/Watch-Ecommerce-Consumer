@@ -2,8 +2,9 @@
   <div class="sidebar-container pt-4 px-3">
     <ul class="nav flex-column">
       <li class="nav-item">
-
-        <a class="nav-link active" [routerLink]="['/admin/dashboard']">
+        <a class="nav-link active"
+          routerLink="/admin/dashboard"
+          routerLinkActive="active">
           <i class="fa-solid fa-house me-2"></i>
           <strong>Dashboard</strong>
         </a>
@@ -14,7 +15,7 @@
           routerLink="/admin/products"
           routerLinkActive="active"
         >
-          <i class="fa-solid fa-box-open"></i>
+          <i class="fa-solid fa-box-open me-2"></i>
           <!-- <i class="fa-solid fa-file-lines me-2"></i> -->
           <span>Products</span>
         </a>
@@ -38,7 +39,7 @@
           routerLink="/admin/customers"
           routerLinkActive="active"
         >
-          <i class="fa-solid fa-users"></i>
+          <i class="fa-solid fa-users me-2"></i>
           <span>Customers</span>
         </a>
       </li>

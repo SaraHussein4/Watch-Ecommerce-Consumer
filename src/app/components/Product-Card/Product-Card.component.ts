@@ -16,7 +16,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   templateUrl: './Product-Card.component.html',
   styleUrls: ['./Product-Card.component.css'],
   providers: [CurrencyPipe],
-  imports: [CommonModule, RouterModule, RouterLink,ConfirmDialogModule],
+  imports: [CommonModule, RouterModule, RouterLink],
 })
 export class ProductCardComponent implements OnInit {
   @Input() product: any;
@@ -91,8 +91,11 @@ export class ProductCardComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this product?',
       header: 'Confirm Deletion',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'pi pi-trash',
       acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-secondary',
+      acceptLabel: 'Delete',
+      rejectLabel: 'Cancel',
       accept: () => {
         this.productService.deleteProduct(id).subscribe({
           next: () => {
