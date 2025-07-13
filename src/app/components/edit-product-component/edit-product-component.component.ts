@@ -288,6 +288,7 @@ sizeOptions = [
 
   this.productService.updateProduct(formData, this.productId).subscribe({
     next: () =>{
+
       //  alert('✅ Product added successfully');
         this.toastr.success('Product updated successfully!', 'Success');
         this.router.navigate(['/admin/products']).then(() => {
@@ -298,6 +299,7 @@ sizeOptions = [
       console.error('Validation Errors:', err.error.errors),
       // alert('❌ Failed to add product');
         this.toastr.error('Failed to update product', 'Error');
+
     }
   });
 }

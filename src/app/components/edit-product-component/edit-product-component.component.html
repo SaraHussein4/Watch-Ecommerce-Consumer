@@ -50,6 +50,30 @@
         <h5 class="form-section-title">Attributes</h5>
         <div class="row">
           <div class="col-md-4 mt-3">
+            <label>Gender</label>
+            <select class="form-select brand-select" formControlName="genderCategory">
+              <option value="" disabled>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+
+            <div class="mt-2">
+              <label class="form-label mb-0">Category</label>
+              <select class="form-select category-select" formControlName="categoryId">
+                <option value="" disabled>Select Category</option>
+                <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+              </select>
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label mb-0">Brand</label>
+              <select class="form-select brand-select" formControlName="productBrandId">
+                <option value="" disabled>Select Brand</option>
+                <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4 mt-3">
             <label class="form-label">Colors</label>
             <p-multiSelect
               [appendTo]="'body'"
@@ -75,30 +99,7 @@
             ></p-multiSelect>
           </div>
 
-          <div class="col-md-4 mt-3">
-            <label>Gender</label>
-            <select class="form-select brand-select" formControlName="genderCategory">
-              <option value="" disabled>Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
 
-            <div class="mt-2">
-              <label class="form-label mb-0">Category</label>
-              <select class="form-select category-select" formControlName="categoryId">
-                <option value="" disabled>Select Category</option>
-                <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
-              </select>
-            </div>
-
-            <div class="mt-3">
-              <label class="form-label mb-0">Brand</label>
-              <select class="form-select brand-select" formControlName="productBrandId">
-                <option value="" disabled>Select Brand</option>
-                <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
-              </select>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -112,7 +113,7 @@
         <input type="file" id="imageUpload" (change)="onImageSelected($event)" multiple class="form-control"
           accept="image/*" />
 
-        <div class="d-flex justify-content-center mt-3">
+        <div class="d-flex justify-content-end mt-3">
           <button type="button" class="btn btn-custom" (click)="uploadImages()">Add Images</button>
         </div>
 
