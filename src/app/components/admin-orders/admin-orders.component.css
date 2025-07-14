@@ -122,3 +122,22 @@ h1:hover {
   box-shadow: 0 0 0 0.2rem rgba(49, 98, 112, 0.25); /* Teal glow */
   outline: none;
 }
+
+
+
+.update-btn-loading {
+  min-width: 80px;
+}
+
+.loading-spinner {
+  margin: 2rem auto;
+}
+
+.form-select:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.spinner-border{
+  color: #30636f;
+}

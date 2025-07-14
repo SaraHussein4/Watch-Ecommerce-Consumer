@@ -79,3 +79,38 @@
     font-size: 2rem;
   }
 }
+
+
+/* Loading Styles */
+.dashboard-loading {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.spinner-container {
+  margin-bottom: 20px;
+}
+
+.loading-text {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.dashboard-skeleton {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.stat-box-skeleton {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.spinner-border{
+  color: #30636f;
+}

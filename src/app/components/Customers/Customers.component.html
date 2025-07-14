@@ -1,11 +1,19 @@
 <div class="container mt-4 mb-4 d-flex justify-content-center flex-column">
   <h1 class="customer-title">Customers</h1>
 
-  <div class="table-responsive">
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="text-center my-4">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading customers...</p>
+  </div>
+
+  <!-- Customers Table (Visible when not loading) -->
+  <div *ngIf="!isLoading" class="table-responsive">
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
-          <!-- <th scope="col">ID</th> -->
           <th scope="col">Name</th>
           <th scope="col">Email</th>
           <th scope="col">Phone</th>
@@ -13,20 +21,19 @@
       </thead>
       <tbody>
         <tr *ngFor="let customer of customers">
-          <!-- <td>{{ customer.id }}</td> -->
           <td>{{ customer.name }}</td>
           <td>{{ customer.email }}</td>
           <td>{{ customer.phoneNumber }}</td>
         </tr>
         <tr *ngIf="customers.length === 0">
-          <td colspan="5" class="text-center">No customers found</td>
+          <td colspan="3" class="text-center">No customers found</td>
         </tr>
-
       </tbody>
     </table>
   </div>
+
   <!-- Pagination -->
-  <nav *ngIf="totalCount > pageSize">
+  <nav *ngIf="totalCount > pageSize && !isLoading">
     <ul class="pagination justify-content-center mt-4">
       <li class="page-item" [class.disabled]="page === 1">
         <button class="page-link" (click)="onPageChange(page - 1)">Previous</button>
