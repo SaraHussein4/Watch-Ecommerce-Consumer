@@ -140,50 +140,63 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  addToCart() {
-    if (this.product.quantity == 0) {
-      this.sharedComponent.showErrorMessage("This product is currently out of stock.");
-      return;
-    }
-
-    if (this.isAddingToCart) return;
-    
-    this.isAddingToCart = true;
-    this.spinner.show('cartSpinner');
-
-    const cartItem: CartItem[] = [{
-      id: this.product.id,
-      name: this.product.name,
-      pictureUrl: this.product.images[0].url,
-      price: this.product.price,
-      category: this.product.category.name,
-      brand: this.product.productBrand.name,
-      quantity: this.quantity,
-      productQuantity: this.product.quantity
-    }];
-
-    this.productService.addProductToCart(cartItem).subscribe({
-      next: (response) => {
-        const userId = this.authService.getUserId();
-        if (userId) {
-          this.cartService.getBasket(userId).subscribe({
-            next: (basket) => {
-              console.log('Cart updated:', basket);
-            },
-            error: (err) => {
-              console.error('Failed to refresh cart:', err);
-            }
-          });
-        }
-        this.sharedComponent.showSuccessMessage('Product added to cart');
-        this.isAddingToCart = false;
-        this.spinner.hide('cartSpinner');
-      },
-      error: (err) => {
-        this.sharedComponent.showErrorMessage('Failed to add product to cart');
-        this.isAddingToCart = false;
-        this.spinner.hide('cartSpinner');
-      }
-    });
+addToCart() {
+  if (this.product.quantity == 0) {
+    this.sharedComponent.showErrorMessage("This product is currently out of stock.");
+    return;
   }
+
+  const userId = this.authService.getUserId();
+  if (!userId) {
+    this.sharedComponent.showErrorMessage("Please login to add to cart.");
+    return;
+  }
+
+  this.cartService.getBasket(userId).subscribe({
+    next: (basket) => {
+      let existingItem = basket.items.find(item => item.id === this.product.id);
+      let newQuantity = this.quantity;
+
+      if (existingItem) {
+        newQuantity += existingItem.quantity;
+
+        if (newQuantity > this.product.quantity) {
+          newQuantity = this.product.quantity;
+        }
+      }
+
+      const cartItem: CartItem[] = [{
+        id: this.product.id,
+        name: this.product.name,
+        pictureUrl: this.product.images[0].url,
+        price: this.product.price,
+        category: this.product.category.name,
+        brand: this.product.productBrand.name,
+        quantity: newQuantity,
+        productQuantity: this.product.quantity
+      }];
+
+      this.productService.addProductToCart(cartItem).subscribe({
+        next: (response) => {
+          this.cartService.getBasket(userId).subscribe({
+            next: (updatedBasket) => {
+              console.log('Cart updated, new basket:', updatedBasket);
+              this.sharedComponent.showSuccessMessage('Product added to cart successfully.');
+            },
+            error: (err) => console.error('Failed to refresh cart:', err)
+          });
+        },
+        error: (err) => {
+          console.error('Failed to add product to cart:', err);
+          this.sharedComponent.showErrorMessage('Failed to add product to cart');
+        }
+      });
+    },
+    error: (err) => {
+      console.error('Failed to fetch basket:', err);
+      this.sharedComponent.showErrorMessage('Something went wrong, please try again.');
+    }
+  });
+}
+
 }

@@ -57,11 +57,22 @@
         </div>
       </div>
 
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control login-input" formControlName="password" id="password"
           placeholder="Enter your password" required>
-      </div>
+      </div> -->
+      <div class="mb-3 password-wrapper">
+  <label for="password" class="form-label">Password</label>
+  <div class="password-input-group">
+    <input [type]="showPassword ? 'text' : 'password'" class="form-control login-input"
+           formControlName="password" id="password" placeholder="Enter your password" required>
+    <button type="button" class="toggle-password-btn" (click)="showPassword = !showPassword">
+      {{ showPassword ? 'Hide' : 'Show' }}
+    </button>
+  </div>
+</div>
+
      
       <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
      class="alert alert-danger mb-3">
@@ -82,11 +93,17 @@
   </p>
 </div>
 
-      <div class="mb-3">
-        <label for="confirmPassword" class="form-label login-input">Confirm Password</label>
-        <input type="password" class="form-control login-input" formControlName="confirmPassword" id="confirmPassword"
-          placeholder="Confirm your password" required>
-      </div>
+      <div class="mb-3 password-wrapper">
+  <label for="confirmPassword" class="form-label">Confirm Password</label>
+  <div class="password-input-group">
+    <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control login-input"
+           formControlName="confirmPassword" id="confirmPassword" placeholder="Confirm your password" required>
+    <button type="button" class="toggle-password-btn" (click)="showConfirmPassword = !showConfirmPassword">
+      {{ showConfirmPassword ? 'Hide' : 'Show' }}
+    </button>
+  </div>
+</div>
+
     
     <div *ngIf="registerForm.get('confirmPassword')?.touched &&
            (registerForm.get('confirmPassword')?.errors?.['required'] ||

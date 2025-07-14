@@ -18,6 +18,9 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponentComponent {
   registerForm: FormGroup;
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
