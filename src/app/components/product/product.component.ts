@@ -151,12 +151,30 @@ setTimeout(() => {
     });
   }
 
-  addToCart() {
+addToCart() {
+  if (this.product.quantity == 0) {
+    this.sharedComponent.showErrorMessage("This product is currently out of stock.");
+    return;
+  }
 
-    if (this.product.quantity == 0) {
-      this.sharedComponent.showErrorMessage("This product is currently out of stock.")
-    }
-    else {
+  const userId = this.authService.getUserId();
+  if (!userId) {
+    this.sharedComponent.showErrorMessage("Please login to add to cart.");
+    return;
+  }
+
+  this.cartService.getBasket(userId).subscribe({
+    next: (basket) => {
+      let existingItem = basket.items.find(item => item.id === this.product.id);
+      let newQuantity = this.quantity;
+
+      if (existingItem) {
+        newQuantity += existingItem.quantity;
+
+        if (newQuantity > this.product.quantity) {
+          newQuantity = this.product.quantity;
+        }
+      }
 
       const cartItem: CartItem[] = [{
         id: this.product.id,
@@ -165,41 +183,32 @@ setTimeout(() => {
         price: this.product.price,
         category: this.product.category.name,
         brand: this.product.productBrand.name,
-        quantity: this.quantity,
+        quantity: newQuantity,
         productQuantity: this.product.quantity
       }];
 
       this.productService.addProductToCart(cartItem).subscribe({
         next: (response) => {
-          console.log('Product added to cart successfully:', response);
-          const userId = this.authService.getUserId();
-          if (userId) {
-            this.cartService.getBasket(userId).subscribe({
-              next: (basket) => {
-                console.log('Cart updated, new basket:', basket);
-                console.log('Cart item count updated to:', basket.items.reduce((sum, item) => sum + item.quantity, 0));
-              },
-              error: (err) => {
-                console.error('Failed to refresh cart:', err);
-              }
-            });
-          } else {
-            console.warn('User not logged in, cannot update cart counter');
-          }
-
-          this.sharedComponent.showSuccessMessage('product added to cart successfully');
+          this.cartService.getBasket(userId).subscribe({
+            next: (updatedBasket) => {
+              console.log('Cart updated, new basket:', updatedBasket);
+              this.sharedComponent.showSuccessMessage('Product added to cart successfully.');
+            },
+            error: (err) => console.error('Failed to refresh cart:', err)
+          });
         },
         error: (err) => {
           console.error('Failed to add product to cart:', err);
           this.sharedComponent.showErrorMessage('Failed to add product to cart');
-
         }
       });
-
-      console.log('Added to cart:', cartItem);
+    },
+    error: (err) => {
+      console.error('Failed to fetch basket:', err);
+      this.sharedComponent.showErrorMessage('Something went wrong, please try again.');
     }
-  }
-
+  });
+}
 
 }
 
