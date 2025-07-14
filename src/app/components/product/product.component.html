@@ -1,7 +1,7 @@
 <div class="container product mb-5">
     <div class="row g-5">
         <!-- Left Section -->
-        <div class="col-md-6">
+        <div class="col-md-6"  [ngClass]="{ 'slide-in-left': animate }">
             <div class="text-center primary-img-container">
                 <img [src]="mainImage.startsWith('http') 
             ? mainImage 
@@ -20,7 +20,7 @@
         </div>
 
         <!-- Right Section -->
-        <div class="col-md-6">
+        <div class="col-md-6" [ngClass]="{ 'slide-in-right': animate }">
             <h2 class="name">{{product.name}}</h2>
             <p class="description">
                 {{ product.description }}
