@@ -11,7 +11,12 @@
         *ngFor="let msg of chatHistory"
         [ngClass]="msg.from === 'user' ? 'user-message' : 'bot-message'"
       >
-        {{ msg.message }}
+        <ng-container *ngIf="msg.isHtml; else plainText">
+          <div [innerHTML]="msg.message"></div> 
+        </ng-container>
+        <ng-template #plainText>
+          {{ msg.message }}
+        </ng-template>
       </div>
     </div>
 

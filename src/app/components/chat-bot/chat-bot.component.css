@@ -174,3 +174,54 @@ button {
 button:hover {
   background: #274b57;
 }
+
+
+::ng-deep .chatbot-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+  justify-items: center;
+}
+
+::ng-deep .chatbot-product-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 6px 4px;
+  background: #fff;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(49, 98, 112, 0.07);
+  width: 90px;
+  min-height: 115px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+::ng-deep .chatbot-product-img {
+  width: 48px !important;
+  height: 48px !important;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  background: #f9f9f9;
+  box-shadow: 0 1px 3px #ccc;
+}
+
+::ng-deep .chatbot-product-name {
+  font-weight: 600;
+  font-size: 11px;
+  margin-bottom: 2px;
+  color: #222;
+  text-align: center;
+}
+
+::ng-deep .chatbot-product-price {
+  font-size: 10px;
+  color: #316270;
+  font-weight: 600;
+}
