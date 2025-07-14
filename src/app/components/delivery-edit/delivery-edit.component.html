@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <h2>Edit Delivery</h2>
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <form [formGroup]="editForm" (ngSubmit)="submitEdit()" *ngIf="!loading">
+    <div class="mb-3">
+      <label>Name</label>
+      <input type="text" class="form-control" formControlName="name" />
+    </div>
+    <div class="mb-3">
+      <label>Email</label>
+      <input type="email" class="form-control" formControlName="email" />
+    </div>
+    <div class="mb-3">
+      <label>Phone Number</label>
+      <input type="text" class="form-control" formControlName="phoneNumber" />
+    </div>
+    <div class="mb-3">
+      <label>Governorate</label>
+      <select class="form-select" formControlName="governorateId">
+        <option value="" disabled>Select Governorate</option>
+        <option *ngFor="let g of governorates" [value]="g.id">{{ g.name }}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid || loading">Save</button>
+    <a class="btn btn-secondary ms-2" [routerLink]="['/admin/deliveries']">Cancel</a>
+  </form>
+</div> 
