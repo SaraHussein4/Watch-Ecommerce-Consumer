@@ -153,3 +153,11 @@ app-Product-Card:nth-child(3) { animation-delay: 0.3s; }
   font-weight: bold;
 }
 
+
+.card {
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}

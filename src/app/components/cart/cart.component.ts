@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CustomerBasket, CartItem } from '../../models/cart';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms'; 
+import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { OrderService } from '../../services/order.service';
 import { DeliveryMethod, Governorate } from '../../models/order';
 import { RouterLink } from '@angular/router';
 
 interface ExtendedCartItem extends CartItem {
-  productQuantity: number; 
+  productQuantity: number;
 }
 
 interface ExtendedCustomerBasket extends CustomerBasket {
@@ -20,27 +20,27 @@ interface CheckoutData {
   shippingAddress: {
     firstName: string;
     lastName: string;
-    email: string; 
+    email: string;
     city: string;
     street: string;
     governorateId: number;
-    zipCode: string; 
-    phone: string; 
+    zipCode: string;
+    phone: string;
   };
   deliveryMethodId: number;
-  paymentMethod: string; 
-  basketId?: string; 
+  paymentMethod: string;
+  basketId?: string;
 }
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit {
-
+  isLoadingCart: boolean = false; // 👈 Add this
   basket: ExtendedCustomerBasket | null = null;
   userId: string | null = null;
   deliveryCost: number = 0;
@@ -51,11 +51,11 @@ export class CartComponent implements OnInit {
     shippingAddress: {
       firstName: '',
       lastName: '',
-      email: '', 
+      email: '',
       city: '',
       street: '',
       governorateId: 0,
-      zipCode: '', 
+      zipCode: '',
       phone: ''
     },
     deliveryMethodId: 0,
@@ -87,21 +87,27 @@ export class CartComponent implements OnInit {
       console.warn('Cannot load basket: userId is null.');
       return;
     }
+    this.isLoadingCart = true; // 👈 Start loading
+
     this.cartService.getBasket(this.userId).subscribe({
       next: (basket) => {
         basket.items.forEach(item => {
           if (!item.quantity || item.quantity < 1) item.quantity = 1;
           if (!('productQuantity' in item)) {
-            (item as ExtendedCartItem).productQuantity = 999; 
+            (item as ExtendedCartItem).productQuantity = 999;
           }
         });
         this.basket = basket as ExtendedCustomerBasket;
-        this.checkoutData.basketId = this.basket.id; 
-        this.onShippingOptionChanged(); 
+        this.checkoutData.basketId = this.basket.id;
+        this.onShippingOptionChanged();
+        this.isLoadingCart = false; // 👈 Done
+
       },
       error: (err) => {
         console.error('Failed to load basket:', err);
-        this.basket = null; 
+        this.basket = null;
+        this.isLoadingCart = false; // 👈 Done
+
       }
     });
   }
@@ -114,7 +120,7 @@ export class CartComponent implements OnInit {
     this.cartService.deleteBasket(this.userId).subscribe({
       next: () => {
         this.basket = null;
-        this.deliveryCost = 0; 
+        this.deliveryCost = 0;
         this.showCustomAlertMessage('Your cart has been cleared successfully!');
       },
       error: (err) => console.error('Failed to delete basket:', err)
@@ -148,7 +154,7 @@ export class CartComponent implements OnInit {
     } else {
       this.updateBasket();
     }
-    this.onShippingOptionChanged(); 
+    this.onShippingOptionChanged();
   }
 
   updateBasket() {
@@ -180,9 +186,9 @@ export class CartComponent implements OnInit {
       next: updatedBasket => {
         this.basket = updatedBasket as ExtendedCustomerBasket;
         if (this.basket && this.basket.items.length === 0) {
-          this.basket = null; 
+          this.basket = null;
         }
-        this.onShippingOptionChanged(); 
+        this.onShippingOptionChanged();
         this.showCustomAlertMessage('Item removed from cart.');
       },
       error: err => console.error('Failed to remove item:', err)
@@ -202,7 +208,7 @@ export class CartComponent implements OnInit {
       return;
     }
 
-  
+
     if (this.checkoutData.shippingAddress.governorateId === 0) {
       this.showCustomAlertMessage('Please select a governorate.');
       return;
@@ -228,7 +234,7 @@ export class CartComponent implements OnInit {
       this.orderService.createOrder(this.checkoutData).subscribe({
         next: (res) => {
           console.log('Order placed:', res);
-          this.removeBasket(); 
+          this.removeBasket();
 
           const modalElement = document.getElementById('checkoutModal');
           if (modalElement) {
@@ -270,11 +276,11 @@ export class CartComponent implements OnInit {
         next: (cost) => this.deliveryCost = cost,
         error: (err) => {
           console.error('Failed to fetch delivery cost', err);
-          this.deliveryCost = 0; 
+          this.deliveryCost = 0;
         }
       });
     } else {
-      this.deliveryCost = 0; 
+      this.deliveryCost = 0;
     }
   }
 
@@ -290,14 +296,14 @@ export class CartComponent implements OnInit {
     setTimeout(() => {
       this.showCustomAlert = false;
       this.customAlertMessage = '';
-    }, 5000); 
+    }, 5000);
   }
 
   closeCustomAlert(): void {
     this.showCustomAlert = false;
     this.customAlertMessage = '';
   }
-    isConfirmButtonDisabled(form: NgForm): boolean {
+  isConfirmButtonDisabled(form: NgForm): boolean {
     if (form.invalid) {
       return true;
     }

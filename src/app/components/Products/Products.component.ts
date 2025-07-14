@@ -10,28 +10,33 @@ import { FormsModule } from '@angular/forms';
 import { ProductFilter } from '../../models/ProductFilter';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+
 @Component({
   selector: 'app-Products',
   templateUrl: './Products.component.html',
   styleUrls: ['./Products.component.css'],
   providers: [ProductService],
-  imports: [CommonModule, ProductCardComponent, FormsModule, NgSelectModule]
+  imports: [CommonModule, ProductCardComponent, FormsModule, NgSelectModule, NgxSkeletonLoaderModule]
 })
 export class ProductsComponent implements OnInit {
-
   products: Product[] = [];
   brands: Brand[] = [];
   categories: Category[] = [];
-
   totalCount: number = 0;
 
   selectedCategoryIds: number[] = [];
   selectedBrandIds: number[] = [];
   maleChecked = true;
   femaleChecked = true;
-
   selectedCategoryId: number | string | null = "";
   selectedBrandId: number | string | null = "";
+
+  // Loading states
+  isLoadingProducts: boolean = false;
+  isLoadingBrands: boolean = false;
+  isLoadingCategories: boolean = false;
+  skeletonItems = Array(8).fill(0); // For skeleton loader
 
   filters: ProductFilter = {
     searchTerm: '',
@@ -47,9 +52,7 @@ export class ProductsComponent implements OnInit {
     private productService: ProductService,
     private http: HttpClient,
     private route: ActivatedRoute
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
     this.loadProducts();
@@ -66,27 +69,45 @@ export class ProductsComponent implements OnInit {
   }
 
   loadProducts() {
+    this.isLoadingProducts = true;
     this.productService.getFilteredProducts(this.filters).subscribe({
       next: (res) => {
-        this.products = res.items,
+        this.products = res.items;
         this.totalCount = res.totalCount;
-        console.log('product:', res);
+        this.isLoadingProducts = false;
       },
-      error: (err) => console.error('Error loading products:', err)
+      error: (err) => {
+        console.error('Error loading products:', err);
+        this.isLoadingProducts = false;
+      }
     });
   }
 
   loadBrands() {
+    this.isLoadingBrands = true;
     this.http.get<Brand[]>('https://localhost:7071/api/ProductBrand').subscribe({
-      next: data => this.brands = data,
-      error: err => console.error('Failed to load brands', err)
+      next: data => {
+        this.brands = data;
+        this.isLoadingBrands = false;
+      },
+      error: err => {
+        console.error('Failed to load brands', err);
+        this.isLoadingBrands = false;
+      }
     });
   }
 
   loadCategories() {
+    this.isLoadingCategories = true;
     this.http.get<Category[]>('https://localhost:7071/api/Categories').subscribe({
-      next: data => this.categories = data,
-      error: err => console.error('Failed to load categories', err)
+      next: data => {
+        this.categories = data;
+        this.isLoadingCategories = false;
+      },
+      error: err => {
+        console.error('Failed to load categories', err);
+        this.isLoadingCategories = false;
+      }
     });
   }
 
@@ -121,15 +142,18 @@ export class ProductsComponent implements OnInit {
   }
 
   applyFilters() {
-    console.log('Sending filters to API:', this.filters);
+    this.isLoadingProducts = true;
     this.productService.getFilteredProducts(this.filters).subscribe({
       next: (res) => {
-        this.products = res.items,
-          this.totalCount = res.totalCount;
-        console.log('product:', res);
+        this.products = res.items;
+        this.totalCount = res.totalCount;
+        this.isLoadingProducts = false;
       },
-      error: (err) => console.error('Error loading products:', err)
-    })
+      error: (err) => {
+        console.error('Error loading products:', err);
+        this.isLoadingProducts = false;
+      }
+    });
   }
 
   resetFilters() {
@@ -158,5 +182,4 @@ export class ProductsComponent implements OnInit {
     this.filters.page = newPage;
     this.loadProducts();
   }
-
 }

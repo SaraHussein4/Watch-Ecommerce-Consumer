@@ -326,3 +326,27 @@ option {
  :host ::ng-deep .p-multiselect-list:hover{
   color: #204952 !important ;
  } */
+
+
+
+ .btn-custom[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.form-control:disabled, 
+.p-multiselect:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.loading-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.image-preview-box {
+  width: 100px;
+  height: 100px;
+}

@@ -13,13 +13,22 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class UserViewProfileComponent implements OnInit {
   profile!: UserProfile;
+  isLoadingProfile: boolean = false;
+
 
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
+    this.isLoadingProfile = true;
     this.userService.getProfile().subscribe({
-      next: (data) => (this.profile = data),
-      error: (err) => console.error('Error loading profile:', err)
+      next: (data) => {
+        (this.profile = data)
+        this.isLoadingProfile = false;
+      },
+      error: (err) => {
+        console.error('Error loading profile:', err)
+        this.isLoadingProfile = false;
+      }
     });
   }
 
