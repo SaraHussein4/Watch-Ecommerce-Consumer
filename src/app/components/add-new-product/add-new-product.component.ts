@@ -40,6 +40,9 @@ export class AddNewProductComponent implements OnInit {
     { name: 'Black', value: 'Black' },
     { name: 'White', value: 'White' },
     { name: 'Silver', value: 'Silver' },
+    { name: 'Gold', value:'Gold' },
+    { name: 'Brown', value:'Brown' },
+    { name: 'Rose Gold', value:'Rose Gold' },
   ];
 
   sizeOptions = [

@@ -40,7 +40,7 @@ export class ProductsComponent implements OnInit {
     categoryIds: [],
     brandIds: [],
     page: 1,
-    pageSize: 10
+    pageSize: 8
   };
 
   constructor(
@@ -140,7 +140,7 @@ export class ProductsComponent implements OnInit {
       categoryIds: [],
       brandIds: [],
       page: 1,
-      pageSize: 10
+      pageSize: 8
     };
     this.selectedCategoryIds = [];
     this.selectedBrandIds = [];
