@@ -152,11 +152,22 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <input type="tel" class="form-control custom-input" placeholder="Phone No"
-                    [(ngModel)]="checkoutData.shippingAddress.phone" name="phone" required #phone="ngModel" />
-                  <div class="text-danger small" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
-                    Phone number is required.
-                  </div>
+
+                 <input
+                  type="tel"
+                  class="form-control custom-input"
+                  placeholder="Phone No"
+                  [(ngModel)]="checkoutData.shippingAddress.phone"
+                  name="phone"
+                  required
+                  pattern="^(011|012|015|010)\d{8}$"
+                  #phone="ngModel"
+                />
+                <div class="text-danger small" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+                  <div *ngIf="phone.errors?.['required']">Phone number is required.</div>
+                  <div *ngIf="phone.errors?.['pattern']">Enter a valid Egyptian phone number (e.g. 01012345678).</div>
+                </div>
+
                 </div>
               </div>
 
