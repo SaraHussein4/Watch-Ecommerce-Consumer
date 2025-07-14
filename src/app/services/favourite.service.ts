@@ -25,7 +25,7 @@ export class FavouriteService {
   DeleteFromFavourite(productId: number): Observable<any> {
     const url = `https://localhost:7071/api/Fav/${productId}`;
     console.log(url)
-    return this.httpClient.delete<void>(url);
+    return this.httpClient.delete<{ message: string }>(url);
   }
 
   getCount(): Observable<number> {
