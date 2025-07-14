@@ -6,18 +6,27 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { decreaseFavouriteCounter } from '../../Store/FavouriteCounter.action';
 import { ProductCardComponent } from '../Product-Card/Product-Card.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmDeleteComponent } from '../confirmDelete/confirmDelete.component';
+import { ToastrService } from 'ngx-toastr';
+import { ConfirmationService } from 'primeng/api';
+
 @Component({
   selector: 'app-favourite',
   templateUrl: './favourite.component.html',
   styleUrls: ['./favourite.component.css'],
-  imports: [CommonModule,ProductCardComponent]
+  imports: [CommonModule]
 })
 export class FavouriteComponent implements OnInit {
   products: Product[] = []; // Adjust the type as per your model
   constructor(
     private favouriteService: FavouriteService,
     private router: Router,
-    private store: Store<{ favouriteCounter: number }>// Inject the store to manage the favourite counter
+    private store: Store<{ favouriteCounter: number }>,
+    private modalService: NgbModal,
+    private toastr: ToastrService,
+    private confirmationService: ConfirmationService
+
   ) { }
 
   ngOnInit() {
@@ -36,15 +45,26 @@ export class FavouriteComponent implements OnInit {
     });
   }
   deleteProduct(productId: number) {
-    this.products = this.products.filter(p => p.id !== productId);
-    this.store.dispatch(decreaseFavouriteCounter()); // Dispatch an action to decrease the counter
-    this.favouriteService.DeleteFromFavourite(productId).subscribe({
-      next: () => {
-        console.log('Product removed from favourites successfully');
-        this.loadFavouriteItems();
-      },
-      error: (error) => {
-        console.error('Error removing product from favourites:', error);
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this product?',
+      header: 'Confirm Deletion',
+      icon: 'pi pi-trash',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-secondary',
+      acceptLabel: 'Delete',
+      rejectLabel: 'Cancel',
+      accept: () => {
+        this.products = this.products.filter(p => p.id !== productId);
+        this.store.dispatch(decreaseFavouriteCounter()); // Dispatch an action to decrease the counter
+        this.favouriteService.DeleteFromFavourite(productId).subscribe({
+          next: () => {
+            this.toastr.success('Product deleted successfully!', 'Success');
+            this.loadFavouriteItems();
+          },
+          error: (error) => {
+            this.toastr.error('Failed to delete product', 'Error');
+          }
+        });
       }
     });
   }
@@ -62,5 +82,6 @@ export class FavouriteComponent implements OnInit {
     console.log("Product ID:", id);
     this.router.navigateByUrl(`/product/${id}`);
   }
+
 }
 

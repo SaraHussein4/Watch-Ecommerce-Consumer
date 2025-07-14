@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { increaseFavouriteCounter } from '../../Store/FavouriteCounter.action';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
+import { SharedComponentsService } from '../../services/sharedComponents.service';
 @Component({
   selector: 'app-product',
   imports: [CommonModule],
@@ -35,6 +36,7 @@ export class ProductComponent implements OnInit {
     private store: Store<{ favouriteCounter: number }>,
     private cartService: CartService,
     private authService: AuthService,
+    private sharedComponent: SharedComponentsService
   ) {
   }
 
@@ -133,12 +135,12 @@ export class ProductComponent implements OnInit {
         console.log('Product added to favourites successfully:', response);
         this.store.dispatch(increaseFavouriteCounter()); // Dispatch an action to increase the counter
 
-        this.showSuccessMessage("Product added to favourites successfully")
+        this.sharedComponent.showSuccessMessage("Product added to favourites successfully")
       },
       error: (err) => {
         console.error('Failed to add product to favourites:', err);
 
-        this.showErrorMessage(
+        this.sharedComponent.showErrorMessage(
           'This product is already in your favorites!',
         );
       }
@@ -148,7 +150,7 @@ export class ProductComponent implements OnInit {
   addToCart() {
 
     if (this.product.quantity == 0) {
-      this.showErrorMessage("This product is currently out of stock.")
+      this.sharedComponent.showErrorMessage("This product is currently out of stock.")
     }
     else {
 
@@ -181,11 +183,11 @@ export class ProductComponent implements OnInit {
             console.warn('User not logged in, cannot update cart counter');
           }
 
-          this.showSuccessMessage('product added to cart successfully');
+          this.sharedComponent.showSuccessMessage('product added to cart successfully');
         },
         error: (err) => {
           console.error('Failed to add product to cart:', err);
-          this.showErrorMessage('Failed to add product to cart');
+          this.sharedComponent.showErrorMessage('Failed to add product to cart');
 
         }
       });
@@ -194,58 +196,6 @@ export class ProductComponent implements OnInit {
     }
   }
 
-
-  private showSuccessMessage(message: string) {
-    const messageDiv = document.createElement('div');
-    messageDiv.textContent = message;
-    messageDiv.style.cssText = `
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #28a745;
-      color: white;
-      padding: 15px 20px;
-      border-radius: 5px;
-      z-index: 1000;
-      font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    `;
-
-    document.body.appendChild(messageDiv);
-
-    setTimeout(() => {
-      if (messageDiv.parentNode) {
-        messageDiv.parentNode.removeChild(messageDiv);
-      }
-    }, 2000);
-  }
-  private showErrorMessage(message: string) {
-    // Create a temporary error message element
-    const messageDiv = document.createElement('div');
-    messageDiv.textContent = message;
-    messageDiv.style.cssText = `
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #dc3545;
-      color: white;
-      padding: 15px 20px;
-      border-radius: 5px;
-      z-index: 1000;
-      font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    `;
-
-    document.body.appendChild(messageDiv);
-
-    setTimeout(() => {
-      if (messageDiv.parentNode) {
-        messageDiv.parentNode.removeChild(messageDiv);
-      }
-    }, 2000);
-  }
 
 }
 
