@@ -56,3 +56,54 @@ export interface DeliveryMethod {
 }
 
 
+
+
+export interface OrderDto {
+  id: number;
+  date: Date;
+  status: string;
+  subTotal: number;
+  amount: number;
+  orderAddress: OrderAddressDto;
+  orderItems: OrderItemDto[];
+  deliveryMethod?: DeliveryMethodDto;
+  paymentMethod: string;
+  paymentStatus: string;
+}
+
+export interface OrderAddressDto {
+  firstName: string;
+  lastName: string;
+  city: string;
+  street: string;
+  governorateId: number;
+}
+
+export interface OrderItemDto {
+  productId: number;
+  productName: string;
+  image: string;
+  quantity: number;
+  price: number;
+  amount: number;
+}
+
+export interface DeliveryMethodDto {
+  id: number;
+  shortName: string;
+  description: string;
+  deliveryTime: string;
+  cost: number;
+}
+
+export interface ReturnRequestDto {
+  orderId: number;
+  returnReason: string;
+  returnItems: ReturnItemDto[];
+}
+
+export interface ReturnItemDto {
+  orderItemId: number;
+  quantityToReturn: number;
+  reason: string;
+}
