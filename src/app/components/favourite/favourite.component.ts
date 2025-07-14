@@ -58,11 +58,14 @@ export class FavouriteComponent implements OnInit {
         this.store.dispatch(decreaseFavouriteCounter()); // Dispatch an action to decrease the counter
         this.favouriteService.DeleteFromFavourite(productId).subscribe({
           next: () => {
+            console.log(";akd;flakd;fkd;flkdss;flkda");
             this.toastr.success('Product deleted successfully!', 'Success');
             this.loadFavouriteItems();
           },
           error: (error) => {
             this.toastr.error('Failed to delete product', 'Error');
+            console.log(error)
+            
           }
         });
       }
