@@ -16,6 +16,8 @@ import { Router, RouterLinkActive, RouterModule } from '@angular/router';
 export class LoginComponentComponent {
   loginForm: FormGroup;
    loginError: string | null = null;
+   showPassword: boolean = false;
+
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({

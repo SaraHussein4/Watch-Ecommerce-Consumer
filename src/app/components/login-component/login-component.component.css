@@ -132,3 +132,31 @@ label {
     font-size: 0.85rem;
   }
 }
+
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-input-group {
+  position: relative;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #30636f;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.toggle-password-btn:hover {
+  color: #014858;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
