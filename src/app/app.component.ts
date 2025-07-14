@@ -9,6 +9,7 @@ import { CommonModule} from '@angular/common';
   selector: 'app-root',
   imports: [
     FooterComponentComponent,
+    NavbarComponentComponent,
     RouterOutlet,
     RouterModule,
     ChatBotComponent,
