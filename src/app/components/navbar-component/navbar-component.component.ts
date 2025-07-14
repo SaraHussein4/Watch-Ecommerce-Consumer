@@ -42,7 +42,7 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
         this.store.dispatch(initFavouriteCounter({ initialCount: this.initialCount }));
         console.log('Product added to cart successfully:', response);
 
-      },
+      }, 
       error: (err) => {
         console.error('Failed to add product to cart:', err);
       }
