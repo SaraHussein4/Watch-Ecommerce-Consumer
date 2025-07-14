@@ -27,6 +27,9 @@
         <p *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</p>
       </div>
 
+          <p *ngIf="loginError" class="alert alert-danger">{{ loginError }}</p>
+
+
       <div class="d-grid gap-2">
         <button type="submit" class="btn btn-login">Login</button>
       </div>
