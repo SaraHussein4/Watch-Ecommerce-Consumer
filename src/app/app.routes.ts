@@ -89,6 +89,7 @@ export const routes: Routes = [
     component: AdminLayoutComponent,
     canActivate: [authGuard, adminGuard],
     children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'customers', component: CustomersComponent },
       { path: 'orders', component: AdminOrdersComponent },
       { path: 'products/edit/:id', component: EditProductComponentComponent },
