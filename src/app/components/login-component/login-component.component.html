@@ -16,11 +16,17 @@
         <p *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email address.</p>
       </div>
 
-      <div class="mb-3">
-        <label for="password" class="form-label">Enter Your Password</label>
-        <input type="password" class="form-control login-input" formControlName="password" id="password"
-          placeholder="Enter your password" required>
-      </div>
+      <div class="mb-3 password-wrapper">
+  <label for="password" class="form-label">Enter Your Password</label>
+  <div class="password-input-group">
+    <input [type]="showPassword ? 'text' : 'password'" class="form-control login-input" formControlName="password" id="password"
+      placeholder="Enter your password" required>
+    <button type="button" class="toggle-password-btn" (click)="showPassword = !showPassword">
+      {{ showPassword ? 'Hide' : 'Show' }}
+    </button>
+  </div>
+</div>
+
       <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched)"
         class="alert alert-danger mb-3" role="alert">
         <p *ngIf="loginForm.get('password')?.errors?.['required']">Password is Required</p>
