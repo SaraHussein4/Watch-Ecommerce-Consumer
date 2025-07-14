@@ -75,9 +75,14 @@
 }
 
 
+
 /* Responsive */
 @media (max-width: 768px) {
   .btn-add-product {
     width: 100%;
   }
+}
+
+.spinner-border{
+  color: #30636f;
 }

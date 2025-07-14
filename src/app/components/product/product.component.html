@@ -1,21 +1,81 @@
 <div class="container product mb-5">
-    <div class="row g-5">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="row g-5">
+        <div class="col-md-6">
+            <div class="text-center primary-img-container">
+                <ngx-skeleton-loader 
+                    [theme]="{height: '400px', width: '100%'}"
+                    appearance="line">
+                </ngx-skeleton-loader>
+            </div>
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                <ngx-skeleton-loader 
+                    *ngFor="let item of skeletonItems"
+                    [theme]="{height: '80px', width: '80px'}"
+                    appearance="line">
+                </ngx-skeleton-loader>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <ngx-skeleton-loader [theme]="{height: '40px', width: '80%'}" appearance="line"></ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{height: '120px', width: '100%', 'margin-top': '20px'}" appearance="line"></ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{height: '30px', width: '20%', 'margin-top': '20px'}" appearance="line"></ngx-skeleton-loader>
+            
+            <div class="border-top pt-3">
+                <div class="row">
+                    <div class="colors col-4">
+                        <ngx-skeleton-loader [theme]="{height: '20px', width: '50%'}" appearance="line"></ngx-skeleton-loader>
+                        <div class="d-flex gap-2 mb-3">
+                            <ngx-skeleton-loader 
+                                *ngFor="let item of [1,2,3]"
+                                [theme]="{height: '30px', width: '30px', 'border-radius': '50%'}"
+                                appearance="circle">
+                            </ngx-skeleton-loader>
+                        </div>
+                    </div>
+                    <div class="sizes col-8">
+                        <ngx-skeleton-loader [theme]="{height: '20px', width: '50%'}" appearance="line"></ngx-skeleton-loader>
+                        <div class="btn-group mb-3" role="group">
+                            <ngx-skeleton-loader 
+                                *ngFor="let item of [1,2,3,4]"
+                                [theme]="{height: '40px', width: '60px', 'margin-right': '10px'}"
+                                appearance="line">
+                            </ngx-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+
+                <ngx-skeleton-loader [theme]="{height: '20px', width: '30%'}" appearance="line"></ngx-skeleton-loader>
+                <div class="btn-group mb-3" role="group">
+                    <ngx-skeleton-loader [theme]="{height: '40px', width: '150px'}" appearance="line"></ngx-skeleton-loader>
+                </div>
+
+                <div class="d-flex gap-3 mt-3">
+                    <ngx-skeleton-loader [theme]="{height: '50px', width: '200px'}" appearance="line"></ngx-skeleton-loader>
+                    <ngx-skeleton-loader [theme]="{height: '50px', width: '200px'}" appearance="line"></ngx-skeleton-loader>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Content -->
+    <div *ngIf="!isLoading" class="row g-5">
         <!-- Left Section -->
-        <div class="col-md-6"  [ngClass]="{ 'slide-in-left': animate }">
+        <div class="col-md-6" [ngClass]="{ 'slide-in-left': animate }">
             <div class="text-center primary-img-container">
                 <img [src]="mainImage.startsWith('http') 
-            ? mainImage 
-            : (mainImage.includes('/Images') 
-                ? 'https://localhost:7071' + mainImage 
-                : 'https://localhost:7071/images/' + mainImage)" class="img-fluid rounded primary-img"
+                    ? mainImage 
+                    : (mainImage.includes('/Images') 
+                        ? 'https://localhost:7071' + mainImage 
+                        : 'https://localhost:7071/images/' + mainImage)" 
+                    class="img-fluid rounded primary-img"
                     alt="Product Image" />
             </div>
             <div class="d-flex justify-content-center gap-2 mt-3">
-                <!-- <img *ngFor="let img of product.images" src="https://localhost:7071{{img.url}}" class="thumbnail img-thumbnail" (click)="changeMainImage(img.url)" /> -->
                 <img *ngFor="let img of product.images"
                     [src]="img.url.startsWith('http') ? img.url : (img.url.includes('/Images') ? 'https://localhost:7071' + img.url : 'https://localhost:7071/images/' + img.url)"
-                    class="thumbnail img-thumbnail" (click)="changeMainImage(img.url)" />
-
+                    class="thumbnail img-thumbnail" 
+                    (click)="changeMainImage(img.url)" />
             </div>
         </div>
 
@@ -35,13 +95,13 @@
                         <div class="d-flex gap-2 mb-3">
                             <div *ngFor="let color of product.colors" class="color-box"
                                 [ngStyle]="{ 'background-color': color}"
-                                [ngClass]="{ 'selected': color === selectedColor }" (click)="selectColor(color)">
+                                [ngClass]="{ 'selected': color === selectedColor }" 
+                                (click)="selectColor(color)">
                             </div>
                         </div>
                     </div>
                     <div class="sizes col-8">
-                        <h6>Size: <span class="ms-2 fw-normal">({{ selectedSize }})</span>
-                        </h6>
+                        <h6>Size: <span class="ms-2 fw-normal">({{ selectedSize }})</span></h6>
                         <div class="btn-group mb-3" role="group">
                             <button *ngFor="let size of product.sizes" type="button" class="btn"
                                 [ngClass]="size === selectedSize ? 'size-button active' : 'size-button-outline'"
@@ -52,22 +112,42 @@
                     </div>
                 </div>
 
-
-                <h6>Quantity:
-                </h6>
+                <h6>Quantity:</h6>
                 <div class="btn-group mb-3" role="group">
                     <div class="d-flex align-items-center bg-light rounded-pill px-2 py-1">
-                        <button class="btn btn-sm btn-light rounded-circle" (click)="decreaseQuantity()">−</button>
+                        <button class="btn btn-sm btn-light rounded-circle" 
+                                (click)="decreaseQuantity()"
+                                [disabled]="quantity <= 1">−</button>
                         <span class="mx-2 fw-bold" style="min-width: 20px; text-align: center;">{{ quantity}}</span>
                         <button class="btn btn-sm rounded-circle text-white plus-button"
-                            (click)="increaseQuantity()">＋</button>
+                                (click)="increaseQuantity()"
+                                [disabled]="quantity >= product.quantity">＋</button>
                     </div>
                 </div>
 
-
                 <div class="d-flex gap-3 mt-3">
-                    <button class="btn btn-lg addtocart-button" (click)="addToCart()"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
-                    <button class="btn  btn-lg addtofav-button" (click)="addToFavourite()"><i class="fa-solid fa-heart"></i> Add to Favourite</button>
+                    <button class="btn btn-lg addtocart-button" 
+                            (click)="addToCart()"
+                            [disabled]="isAddingToCart || product.quantity <= 0">
+                        <span *ngIf="!isAddingToCart">
+                            <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                        </span>
+                        <span *ngIf="isAddingToCart">
+                            <ngx-spinner name="cartSpinner" type="ball-scale-multiple" size="small"></ngx-spinner>
+                            Adding...
+                        </span>
+                    </button>
+                    <button class="btn btn-lg addtofav-button" 
+                            (click)="addToFavourite()"
+                            [disabled]="isAddingToFavorites">
+                        <span *ngIf="!isAddingToFavorites">
+                            <i class="fa-solid fa-heart"></i> Add to Favorites
+                        </span>
+                        <span *ngIf="isAddingToFavorites">
+                            <ngx-spinner name="favoriteSpinner" type="ball-scale-multiple" size="small"></ngx-spinner>
+                            Adding...
+                        </span>
+                    </button>
                 </div>
             </div>
 

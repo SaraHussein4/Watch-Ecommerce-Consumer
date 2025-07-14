@@ -23,8 +23,8 @@ export class AddCategoryComponent {
   @Input() type: 'category' | 'brand' = 'category';
 
   constructor(private categoryService: CategoryService,
-              private brandService: BrandService
-  ) {}
+    private brandService: BrandService
+  ) { }
   save() {
     if (!this.categoryName.trim()) {
       alert(`${this.type} name cannot be empty`);
@@ -47,12 +47,12 @@ export class AddCategoryComponent {
         setTimeout(() => this.close.emit(true), 2000); // Close modal after 2 seconds
       },
       error: (err) => {
-        if (err.status === 400 && err.error?.includes('already exists')){
-           this.message = `❌ This ${this.type} already exists.`;
+        if (err.status === 400 && err.error?.includes('already exists')) {
+          this.message = `❌ This ${this.type} already exists.`;
           this.isError = true;
           setTimeout(() => this.message = '', 5000); // Clear message after 5 seconds
         }
-        else{
+        else {
           this.message = `❌ Failed to add ${this.type}. Please try again later.`;
           this.isError = true;
           setTimeout(() => this.message = '', 5000); // Clear message after 5 seconds

@@ -1,26 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product.model';
 import { CartItem } from '../../models/cart';
-import { FavouriteComponent } from '../favourite/favourite.component';
 import { FavouriteService } from '../../services/favourite.service';
 import { Store } from '@ngrx/store';
 import { increaseFavouriteCounter } from '../../Store/FavouriteCounter.action';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
 import { SharedComponentsService } from '../../services/sharedComponents.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NgxSpinnerService, NgxSpinnerComponent } from 'ngx-spinner';
+
 @Component({
   selector: 'app-product',
-  imports: [CommonModule],
+  imports: [CommonModule, NgxSkeletonLoaderModule, NgxSpinnerComponent],
   templateUrl: './product.component.html',
-  styleUrl: './product.component.css'
+  styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-
   product!: Product;
   productId!: number;
   quantity: number = 1;
@@ -28,7 +28,12 @@ export class ProductComponent implements OnInit {
   selectedColor: string = '';
   selectedSize: string = '';
   animate = false;
-
+  
+  // Loading states
+  isLoading = true;
+  isAddingToCart = false;
+  isAddingToFavorites = false;
+  skeletonItems = Array(4).fill(0);
 
   constructor(
     private productService: ProductService,
@@ -38,34 +43,28 @@ export class ProductComponent implements OnInit {
     private store: Store<{ favouriteCounter: number }>,
     private cartService: CartService,
     private authService: AuthService,
-    private sharedComponent: SharedComponentsService
-  ) {
-  }
-
+    private sharedComponent: SharedComponentsService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
-
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
       this.productId = id;
       this.loadProduct();
-
     });
 
-setTimeout(() => {
-    this.animate = true;
-  }, 100);
-
+    setTimeout(() => {
+      this.animate = true;
+    }, 100);
   }
 
-
   loadProduct(): void {
+    this.isLoading = true;
     this.productService.getProductById(this.productId).subscribe({
       next: (data: Product) => {
         this.product = data;
-        this.mainImage = data.images[0].url;
-        this.selectedColor = data.colors[0];
-        this.selectedSize = data.sizes[0];
+        
         if (data.images && data.images.length > 0) {
           this.mainImage = this.getImageUrl(data.images[0].url);
         } else {
@@ -76,38 +75,27 @@ setTimeout(() => {
         this.selectedColor = data.colors && data.colors.length > 0 ? data.colors[0] : '';
         this.selectedSize = data.sizes && data.sizes.length > 0 ? data.sizes[0] : '';
 
-
         if (this.product.quantity == 0) {
           this.quantity = 0;
         }
 
-        console.log('Product loaded:', this.product);
-        console.log(this.selectedColor);
-        console.log(this.selectedSize);
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Failed to load product:', err);
+        this.isLoading = false;
+        this.sharedComponent.showErrorMessage('Failed to load product details');
       }
     });
   }
 
   getImageUrl(imageUrl: string): string {
-    console.log('Processing image URL:', imageUrl);
-
-    if (!imageUrl) {
-      return '';
-    }
-
-    if (imageUrl.startsWith('http')) {
-      return imageUrl;
-    }
-
-    const processedUrl = `https://localhost:7071${imageUrl}`;
-    return processedUrl;
+    if (!imageUrl) return '';
+    if (imageUrl.startsWith('http')) return imageUrl;
+    return `https://localhost:7071${imageUrl}`;
   }
 
   changeMainImage(imgUrl: string): void {
-    console.log("a;lkdfj");
     this.mainImage = imgUrl;
   }
 
@@ -119,9 +107,7 @@ setTimeout(() => {
     this.selectedSize = size;
   }
 
-
   increaseQuantity(): void {
-
     if (this.quantity < this.product.quantity) {
       this.quantity++;
     }
@@ -134,19 +120,22 @@ setTimeout(() => {
   }
 
   addToFavourite() {
+    if (this.isAddingToFavorites) return;
+    
+    this.isAddingToFavorites = true;
+    this.spinner.show('favoriteSpinner');
+
     this.favouriteService.addToFavourite(this.product.id).subscribe({
       next: (response) => {
-        console.log('Product added to favourites successfully:', response);
-        this.store.dispatch(increaseFavouriteCounter()); // Dispatch an action to increase the counter
-
-        this.sharedComponent.showSuccessMessage("Product added to favourites successfully")
+        this.store.dispatch(increaseFavouriteCounter());
+        this.sharedComponent.showSuccessMessage("Product added to favorites");
+        this.isAddingToFavorites = false;
+        this.spinner.hide('favoriteSpinner');
       },
       error: (err) => {
-        console.error('Failed to add product to favourites:', err);
-
-        this.sharedComponent.showErrorMessage(
-          'This product is already in your favorites!',
-        );
+        this.sharedComponent.showErrorMessage('This product is already in your favorites!');
+        this.isAddingToFavorites = false;
+        this.spinner.hide('favoriteSpinner');
       }
     });
   }
@@ -211,5 +200,3 @@ addToCart() {
 }
 
 }
-
-

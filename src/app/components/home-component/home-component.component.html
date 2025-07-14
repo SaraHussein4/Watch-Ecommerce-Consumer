@@ -8,13 +8,41 @@
     </p>
   </div>
 </section>
+
 <!-- Best Sellers -->
 <section class="products py-5">
   <div class="container">
     <h2 class="section-title mb-4">Best Sellers</h2>
-    <div class="row g-4">
+    
+    <!-- Loading State -->
+    <div *ngIf="isLoadingProducts" class="row g-4">
+      <div class="col-md-3" *ngFor="let item of skeletonItems">
+        <div class="card h-100">
+          <ngx-skeleton-loader 
+            [theme]="{height: '200px', width: '100%'}" 
+            appearance="line">
+          </ngx-skeleton-loader>
+          <div class="card-body">
+            <ngx-skeleton-loader 
+              [theme]="{height: '24px', width: '80%'}" 
+              appearance="line">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader 
+              [theme]="{height: '20px', width: '40%', 'margin-top': '10px'}" 
+              appearance="line">
+            </ngx-skeleton-loader>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Products -->
+    <div *ngIf="!isLoadingProducts" class="row g-4">
       <div class="col-md-3" *ngFor="let product of products">
         <app-Product-Card [product]="product"></app-Product-Card>
+      </div>
+      <div *ngIf="products.length === 0" class="col-12 text-center py-4">
+        <p>No best sellers found</p>
       </div>
     </div>
   </div>
@@ -36,14 +64,36 @@
 <section class="brands py-5">
   <div class="container">
     <h2 class="section-title mb-4">Shop by Brand</h2>
-    <div class="row g-4">
+    
+    <!-- Loading State -->
+    <div *ngIf="isLoadingFeaturedBrands" class="row g-4">
+      <div class="col-md-3" *ngFor="let item of featuredSkeletonItems">
+        <div class="card h-100">
+          <ngx-skeleton-loader 
+            [theme]="{height: '150px', width: '100%'}" 
+            appearance="line">
+          </ngx-skeleton-loader>
+          <div class="card-body text-center">
+            <ngx-skeleton-loader 
+              [theme]="{height: '24px', width: '60%', 'margin': '0 auto'}" 
+              appearance="line">
+            </ngx-skeleton-loader>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Brand Products -->
+    <div *ngIf="!isLoadingFeaturedBrands" class="row g-4">
       <div class="col-md-3" *ngFor="let product of featuredBrandProducts">
         <app-Product-Card
           [product]="product"
           [isBrandCard]="true"
           (viewBrandProducts)="filterByBrand($event)"
-        >
-        </app-Product-Card>
+        ></app-Product-Card>
+      </div>
+      <div *ngIf="featuredBrandProducts.length === 0" class="col-12 text-center py-4">
+        <p>No featured brands found</p>
       </div>
     </div>
   </div>

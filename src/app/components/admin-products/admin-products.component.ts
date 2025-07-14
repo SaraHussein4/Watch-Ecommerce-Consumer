@@ -1,5 +1,5 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProductCardComponent } from "../Product-Card/Product-Card.component";
 import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product.model';
@@ -11,9 +11,12 @@ import { Category } from '../../models/category.model';
 import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmDeleteComponent } from '../confirmDelete/confirmDelete.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-admin-products',
-  imports: [RouterModule, ProductCardComponent, CommonModule, FormsModule],
+  imports: [CommonModule, ProductCardComponent, FormsModule, NgxSkeletonLoaderModule, RouterLink],
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css']
 })
@@ -26,6 +29,12 @@ export class AdminProductsComponent implements OnInit {
   selectedBrandIds: number[] = [];
   selectedCategoryId: number | string | null = "";
   selectedBrandId: number | string | null = "";
+
+  // Loading states
+  isLoadingProducts: boolean = false;
+  isLoadingBrands: boolean = false;
+  isLoadingCategories: boolean = false;
+  skeletonItems = Array(6).fill(0); // For skeleton loader
 
   filters: ProductFilter = {
     searchTerm: '',
@@ -40,11 +49,8 @@ export class AdminProductsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private http: HttpClient,
-    private modalService: NgbModal,
-
-  ) {
-
-  }
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit() {
     this.loadProducts();
@@ -52,30 +58,19 @@ export class AdminProductsComponent implements OnInit {
     this.loadBrands();
   }
 
-  get pageNumbers(): number[] {
-    const totalPages = Math.ceil(this.totalCount / this.filters.pageSize)
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  }
-
   loadProducts(): void {
+    this.isLoadingProducts = true;
     this.productService.getFilteredProducts(this.filters).subscribe({
       next: (res) => {
-        this.products = res.items,
-          this.totalCount = res.totalCount;
-        console.log('Products loaded:', this.products);
+        this.products = res.items;
+        this.totalCount = res.totalCount;
+        this.isLoadingProducts = false;
       },
-      error: (err) => console.error('Error loading products:', err)
-    })
-
-    // this.productService.getPaginatedProducts(this.page, this.filters.pageSize).subscribe({
-    //   next: res => {
-    //     this.products = res.items;
-    //     this.totalCount = res.totalCount;
-    //   },
-    //   error: err => {
-    //     console.error("Failed to fetch products:", err);
-    //   }
-    // });
+      error: (err) => {
+        console.error('Error loading products:', err);
+        this.isLoadingProducts = false;
+      }
+    });
   }
 
   onPageChange(newPage: number): void {
@@ -90,10 +85,9 @@ export class AdminProductsComponent implements OnInit {
       this.loadProducts();
     }
     if (this.products.length === 0 && this.filters.page === 1) {
-      this.totalCount = 0; // Reset total count if no products left
+      this.totalCount = 0;
     }
   }
-
 
   onCategoryChange() {
     this.filters.categoryIds = this.selectedCategoryId
@@ -110,15 +104,18 @@ export class AdminProductsComponent implements OnInit {
   }
 
   applyFilters() {
-    console.log('Sending filters to API:', this.filters);
+    this.isLoadingProducts = true;
     this.productService.getFilteredProducts(this.filters).subscribe({
       next: (res) => {
-        this.products = res.items,
-          this.totalCount = res.totalCount;
-        console.log('product:', res);
+        this.products = res.items;
+        this.totalCount = res.totalCount;
+        this.isLoadingProducts = false;
       },
-      error: (err) => console.error('Error loading products:', err)
-    })
+      error: (err) => {
+        console.error('Error loading products:', err);
+        this.isLoadingProducts = false;
+      }
+    });
   }
 
   resetFilters() {
@@ -136,18 +133,31 @@ export class AdminProductsComponent implements OnInit {
     this.applyFilters();
   }
 
-
   loadBrands() {
+    this.isLoadingBrands = true;
     this.http.get<Brand[]>('https://localhost:7071/api/ProductBrand').subscribe({
-      next: data => this.brands = data,
-      error: err => console.error('Failed to load brands', err)
+      next: data => {
+        this.brands = data;
+        this.isLoadingBrands = false;
+      },
+      error: err => {
+        console.error('Failed to load brands', err);
+        this.isLoadingBrands = false;
+      }
     });
   }
 
   loadCategories() {
+    this.isLoadingCategories = true;
     this.http.get<Category[]>('https://localhost:7071/api/Categories').subscribe({
-      next: data => this.categories = data,
-      error: err => console.error('Failed to load categories', err)
+      next: data => {
+        this.categories = data;
+        this.isLoadingCategories = false;
+      },
+      error: err => {
+        console.error('Failed to load categories', err);
+        this.isLoadingCategories = false;
+      }
     });
   }
 
@@ -156,6 +166,8 @@ export class AdminProductsComponent implements OnInit {
     this.applyFilters();
   }
 
-
-
+  get pageNumbers(): number[] {
+    const totalPages = Math.ceil(this.totalCount / this.filters.pageSize)
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
 }
