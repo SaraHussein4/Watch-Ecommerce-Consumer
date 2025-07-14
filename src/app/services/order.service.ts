@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateOrderRequest, DeliveryMethod, Governorate, OrderOverview } from '../models/order';
+import { CreateOrderRequest, DeliveryMethod, Governorate, OrderDto, OrderOverview } from '../models/order';
 
 
 
@@ -50,8 +50,8 @@ export class OrderService {
     return this.httpClient.get<{ orders: OrderOverview[], totalCount: number }>(`${this.baseUrl}/orders?page=${page}&pageSize=${pageSize}`);
   }
 
-  getOrdersForUser(page: number, pageSize: number): Observable<{ orders: OrderOverview[], totalCount: number }> {
-    return this.httpClient.get<{ orders: OrderOverview[], totalCount: number }>(`${this.baseUrl}/ordersForUser?page=${page}&pageSize=${pageSize}`);
+  getOrdersForUser(page: number, pageSize: number): Observable<{ orders: OrderDto[], totalCount: number }> {
+    return this.httpClient.get<{ orders: OrderDto[], totalCount: number }>(`${this.baseUrl}/ordersForUser?page=${page}&pageSize=${pageSize}`);
   }
 
   updateOrder(order: OrderOverview): Observable<any> {
