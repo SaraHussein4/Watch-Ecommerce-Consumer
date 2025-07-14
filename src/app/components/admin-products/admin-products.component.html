@@ -1,9 +1,7 @@
 <div class="admin-container container-fluid py-4">
   <main class="px-md-4">
     <!-- Filter Controls & Add Product Button -->
-    <div
-      class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3"
-    >
+    <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
       <div class="d-flex gap-3 flex-wrap">
         <!-- Search -->
         <input
@@ -12,44 +10,73 @@
           placeholder="Search products..."
           [(ngModel)]="filters.searchTerm"
           (change)="onSearch()"
+          [disabled]="isLoadingProducts"
           style="width: 250px"
         />
 
         <!-- Category Filter -->
-        <select
-          class="form-select custom-select"
-          style="width: 180px"
-          [(ngModel)]="selectedCategoryId"
-          (change)="onCategoryChange()"
-        >
-          <option value="">All Categories</option>
-          <option *ngFor="let category of categories" [value]="category.id">
-            {{ category.name }}
-          </option>
-        </select>
+        <div class="position-relative">
+          <select
+            class="form-select custom-select"
+            style="width: 180px"
+            [(ngModel)]="selectedCategoryId"
+            (change)="onCategoryChange()"
+            [disabled]="isLoadingCategories || isLoadingProducts"
+          >
+            <option value="">All Categories</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+          <div *ngIf="isLoadingCategories" class="position-absolute top-50 end-0 translate-middle-y pe-2">
+            <div class="spinner-border spinner-border-sm text-secondary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
 
         <!-- Brand Filter -->
-        <select
-          class="form-select custom-select"
-          style="width: 180px"
-          [(ngModel)]="selectedBrandId"
-          (change)="onBrandChange()"
-        >
-          <option value="">All Brands</option>
-          <option *ngFor="let brand of brands" [value]="brand.id">
-            {{ brand.name }}
-          </option>
-        </select>
+        <div class="position-relative">
+          <select
+            class="form-select custom-select"
+            style="width: 180px"
+            [(ngModel)]="selectedBrandId"
+            (change)="onBrandChange()"
+            [disabled]="isLoadingBrands || isLoadingProducts"
+          >
+            <option value="">All Brands</option>
+            <option *ngFor="let brand of brands" [value]="brand.id">
+              {{ brand.name }}
+            </option>
+          </select>
+          <div *ngIf="isLoadingBrands" class="position-absolute top-50 end-0 translate-middle-y pe-2">
+            <div class="spinner-border spinner-border-sm text-secondary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Add Product Button -->
-      <button [routerLink]="['/admin/addProduct']" class="btn btn-add-product">
+      <button 
+        [routerLink]="['/admin/addProduct']" 
+        class="btn btn-add-product"
+        [disabled]="isLoadingProducts"
+      >
         + Add New Product
       </button>
     </div>
 
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoadingProducts" class="text-center my-5">
+      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3">Loading products...</p>
+    </div>
+
     <!-- Product Cards -->
-    <div class="row g-4">
+    <div *ngIf="!isLoadingProducts" class="row g-4">
       <div class="col-lg-4 col-md-6" *ngFor="let product of products">
         <app-Product-Card
           [product]="product"
@@ -57,30 +84,23 @@
           (productDeleted)="onProductDeleted($event)"
         ></app-Product-Card>
       </div>
+      <div *ngIf="products.length === 0" class="col-12 text-center py-5">
+        <h5>No products found matching your criteria</h5>
+        <button class="btn btn-outline-primary mt-3" (click)="resetFilters()">Reset Filters</button>
+      </div>
     </div>
 
     <!-- Pagination -->
-    <nav *ngIf="totalCount > filters.pageSize">
+    <nav *ngIf="totalCount > filters.pageSize && !isLoadingProducts">
       <ul class="pagination justify-content-center mt-4">
         <li class="page-item" [class.disabled]="filters.page === 1">
-          <button class="page-link" (click)="onPageChange(filters.page - 1)">
-            Previous
-          </button>
+          <button class="page-link" (click)="onPageChange(filters.page - 1)">Previous</button>
         </li>
-        <li
-          class="page-item"
-          *ngFor="let p of pageNumbers"
-          [class.active]="filters.page === p"
-        >
+        <li class="page-item" *ngFor="let p of pageNumbers" [class.active]="filters.page === p">
           <button class="page-link" (click)="onPageChange(p)">{{ p }}</button>
         </li>
-        <li
-          class="page-item"
-          [class.disabled]="filters.page === pageNumbers.length"
-        >
-          <button class="page-link" (click)="onPageChange(filters.page + 1)">
-            Next
-          </button>
+        <li class="page-item" [class.disabled]="filters.page === pageNumbers.length">
+          <button class="page-link" (click)="onPageChange(filters.page + 1)">Next</button>
         </li>
       </ul>
     </nav>

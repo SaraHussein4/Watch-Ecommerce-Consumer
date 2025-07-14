@@ -18,6 +18,7 @@
                 type="text"
                 class="myInput form-control"
                 formControlName="name"
+                [disabled]="isSubmitting"
               />
             </div>
 
@@ -27,6 +28,7 @@
                 type="number"
                 class="myInput form-control"
                 formControlName="price"
+                [disabled]="isSubmitting"
               />
             </div>
 
@@ -36,6 +38,7 @@
                 type="number"
                 class="myInput form-control"
                 formControlName="quantity"
+                [disabled]="isSubmitting"
               />
             </div>
           </div>
@@ -53,6 +56,7 @@
                 rows="3"
                 class="myInputDescription form-control"
                 formControlName="description"
+                [disabled]="isSubmitting"
               ></textarea>
             </div>
 
@@ -62,6 +66,7 @@
                 type="number"
                 class="myInput form-control"
                 formControlName="warrentyYears"
+                [disabled]="isSubmitting"
               />
               <div class="mt-4">
                 <div class="form-check">
@@ -70,6 +75,7 @@
                     type="checkbox"
                     formControlName="waterResistance"
                     id="waterResistance"
+                    [disabled]="isSubmitting"
                   />
                   <label class="form-check-label" for="waterResistance"
                     >Water Resistance</label
@@ -88,7 +94,11 @@
           <div class="row">
             <div class="col-md-4 mt-3">
               <label>Gender</label>
-              <select class="form-select brand-select" formControlName="genderCategory">
+              <select 
+                class="form-select brand-select" 
+                formControlName="genderCategory"
+                [disabled]="isSubmitting"
+              >
                 <option value="" disabled selected>Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -97,30 +107,64 @@
               <div class="mt-2">
                 <div class="d-flex align-items-center justify-content-between">
                   <label class="form-label mb-0">Category</label>
-                  <button type="button" class="btn btn-outline-success btn-circle" (click)="openCategoryModal()">
+                  <button 
+                    type="button" 
+                    class="btn btn-outline-success btn-circle" 
+                    (click)="openCategoryModal()"
+                    [disabled]="isSubmitting"
+                  >
                     <i class="bi bi-plus-lg"></i>
                   </button>
                 </div>
-                <select class="form-select category-select" formControlName="categoryId">
-                  <option value="" disabled selected>Select Category</option>
+                <select 
+                  class="form-select category-select" 
+                  formControlName="categoryId"
+                  [disabled]="isLoadingCategories || isSubmitting"
+                >
+                  <option value="" disabled selected>
+                    {{ isLoadingCategories ? 'Loading categories...' : 'Select Category' }}
+                  </option>
                   <option *ngFor="let c of categories" [value]="c.id">
                     {{ c.name }}
                   </option>
                 </select>
+                <div *ngIf="isLoadingCategories" class="mt-2">
+                  <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <small class="ms-2">Loading categories...</small>
+                </div>
 
                 <div class="mt-3">
                   <div class="d-flex align-items-center justify-content-between">
                     <label class="form-label mb-0">Brand</label>
-                    <button type="button" class="btn btn-outline-success btn-circle" (click)="openBrandModal()">
+                    <button 
+                      type="button" 
+                      class="btn btn-outline-success btn-circle" 
+                      (click)="openBrandModal()"
+                      [disabled]="isSubmitting"
+                    >
                       <i class="bi bi-plus-lg"></i>
                     </button>
                   </div>
-                  <select class="form-select brand-select" formControlName="productBrandId">
-                    <option value="" disabled selected>Select Brand</option>
+                  <select 
+                    class="form-select brand-select" 
+                    formControlName="productBrandId"
+                    [disabled]="isLoadingBrands || isSubmitting"
+                  >
+                    <option value="" disabled selected>
+                      {{ isLoadingBrands ? 'Loading brands...' : 'Select Brand' }}
+                    </option>
                     <option *ngFor="let b of brands" [value]="b.id">
                       {{ b.name }}
                     </option>
                   </select>
+                  <div *ngIf="isLoadingBrands" class="mt-2">
+                    <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <small class="ms-2">Loading brands...</small>
+                  </div>
                 </div>
               </div>
             </div>
@@ -135,6 +179,7 @@
                 display="chip"
                 defaultLabel="Select Colors"
                 class="custom-multiselect"
+                [disabled]="isSubmitting"
               />
             </div>
 
@@ -149,10 +194,9 @@
                 display="chip"
                 defaultLabel="Select Sizes"
                 class="custom-multiselect"
+                [disabled]="isSubmitting"
               />
             </div>
-
-
           </div>
         </div>
       </div>
@@ -170,6 +214,7 @@
                 id="imageUpload"
                 multiple
                 (change)="onImageSelected($event)"
+                [disabled]="isSubmitting"
               />
             </div>
             <div class="mt-3 d-flex flex-wrap gap-3">
@@ -190,8 +235,28 @@
 
       <!-- Buttons -->
       <div class="form-footer">
-        <button type="submit" class="btn btn-custom">Save Product</button>
-        <button type="button" class="btn btn-cancel" (click)="onCancel()">
+        <button 
+          type="submit" 
+          class="btn btn-custom"
+          [disabled]="isSubmitting"
+        >
+          <span *ngIf="!isSubmitting">Save Product</span>
+          <span *ngIf="isSubmitting">
+            <ngx-spinner 
+              name="formSubmitSpinner" 
+              type="ball-scale-multiple"
+              [fullScreen]="false"
+              size="small"
+            ></ngx-spinner>
+            Saving...
+          </span>
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-cancel" 
+          (click)="onCancel()"
+          [disabled]="isSubmitting"
+        >
           Cancel
         </button>
       </div>

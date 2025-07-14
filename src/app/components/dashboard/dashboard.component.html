@@ -1,29 +1,73 @@
-<div *ngIf="loading" class="text-center py-4">Loading...</div>
-<div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
+<!-- Loading Indicator -->
+<div *ngIf="loading" class="dashboard-loading">
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="loading-text">Loading dashboard data...</p>
+  </div>
+</div>
 
+<!-- Error Message -->
+<div *ngIf="error && !loading" class="dashboard-error">
+  <div class="alert alert-danger">
+    <div class="error-content">
+      <i class="fas fa-exclamation-circle error-icon"></i>
+      <span class="error-message">{{ error }}</span>
+      <button class="btn btn-retry" (click)="reloadData()">
+        <i class="fas fa-sync-alt"></i> Retry
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard Content -->
 <div *ngIf="!loading && !error" class="dashboard-container">
   <h1 class="dashboard-title">Dashboard Overview</h1>
 
   <div class="dashboard-stats">
     <div class="stat-box">
       <div class="stat-label">Total Products</div>
-      <div class="stat-value">{{ stats?.totalProducts }}</div>
-      <div class="stat-change">{{ stats?.productsChange }}</div>
+      <div class="stat-value">{{ stats?.totalProducts | number }}</div>
+      <div class="stat-change" [class.positive]="stats?.productsChange?.includes('+')"
+        [class.negative]="stats?.productsChange?.includes('-')">
+        <i class="fas" [class.fa-arrow-up]="stats?.productsChange?.includes('+')"
+          [class.fa-arrow-down]="stats?.productsChange?.includes('-')"></i>
+        {{ stats?.productsChange }}
+      </div>
     </div>
+
     <div class="stat-box">
       <div class="stat-label">Total Orders</div>
-      <div class="stat-value">{{ stats?.totalOrders }}</div>
-      <div class="stat-change">{{ stats?.ordersChange }}</div>
+      <div class="stat-value">{{ stats?.totalOrders | number }}</div>
+      <div class="stat-change" [class.positive]="stats?.ordersChange?.includes('+')"
+        [class.negative]="stats?.ordersChange?.includes('-')">
+        <i class="fas" [class.fa-arrow-up]="stats?.ordersChange?.includes('+')"
+          [class.fa-arrow-down]="stats?.ordersChange?.includes('-')"></i>
+        {{ stats?.ordersChange }}
+      </div>
     </div>
+
     <div class="stat-box">
       <div class="stat-label">Total Customers</div>
-      <div class="stat-value">{{ stats?.totalCustomers }}</div>
-      <div class="stat-change">{{ stats?.customersChange }}</div>
+      <div class="stat-value">{{ stats?.totalCustomers | number }}</div>
+      <div class="stat-change" [class.positive]="stats?.customersChange?.includes('+')"
+        [class.negative]="stats?.customersChange?.includes('-')">
+        <i class="fas" [class.fa-arrow-up]="stats?.customersChange?.includes('+')"
+          [class.fa-arrow-down]="stats?.customersChange?.includes('-')"></i>
+        {{ stats?.customersChange }}
+      </div>
     </div>
+
     <div class="stat-box">
       <div class="stat-label">Revenue Growth</div>
       <div class="stat-value">{{ stats?.revenueGrowth }}%</div>
-      <div class="stat-change">{{ stats?.revenueChange }}</div>
+      <div class="stat-change" [class.positive]="stats?.revenueChange?.includes('+')"
+        [class.negative]="stats?.revenueChange?.includes('-')">
+        <i class="fas" [class.fa-arrow-up]="stats?.revenueChange?.includes('+')"
+          [class.fa-arrow-down]="stats?.revenueChange?.includes('-')"></i>
+        {{ stats?.revenueChange }}
+      </div>
     </div>
   </div>
 </div>

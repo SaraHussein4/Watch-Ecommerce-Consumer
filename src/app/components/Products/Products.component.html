@@ -5,7 +5,7 @@
       <div class="filter-section sticky-top">
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h4>Filters</h4>
-          <button class="btn btn-outline-secondary" (click)="resetFilters()">
+          <button class="btn btn-outline-secondary" (click)="resetFilters()" [disabled]="isLoadingProducts">
             Reset
           </button>
         </div>
@@ -15,8 +15,8 @@
           <label class="form-label">Search</label>
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filters.searchTerm"
-              (keyup.enter)="onSearch()" />
-            <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">
+              (keyup.enter)="onSearch()" [disabled]="isLoadingProducts" />
+            <button class="btn btn-outline-secondary" type="button" (click)="onSearch()" [disabled]="isLoadingProducts">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </div>
@@ -25,7 +25,7 @@
         <!-- Sort By -->
         <div class="mb-4">
           <label class="form-label">Sort By</label>
-          <select class="form-select" [(ngModel)]="filters.sortBy" (change)="onSortChange()">
+          <select class="form-select" [(ngModel)]="filters.sortBy" (change)="onSortChange()" [disabled]="isLoadingProducts">
             <option value="newest" selected>New Arrivals</option>
             <option value="priceLowToHigh">Price: Low to High</option>
             <option value="priceHighToLow">Price: High to Low</option>
@@ -37,12 +37,12 @@
           <label class="form-label">Gender</label>
           <div class="form-check">
             <input class="form-check-input" type="checkbox" id="male" [(ngModel)]="maleChecked"
-              (change)="onGenderChange()" />
+              (change)="onGenderChange()" [disabled]="isLoadingProducts" />
             <label class="form-check-label" for="male">Male</label>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="checkbox" id="female" [(ngModel)]="femaleChecked"
-              (change)="onGenderChange()" />
+              (change)="onGenderChange()" [disabled]="isLoadingProducts" />
             <label class="form-check-label" for="female">Female</label>
           </div>
         </div>
@@ -51,23 +51,36 @@
         <div class="mb-4">
           <label for="categorySelect" class="form-label">Category</label>
           <select class="form-select" id="categorySelect" [(ngModel)]="selectedCategoryId"
-            (change)="onCategoryChange()">
+            (change)="onCategoryChange()" [disabled]="isLoadingCategories || isLoadingProducts">
             <option value="" selected>All categories</option>
             <option *ngFor="let category of categories" [value]="category.id">
               {{ category.name }}
             </option>
           </select>
+          <div *ngIf="isLoadingCategories" class="mt-2">
+            <div class="spinner-border spinner-border-sm text-secondary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <span class="ms-2">Loading categories...</span>
+          </div>
         </div>
 
         <!-- Brand -->
         <div class="mb-4">
           <label for="brandSelect" class="form-label">Brands</label>
-          <select class="form-select" id="brandSelect" [(ngModel)]="selectedBrandId" (change)="onBrandChange()">
+          <select class="form-select" id="brandSelect" [(ngModel)]="selectedBrandId" (change)="onBrandChange()"
+            [disabled]="isLoadingBrands || isLoadingProducts">
             <option value="" selected>All Brands</option>
             <option *ngFor="let brand of brands" [value]="brand.id">
               {{ brand.name }}
             </option>
           </select>
+          <div *ngIf="isLoadingBrands" class="mt-2">
+            <div class="spinner-border spinner-border-sm text-secondary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <span class="ms-2">Loading brands...</span>
+          </div>
         </div>
       </div>
     </div>
@@ -77,15 +90,27 @@
         <h4>Our Products</h4>
       </div>
 
-      <div class="row">
+      <!-- Loading Indicator -->
+      <div *ngIf="isLoadingProducts" class="text-center my-5">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Loading products...</p>
+      </div>
+
+      <!-- Products Grid -->
+      <div *ngIf="!isLoadingProducts" class="row">
         <div class="col-lg-3 col-md-6" *ngFor="let product of products" style="margin-bottom: 30px;">
           <app-Product-Card [product]="product"></app-Product-Card>
         </div>
+        <div *ngIf="products.length === 0" class="col-12 text-center py-5">
+          <h5>No products found matching your criteria</h5>
+          <button class="btn btn-outline-primary mt-3" (click)="resetFilters()">Reset Filters</button>
+        </div>
       </div>
 
-
       <!-- Pagination -->
-      <nav *ngIf="totalCount > filters.pageSize">
+      <nav *ngIf="totalCount > filters.pageSize && !isLoadingProducts">
         <ul class="pagination justify-content-center mt-4">
           <li class="page-item" [class.disabled]="filters.page === 1">
             <button class="page-link" (click)="onPageChange(filters.page - 1)">Previous</button>
@@ -98,7 +123,6 @@
           </li>
         </ul>
       </nav>
-
     </div>
   </div>
 </div>
