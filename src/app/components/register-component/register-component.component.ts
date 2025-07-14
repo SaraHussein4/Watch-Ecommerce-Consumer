@@ -27,7 +27,8 @@ export class RegisterComponentComponent {
       buildingNumber: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       street: ['', [Validators.required]],
       state: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required,
+          Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=~`[\]{}|\\:;"'<>,.?/]).+$/), Validators.minLength(6),Validators.maxLength(60)]],
       confirmPassword: ['', [Validators.required]]
     }, {
       validators: this.passwordMatchValidator
@@ -63,23 +64,29 @@ onSubmit() {
 
       },
       error: err => {
-        console.error('Registration error:', err);
-        
-        if (err.status === 400 && err.error?.errors) {
-          const errorMessages = [];
-          for (const key in err.error.errors) {
-            if (err.error.errors[key]) {
-              errorMessages.push(...err.error.errors[key]);
-            }
-          }
-          alert(errorMessages.join('\n'));
-        } 
-        else if (err.error) {
-          alert(err.error.message || err.error.title || 'Registration failed');
-        } else {
-          alert('An unknown error occurred during registration');
+  console.error('Registration error:', err);
+
+  if (err.status === 400) {
+    const errorMessage = typeof err.error === 'string' ? err.error : err.error?.message || err.error?.title;
+
+    if (errorMessage?.toLowerCase().includes('email')) {
+      this.registerForm.get('email')?.setErrors({ emailExists: true });
+    } else if (err.error?.errors) {
+      const errorMessages = [];
+      for (const key in err.error.errors) {
+        if (err.error.errors[key]) {
+          errorMessages.push(...err.error.errors[key]);
         }
       }
+      alert(errorMessages.join('\n'));
+    } else {
+      alert(errorMessage || 'Registration failed');
+    }
+  } else {
+    alert('An unknown error occurred during registration');
+  }
+}
+
     });
   }
 }

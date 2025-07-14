@@ -27,6 +27,8 @@ export class ProductComponent implements OnInit {
   mainImage: string = '';
   selectedColor: string = '';
   selectedSize: string = '';
+  animate = false;
+
 
   constructor(
     private productService: ProductService,
@@ -50,7 +52,9 @@ export class ProductComponent implements OnInit {
 
     });
 
-
+setTimeout(() => {
+    this.animate = true;
+  }, 100);
 
   }
 

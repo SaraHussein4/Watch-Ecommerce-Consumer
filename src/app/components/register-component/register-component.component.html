@@ -20,11 +20,13 @@
         <input type="email" class="form-control login-input" formControlName="email" id="email"
           placeholder="Enter your email address" required>
       </div>
-      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
-        class="alert alert-danger mb-3">
-        <p *ngIf="registerForm.get('email')?.errors?.['required']">Email is Required</p>
-        <p *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address.</p>
-      </div>
+      
+<div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid"
+     class="alert alert-danger mb-3">
+  <p *ngIf="registerForm.get('email')?.errors?.['required']">Email is Required</p>
+  <p *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address.</p>
+  <p *ngIf="registerForm.get('email')?.errors?.['emailExists']">Email is already exist</p>
+</div>
 
       <div class="mb-3">
         <label for="phone" class="form-label">Phone Number</label>
@@ -60,23 +62,55 @@
         <input type="password" class="form-control login-input" formControlName="password" id="password"
           placeholder="Enter your password" required>
       </div>
-      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
-        class="alert alert-danger mb-3">
-        <p *ngIf="registerForm.get('password')?.errors?.['required']">Password is Required</p>
-        <p *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</p>
-      </div>
+     
+      <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
+     class="alert alert-danger mb-3">
+
+  <p *ngIf="registerForm.get('password')?.errors?.['required']">
+    Password is Required
+  </p>
+
+  <p *ngIf="!registerForm.get('password')?.errors?.['required']
+           && registerForm.get('password')?.errors?.['minlength']">
+    Password must be at least 6 characters long.
+  </p>
+
+  <p *ngIf="!registerForm.get('password')?.errors?.['required']
+           && !registerForm.get('password')?.errors?.['minlength']
+           && registerForm.get('password')?.errors?.['pattern']">
+    Password must contain at least one uppercase letter, one number, and one special character.
+  </p>
+</div>
 
       <div class="mb-3">
         <label for="confirmPassword" class="form-label login-input">Confirm Password</label>
         <input type="password" class="form-control login-input" formControlName="confirmPassword" id="confirmPassword"
           placeholder="Confirm your password" required>
       </div>
-      <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
-        class="alert alert-danger mb-3">
-        <p *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirm Password is Required</p>
-        <p *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match.</p>
-      </div>
+    
+    <div *ngIf="registerForm.get('confirmPassword')?.touched &&
+           (registerForm.get('confirmPassword')?.errors?.['required'] ||
+           (registerForm.errors?.['passwordMismatch'] &&
+            registerForm.get('password')?.dirty &&
+            registerForm.get('confirmPassword')?.dirty))"
+     class="alert alert-danger mb-3">
 
+
+  <p *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">
+    Confirm Password is Required
+  </p>
+
+  <p *ngIf="!registerForm.get('confirmPassword')?.errors?.['required']
+           && registerForm.errors?.['passwordMismatch']
+           && registerForm.get('password')?.dirty
+           && registerForm.get('confirmPassword')?.dirty">
+    Passwords do not match
+  </p>
+</div>
+
+
+
+      
       <div class="d-grid gap-2">
         <button type="submit" [disabled]="registerForm.invalid" class="btn btn-register">Create Account</button>
       </div>

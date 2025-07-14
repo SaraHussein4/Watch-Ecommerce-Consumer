@@ -15,6 +15,7 @@ import { Router, RouterLinkActive, RouterModule } from '@angular/router';
 })
 export class LoginComponentComponent {
   loginForm: FormGroup;
+   loginError: string | null = null;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -24,6 +25,7 @@ export class LoginComponentComponent {
   }
 
 onSubmit() {
+    this.loginError = null;
   if (this.loginForm.valid) {
     const userData = {
       email: this.loginForm.value.email,
@@ -46,24 +48,29 @@ onSubmit() {
 
 
       },
-      error: err => {
-        console.error('Login error:', err);
+      
+       error: err => {
+          console.error('Login error:', err);
 
-        if (err.status === 400 && err.error?.errors) {
-          const errorMessages = [];
-          for (const key in err.error.errors) {
-            if (err.error.errors[key]) {
-              errorMessages.push(...err.error.errors[key]);
+          if (err.status === 400 && err.error?.errors) {
+            const errorMessages = [];
+            for (const key in err.error.errors) {
+              if (err.error.errors[key]) {
+                errorMessages.push(...err.error.errors[key]);
+              }
             }
+            this.loginError = errorMessages.join('\n');
           }
-          alert(errorMessages.join('\n'));
+          else if (err.status === 401) {
+            this.loginError = err.error?.message || 'Invalid email or password';
+          }
+          else if (err.error) {
+            this.loginError = err.error.message || err.error.title || 'Login failed';
+          } else {
+            this.loginError = 'An unknown error occurred during Login';
+          }
         }
-        else if (err.error) {
-          alert(err.error.message || err.error.title || 'Login failed');
-        } else {
-          alert('An unknown error occurred during Login');
-        }
-      }
+
     });
   }
 }

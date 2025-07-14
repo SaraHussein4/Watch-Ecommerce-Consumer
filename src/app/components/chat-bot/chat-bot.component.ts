@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
+import { BrandService } from '../../services/brand.service';
+import { Router } from '@angular/router';
+import { Brand } from '../../models/brand.model';
 
 @Component({
   selector: 'app-chat-bot',
@@ -20,6 +23,7 @@ export class ChatBotComponent {
   chatHistory: { from: 'user' | 'bot'; message: string; isHtml?: boolean }[] = [];
   products: Product[] = [];
   lastDiscussedProduct: Product | null = null;
+  brands: Brand[] = [];
 
   HF_TOKEN = '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';
   PROVIDER = 'together';
@@ -28,9 +32,12 @@ export class ChatBotComponent {
 
   constructor(
     private productService: ProductService,
-    private http: HttpClient
+    private http: HttpClient,
+    private brandService: BrandService,
+    private router: Router
   ) {
     this.loadProductsFromDatabase();
+    this.loadBrands();
   }
 
   toggleChat() {
@@ -47,6 +54,17 @@ export class ChatBotComponent {
       },
       error: (err) => {
         console.error('Failed to load products for chatbot context:', err);
+      }
+    });
+  }
+
+  loadBrands() {
+    this.brandService.getAll().subscribe({
+      next: (brands) => {
+        this.brands = brands;
+      },
+      error: (err) => {
+        console.error('Failed to load brands for chatbot context:', err);
       }
     });
   }
@@ -100,30 +118,50 @@ export class ChatBotComponent {
     const isBrandProductsQuestion = brandProductsKeywords.some(word => lowerQuestion.includes(word));
     
     if (isBrandProductsQuestion) {
-      const foundBrand = this.products.find(product => {
-        const brandName = product.productBrand?.name?.toLowerCase() || '';
-        return lowerQuestion.includes(brandName);
-      })?.productBrand?.name;
-
-      if (foundBrand) {
-        const brandProducts = this.products.filter(product => 
-          product.productBrand?.name === foundBrand
-        );
-        
-        if (brandProducts.length > 0) {
-          const productsList = brandProducts.map(product => 
-            `- ${product.name} - $${product.price}`
-          ).join('\n');
-          
-          const reply = isArabicQuestion ? 
-            `منتجات براند ${foundBrand}:\n${productsList}` : 
-            `Products from ${foundBrand} brand:\n${productsList}`;
-          
-          this.chatHistory.push({ from: 'bot', message: reply });
-          this.question = '';
-          this.loading = false;
-          return;
-        }
+      // ابحث عن اسم البراند في السؤال
+      const foundBrand = this.brands.find(brand => lowerQuestion.includes(brand.name.toLowerCase()));
+      if (foundBrand && foundBrand.id !== undefined) {
+        this.productService.getProductsByBrand(foundBrand.id).subscribe({
+          next: (brandProducts) => {
+            if (brandProducts.length > 0) {
+              const topProducts = brandProducts.slice(0, 3);
+              // بناء HTML للبطاقات Grid
+              let html = `<div class='chatbot-product-grid'>`;
+              topProducts.forEach(product => {
+                const img = product.images && product.images.length > 0 ? (product.images[0].url.startsWith('http') ? product.images[0].url : 'https://localhost:7071' + product.images[0].url) : '';
+                html += `
+                  <a class='chatbot-product-card' href='/product/${product.id}' style='text-decoration:none;color:inherit;' onclick='event.preventDefault(); window.location.href="/product/${product.id}";'>
+                    <img src='${img}' alt='${product.name}' class='chatbot-product-img'>
+                    <div class='chatbot-product-name'>${product.name}</div>
+                    <div class='chatbot-product-price'>${product.price} ج.م</div>
+                  </a>`;
+              });
+              html += `</div>`;
+              const reply = isArabicQuestion ? `أشهر منتجات براند ${foundBrand.name}:` : `Top products from ${foundBrand.name} brand:`;
+              this.chatHistory.push({ from: 'bot', message: reply, isHtml: false });
+              this.chatHistory.push({ from: 'bot', message: html, isHtml: true });
+              setTimeout(() => {
+                document.querySelectorAll('.chatbot-product-card').forEach(card => {
+                  card.addEventListener('click', (e: any) => {
+                    const id = card.getAttribute('data-product-id');
+                    if (id) this.navigateToProduct(+id);
+                  });
+                });
+              }, 100);
+            } else {
+              const reply = isArabicQuestion ? `لا توجد منتجات متاحة لهذا البراند حالياً.` : `No products available for this brand.`;
+              this.chatHistory.push({ from: 'bot', message: reply });
+            }
+            this.question = '';
+            this.loading = false;
+          },
+          error: (err) => {
+            this.chatHistory.push({ from: 'bot', message: isArabicQuestion ? 'حدث خطأ أثناء جلب المنتجات.' : 'Error fetching products.' });
+            this.question = '';
+            this.loading = false;
+          }
+        });
+        return;
       }
     }
 
@@ -258,6 +296,11 @@ export class ChatBotComponent {
     this.chatHistory.push({ from: 'bot', message: reply });
     this.question = '';
     this.loading = false;
+  }
+
+  navigateToProduct(id: number) {
+    this.router.navigate(['/product', id]);
+    this.isOpen = false;
   }
 
   retrieveRelevantChunks(userQuestion: string): string[] {
