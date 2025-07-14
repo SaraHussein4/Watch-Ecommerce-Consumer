@@ -63,24 +63,6 @@ onSubmit() {
      
 
       },
-      // error: err => {
-      //   console.error('Registration error:', err);
-        
-      //   if (err.status === 400 && err.error?.errors) {
-      //     const errorMessages = [];
-      //     for (const key in err.error.errors) {
-      //       if (err.error.errors[key]) {
-      //         errorMessages.push(...err.error.errors[key]);
-      //       }
-      //     }
-      //     alert(errorMessages.join('\n'));
-      //   } 
-      //   else if (err.error) {
-      //     alert(err.error.message || err.error.title || 'Registration failed');
-      //   } else {
-      //     alert('An unknown error occurred during registration');
-      //   }
-      // }
       error: err => {
   console.error('Registration error:', err);
 
