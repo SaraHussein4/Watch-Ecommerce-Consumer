@@ -33,6 +33,9 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AdminDeliveriesComponent } from './components/admin-deliveries/admin-deliveries.component';
+import { AddDeliveryComponent } from './components/add-delivery/add-delivery.component';
+import { DeliveryEditComponent } from './components/delivery-edit/delivery-edit.component';
 
 
 export const routes: Routes = [
@@ -95,7 +98,10 @@ export const routes: Routes = [
       { path: 'products/edit/:id', component: EditProductComponentComponent },
       { path: 'products', component: AdminProductsComponent },
       { path: 'addProduct', component: AddNewProductComponent },
-      {path:'dashboard', component:DashboardComponent}
+      {path:'dashboard', component:DashboardComponent},
+      { path: 'deliveries', component: AdminDeliveriesComponent },
+      { path: 'deliveries/add', component: AddDeliveryComponent },
+      { path: 'deliveries/edit/:id', component: DeliveryEditComponent },
       
     ],
   },

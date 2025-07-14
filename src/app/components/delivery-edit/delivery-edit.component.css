@@ -1,0 +1,15 @@
+/* Basic styling for edit delivery form */
+.container {
+  max-width: 500px;
+}
+.mb-3 label {
+  font-weight: 600;
+  color: #30636f;
+}
+.btn-primary {
+  background-color: #30636f;
+  border: none;
+}
+.btn-primary:disabled {
+  background-color: #b0bfc4;
+} 
