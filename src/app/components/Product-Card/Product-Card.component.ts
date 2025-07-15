@@ -10,7 +10,6 @@ import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
 import { ConfirmDeleteComponent } from '../confirmDelete/confirmDelete.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
