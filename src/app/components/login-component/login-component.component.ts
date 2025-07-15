@@ -48,7 +48,7 @@ onSubmit() {
           this.router.navigate(['/delivery/orders']);
         }
         else {
-          this.router.navigate(['/admin/dashboard']);
+          this.router.navigate(['/admin/products']);
         }
 
 
