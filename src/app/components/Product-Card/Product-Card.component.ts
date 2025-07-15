@@ -27,7 +27,7 @@ export class ProductCardComponent implements OnInit {
   @Output() viewBrandProducts = new EventEmitter<number>();
 
 
-  @Output() productDeleted = new EventEmitter<number>(); // Event emitter to notify parent component about product deletion
+  @Output() productDeleted = new EventEmitter<number>(); 
   constructor(
     private routre: Router,
     private productService: ProductService,

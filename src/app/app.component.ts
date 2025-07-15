@@ -30,7 +30,7 @@ export class AppComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((event: any) => {
       if (event.url) {
-        if (event.url.includes('/admin')) {
+        if (event.url.includes('/admin') || event.url.includes('/delivery')) {
           this.showNavbar = false;
         } else {
           this.showNavbar = true;
@@ -39,7 +39,7 @@ export class AppComponent {
     });
     this.router.events.subscribe((event: any) => {
       if (event.url) {
-        if (event.url.includes('/admin')) {
+        if (event.url.includes('/admin') || event.url.includes('/delivery')) {
           this.showFooter = false;
         } else {
           this.showFooter = true;

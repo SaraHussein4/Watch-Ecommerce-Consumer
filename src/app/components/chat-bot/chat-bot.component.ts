@@ -50,11 +50,10 @@ export class ChatBotComponent {
     this.productService.getAll().subscribe({
       next: (products) => {
         this.products = products;
-        
       },
       error: (err) => {
         console.error('Failed to load products for chatbot context:', err);
-      }
+      },
     });
   }
 
@@ -65,8 +64,26 @@ export class ChatBotComponent {
       },
       error: (err) => {
         console.error('Failed to load brands for chatbot context:', err);
-      }
+      },
     });
+  }
+
+  // دالة لتحويل مسار الصورة لمسار كامل آمن
+ getSafeImageUrl(path: string): string {
+  if (!path) return '';
+
+  const domain = 'https://localhost:7071';
+
+   if (path.startsWith('//')) {
+    path = path.slice(1);
+  }
+
+  // لو ما فيش "/" قبل المسار، نضيفه
+  if (!path.startsWith('/')) {
+    path = '/' + path;
+  }
+    // ترميز باقي الرابط (المسافات مثلاً)
+  return encodeURI(domain + path);
   }
 
   async handleAsk() {
@@ -77,30 +94,35 @@ export class ChatBotComponent {
     this.loading = true;
 
     const lowerQuestion = trimmed.toLowerCase();
-    
+
     function isArabic(text: string): boolean {
       return /[\u0600-\u06FF]/.test(text);
     }
     const isArabicQuestion = isArabic(trimmed);
 
     const greetings = ['hi', 'hello', 'مرحبا', 'السلام عليكم', 'اهلا', 'hey'];
-    if (greetings.some(greet => lowerQuestion.includes(greet))) {
-      this.chatHistory.push({ from: 'bot', message: isArabicQuestion ? 'مرحباً! أنا بوت Ora Collective لمساعدتك في معرفة المنتجات المتوفرة في متجر الساعات. اسألني عن أي منتج أو اسأل عن الألوان المتاحة لأي ساعة.' : 'Hello! I am Ora Collective bot. I can help you find available products and their colors in the watch store. Ask me about any product or its available colors.' });
+    if (greetings.some((greet) => lowerQuestion.includes(greet))) {
+      this.chatHistory.push({
+        from: 'bot',
+        message: isArabicQuestion
+          ? 'مرحباً! أنا بوت Ora Collective لمساعدتك في معرفة المنتجات المتوفرة في متجر الساعات. اسألني عن أي منتج أو اسأل عن الألوان المتاحة لأي ساعة.'
+          : 'Hello! I am Ora Collective bot. I can help you find available products and their colors in the watch store. Ask me about any product or its available colors.',
+      });
       this.question = '';
       this.loading = false;
       return;
     }
 
     const brandListKeywords = ['براند', 'براندات', 'ماركات', 'ماركة', 'brand', 'brands', 'البراندات', 'البراند'];
-    const isBrandListQuestion = brandListKeywords.some(word => lowerQuestion.includes(word));
-    
+    const isBrandListQuestion = brandListKeywords.some((word) => lowerQuestion.includes(word));
+
     if (isBrandListQuestion) {
-      const uniqueBrands = [...new Set(this.products.map(product => product.productBrand?.name).filter(Boolean))];
+      const uniqueBrands = [...new Set(this.products.map((product) => product.productBrand?.name).filter(Boolean))];
       if (uniqueBrands.length > 0) {
-        const brandList = uniqueBrands.map(brand => `- ${brand}`).join('\n');
-        const reply = isArabicQuestion ? 
-          `البراندات المتوفرة في متجرنا:\n${brandList}` : 
-          `Available brands in our store:\n${brandList}`;
+        const brandList = uniqueBrands.map((brand) => `- ${brand}`).join('\n');
+        const reply = isArabicQuestion
+          ? `البراندات المتوفرة في متجرنا:\n${brandList}`
+          : `Available brands in our store:\n${brandList}`;
         this.chatHistory.push({ from: 'bot', message: reply });
         this.question = '';
         this.loading = false;
@@ -115,33 +137,43 @@ export class ChatBotComponent {
     }
 
     const brandProductsKeywords = ['منتجات', 'ساعات', 'products', 'watches', 'جيب', 'اعرض', 'show', 'get'];
-    const isBrandProductsQuestion = brandProductsKeywords.some(word => lowerQuestion.includes(word));
-    
+    const isBrandProductsQuestion = brandProductsKeywords.some((word) => lowerQuestion.includes(word));
+
     if (isBrandProductsQuestion) {
-      // ابحث عن اسم البراند في السؤال
-      const foundBrand = this.brands.find(brand => lowerQuestion.includes(brand.name.toLowerCase()));
+      const foundBrand = this.extractBrandFromQuestion(lowerQuestion);
+console.log('Detected brand:', foundBrand?.name, 'from question:', lowerQuestion);
+
       if (foundBrand && foundBrand.id !== undefined) {
         this.productService.getProductsByBrand(foundBrand.id).subscribe({
           next: (brandProducts) => {
             if (brandProducts.length > 0) {
               const topProducts = brandProducts.slice(0, 3);
-              // بناء HTML للبطاقات Grid
+
               let html = `<div class='chatbot-product-grid'>`;
-              topProducts.forEach(product => {
-                const img = product.images && product.images.length > 0 ? (product.images[0].url.startsWith('http') ? product.images[0].url : 'https://localhost:7071' + product.images[0].url) : '';
+              topProducts.forEach((product) => {
+                const img =
+                  product.images && product.images.length > 0
+                    ? product.images[0].url.startsWith('http')
+                      ? product.images[0].url
+                      : this.getSafeImageUrl(product.images[0].url)
+                    : '';
+                    console.log('Raw Image Path:', product.images[0].url);
+
                 html += `
-                  <a class='chatbot-product-card' href='/product/${product.id}' style='text-decoration:none;color:inherit;' onclick='event.preventDefault(); window.location.href="/product/${product.id}";'>
-                    <img src='${img}' alt='${product.name}' class='chatbot-product-img'>
+                  <a class='chatbot-product-card' href='/product/${product.id}' style='text-decoration:none;color:inherit;' data-product-id='${product.id}' onclick='event.preventDefault();'>
+                    <img src="${this.getSafeImageUrl(product.images[0].url)}" alt="${product.name.replace(/"/g, '&quot;')}" class="chatbot-product-img" />
+
                     <div class='chatbot-product-name'>${product.name}</div>
                     <div class='chatbot-product-price'>${product.price} ج.م</div>
                   </a>`;
               });
               html += `</div>`;
+              
               const reply = isArabicQuestion ? `أشهر منتجات براند ${foundBrand.name}:` : `Top products from ${foundBrand.name} brand:`;
               this.chatHistory.push({ from: 'bot', message: reply, isHtml: false });
               this.chatHistory.push({ from: 'bot', message: html, isHtml: true });
               setTimeout(() => {
-                document.querySelectorAll('.chatbot-product-card').forEach(card => {
+                document.querySelectorAll('.chatbot-product-card').forEach((card) => {
                   card.addEventListener('click', (e: any) => {
                     const id = card.getAttribute('data-product-id');
                     if (id) this.navigateToProduct(+id);
@@ -159,7 +191,7 @@ export class ChatBotComponent {
             this.chatHistory.push({ from: 'bot', message: isArabicQuestion ? 'حدث خطأ أثناء جلب المنتجات.' : 'Error fetching products.' });
             this.question = '';
             this.loading = false;
-          }
+          },
         });
         return;
       }
@@ -347,4 +379,16 @@ Warranty: ${product.warrentyYears} years`;
       },
     ];
   }
+
+ extractBrandFromQuestion(question: string): Brand | undefined {
+  const cleanedQuestion = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+  return this.brands.find((brand) => {
+    if (!brand.name) return false;
+    const brandName = brand.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return cleanedQuestion.includes(brandName);
+  });
+}
+
+
 }
