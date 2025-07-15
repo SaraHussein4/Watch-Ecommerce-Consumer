@@ -44,6 +44,9 @@ onSubmit() {
           
           this.router.navigateByUrl('/home');
         }
+          else if(res.role.toLowerCase() == "delivery"){
+          this.router.navigate(['/delivery/orders']);
+        }
         else {
           this.router.navigate(['/admin/dashboard']);
         }

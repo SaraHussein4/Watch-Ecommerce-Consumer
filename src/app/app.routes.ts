@@ -36,6 +36,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminDeliveriesComponent } from './components/admin-deliveries/admin-deliveries.component';
 import { AddDeliveryComponent } from './components/add-delivery/add-delivery.component';
 import { DeliveryEditComponent } from './components/delivery-edit/delivery-edit.component';
+import { DeliveryLayoutComponent } from './components/delivery-layout/delivery-layout.component';
+import { DeliveryOrdersComponent } from './components/delivery-orders/delivery-orders.component';
 
 
 export const routes: Routes = [
@@ -104,6 +106,15 @@ export const routes: Routes = [
       { path: 'deliveries/edit/:id', component: DeliveryEditComponent },
       
     ],
+  },
+  {
+    path: 'delivery',
+    component: DeliveryLayoutComponent,
+    canActivate: [authGuard],
+    children: [
+      { path: 'orders', component: DeliveryOrdersComponent },
+      { path: '', redirectTo: 'orders', pathMatch: 'full' }
+    ]
   },
   { path: '**', component: NotFoundComponentComponent },
 ];

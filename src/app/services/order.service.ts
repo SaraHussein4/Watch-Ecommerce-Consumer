@@ -54,8 +54,15 @@ export class OrderService {
     return this.httpClient.get<{ orders: OrderDto[], totalCount: number }>(`${this.baseUrl}/ordersForUser?page=${page}&pageSize=${pageSize}`);
   }
 
-  updateOrder(order: OrderOverview): Observable<any> {
-    console.log(order)
+  // updateOrder(order: OrderOverview): Observable<any> {
+  //   console.log(order)
+  //   return this.httpClient.put(`${this.baseUrl}/${order.id}`, order);
+  // }
+ updateOrder(order: any): Observable<any> {
     return this.httpClient.put(`${this.baseUrl}/${order.id}`, order);
+  }
+
+   getDeliveryOrders(page: number, pageSize: number): Observable<{ orders: any[], totalCount: number }> {
+    return this.httpClient.get<{ orders: any[], totalCount: number }>(`https://localhost:7071/api/Order/delivery-orders?page=${page}&pageSize=${pageSize}`);
   }
 }
