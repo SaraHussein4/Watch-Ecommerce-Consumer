@@ -1,0 +1,157 @@
+
+h1 {
+  color: #30636f;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+h1:hover {
+  background-color: #30636f;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: none;
+}
+
+.delivery-title{
+  color: #316270;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.delivery-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 10px auto 0;
+  background-color: #316270;
+  border-radius: 2px;
+}
+
+.table-responsive {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.5rem 1rem rgba(48, 99, 111, 0.6);
+}
+
+.table-responsive .update{
+  border-radius: 5px;
+  margin: 0 5px;
+  padding: 8px 16px;
+  color: #316270;
+  border: 2px solid #316270; /* <- Ensure teal border */
+  background-color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+
+.table-responsive .update:hover {
+  background-color: #316270;
+  color: white;
+}
+.table th {
+  vertical-align: middle;
+  white-space: nowrap;
+  background-color: #30636f;
+  color: white;
+  text-align: center;
+  font-size: 22px;
+    font-weight: 900;
+}
+
+.table td {
+  vertical-align: middle;
+  color:#30636f;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.bi {
+  margin-right: 0.25rem;
+}
+
+
+/* Pagination */
+
+/* Pagination Button Base */
+.pagination .page-link {
+  border-radius: 30px;
+  margin: 0 5px;
+  padding: 8px 16px;
+  color: #316270;
+  border: 2px solid #316270; /* <- Ensure teal border */
+  background-color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.pagination .page-link:hover {
+  background-color: #316270;
+  color: white;
+}
+
+/* Active Page Button */
+.pagination .page-item.active .page-link {
+  background-color: #316270;
+  color: white;
+  border-color: #316270;
+}
+
+/* Disabled Page Button */
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
+  border-color: #ccc;
+  background-color: #f1f1f1;
+  cursor: not-allowed;
+}
+.pagination .page-link:focus {
+  border-color: #316270 !important;
+  box-shadow: 0 0 0 0.2rem rgba(49, 98, 112, 0.25); /* Teal glow */
+  outline: none;
+}
+
+
+
+.update-btn-loading {
+  min-width: 80px;
+}
+
+.loading-spinner {
+  margin: 2rem auto;
+}
+
+.form-select:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.spinner-border{
+  color: #30636f;
+}
+
+
+.btn-add-delivery {
+  background-color: #316270;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+.btn-add-delivery:hover {
+  background-color: #254953;
+}

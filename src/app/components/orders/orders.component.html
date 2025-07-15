@@ -48,9 +48,9 @@
           <div class="row">
             <div class="col-md-6 col-lg-4 mb-4" *ngFor="let item of order.orderItems">
               <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-                <div class="position-relative">
-                  <img [src]="getImageUrl(item.image)" class="w-100" alt="{{ item.productName }}"
-                    style="height: 220px; object-fit: cover;" />
+                <div class="position-relative" style="height: 220px; overflow: hidden;text-align: center;">
+                  <img [src]="getImageUrl(item.image)" alt="{{ item.productName }}"
+                    style="object-fit: scale-down;height: 100%; margin: auto;"/>
                 </div>
                 <div class="card-body p-3">
                   <h5 class="card-title fw-semibold text-truncate mb-2" title="{{ item.productName }}">

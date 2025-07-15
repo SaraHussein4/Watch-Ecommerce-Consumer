@@ -19,7 +19,6 @@
           <th scope="col">Amount</th>
           <th scope="col">Ordered At</th>
           <th scope="col">Status</th>
-          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -29,22 +28,7 @@
           <td>{{ order.amount }}</td>
           <td>{{ order.date | date }}</td>
           <td>
-            <select class="form-select form-select-sm" [(ngModel)]="order.status" #statusSelect
-                    [disabled]="isUpdating[order.id]">
-              <option *ngFor="let status of statuses" [value]="status">
-                {{ status }}
-              </option>
-            </select>
-          </td>
-          <td>
-            <button class="btn btn-sm update" 
-                    (click)="updateOrder(order)"
-                    [disabled]="isUpdating[order.id]">
-              <span *ngIf="!isUpdating[order.id]">Update</span>
-              <span *ngIf="isUpdating[order.id]" class="spinner-border spinner-border-sm" role="status">
-                <span class="visually-hidden">Updating...</span>
-              </span>
-            </button>
+                {{ order.status }}
           </td>
         </tr>
         <tr *ngIf="orders.length === 0 && !isLoading">

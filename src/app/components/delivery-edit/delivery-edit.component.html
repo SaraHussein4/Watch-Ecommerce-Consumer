@@ -1,28 +1,54 @@
-<div class="container mt-4">
-  <h2>Edit Delivery</h2>
-  <div *ngIf="loading">Loading...</div>
+<h1 class="hover mt-3"><strong>Edit Delivery</strong></h1>
+
+<div class="container-fluid mt-5">
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <span class="ms-2">Loading...</span>
+  </div>
+
   <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
   <form [formGroup]="editForm" (ngSubmit)="submitEdit()" *ngIf="!loading">
-    <div class="mb-3">
-      <label>Name</label>
-      <input type="text" class="form-control" formControlName="name" />
+    <!-- Edit Info Section -->
+    <div class="card form-section-card mb-4">
+      <div class="card-body">
+        <h5 class="form-section-title">Edit Info</h5>
+        <div class="row">
+          <div class="col-md-4 mt-3">
+            <label>Name</label>
+            <input type="text" class="myInput form-control" formControlName="name" />
+          </div>
+          <div class="col-md-4 mt-3">
+            <label>Email</label>
+            <input type="email" class="myInput form-control" formControlName="email" />
+          </div>
+          <div class="col-md-4 mt-3">
+            <label>Phone Number</label>
+            <input type="text" class="myInput form-control" formControlName="phoneNumber" />
+          </div>
+          <div class="col-md-4 mt-3">
+            <label>Governorate</label>
+            <select class="form-select brand-select" formControlName="governorateId">
+              <option value="" disabled>Select Governorate</option>
+              <option *ngFor="let g of governorates" [value]="g.id">{{ g.name }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <label>Email</label>
-      <input type="email" class="form-control" formControlName="email" />
+
+    <!-- Footer Buttons -->
+    <div class="form-footer">
+      <button type="submit" class="btn btn-custom" [disabled]="editForm.invalid || loading">
+        <span *ngIf="!loading">Save</span>
+        <span *ngIf="loading" class="loading-text">
+          <div class="spinner-border spinner-border-sm" role="status"></div>
+          Saving...
+        </span>
+      </button>
+      <a class="btn btn-cancel" [routerLink]="['/admin/deliveries']">Cancel</a>
     </div>
-    <div class="mb-3">
-      <label>Phone Number</label>
-      <input type="text" class="form-control" formControlName="phoneNumber" />
-    </div>
-    <div class="mb-3">
-      <label>Governorate</label>
-      <select class="form-select" formControlName="governorateId">
-        <option value="" disabled>Select Governorate</option>
-        <option *ngFor="let g of governorates" [value]="g.id">{{ g.name }}</option>
-      </select>
-    </div>
-    <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid || loading">Save</button>
-    <a class="btn btn-secondary ms-2" [routerLink]="['/admin/deliveries']">Cancel</a>
   </form>
-</div> 
+</div>
