@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-ConfirmDelete',
-  templateUrl: './ConfirmDelete.component.html',
-  styleUrls: ['./ConfirmDelete.component.css']
+  selector: 'app-confirmDelete',
+  templateUrl: './confirmDelete.component.html',
+  styleUrls: ['./confirmDelete.component.css']
 })
 export class ConfirmDeleteComponent  {
 
